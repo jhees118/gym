@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
+<body>
+<a th:replace="fragments/common :: navbar('home')"></a><!--네비바 프래그먼트 사용-->
+<a th:replace="fragments/common :: carousel"></a><!--케러셀 프래그먼트 사용-->
+
+<div class="container">
+    <div class="row my-5">
+        <div class="col-sm-7 bg-primary"><br/><br/><br/><img src="img/dora.png" alt="" class="w-100"/></div>
+        <div class="col-sm-5 bg-danger">
+		<span class="text-center">
+		<h1>인기동영상</h1>
+		<p>&nbsp;&nbsp;&nbsp;카테고리</p>
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;--헬스 자세/영상공유 게시판--</p>
+		</span>
+            <div class="row row-cols-2 my-3"> <!--  부트스트랩 2칸씩 나눠서 -->
+                <div class="col my-2">TOP1<img src="img/123456.png" alt="" class="w-100"/>조회수 ㅁ회<br/>좋아요:ㅁ</div> <!-- 이부분에 영상썸네일 코드 및 데이터베이스로 순위 오름차순 1등부터입력 -->
+                <div class="col my-2">TOP2<img src="img/dora.png" alt="" class="w-100"/>조회수 ㅁ회<br/>좋아요:ㅁ</div>
+                <div class="col my-2">TOP3<img src="img/귀여운고양이.png" alt="" class="w-100"/>조회수 ㅁ회<br/>좋아요:ㅁ</div>
+                <div class="col my-2">TOP4<img src="img/12345.png" alt="" class="w-100"/>조회수 ㅁ회<br/>좋아요:ㅁ</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer -->
+<div class="text-center">
+    <hr />
+    <p>푸터입니다아아아아아아아아아아</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+</html>
