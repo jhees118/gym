@@ -11,15 +11,14 @@ import java.util.List;
 public class freeBoardService {
 
     @Autowired
-    private freeBoardRepository freeboardRepository;
+    private freeBoardRepository freeboardRepository; //레파지토리 기능들사용위함
 
-    public void write(freeBoard freeboard){
+    public void write(freeBoard freeboard){     //입력저장 메소드
         freeboardRepository.save(freeboard);
-       
-    }
+    } //쓰기위한 메소드
 
     public List<freeBoard> freeList(){
         return freeboardRepository.findAll();
-    }
+    }   //리스트를보여주기위한메소드
 
 }

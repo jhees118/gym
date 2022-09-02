@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EASY GYM</title>
+</head>
+<body>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        var message = [[${message}]];
+        alert(message);
+
+        location.replace([[${searchUrl}]]);
+
+        /*]]>*/
+    </script>
+
+</body>
+</html>
