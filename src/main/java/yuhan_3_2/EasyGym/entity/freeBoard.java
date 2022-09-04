@@ -14,7 +14,9 @@ public class freeBoard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull
-    @Size(min=2,max=20,message = "2글자이상20글자이하여야합니다.")
+    @Size(min=2,max=20,message = "제목은 2글자에서 20글자여야합니다.")
     private String title;
+    @NotNull
+    @Size(min = 0,max =1000 ,message = "글자가 1000자 이상입니다.")
     private String content;
 }
