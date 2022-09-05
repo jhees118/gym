@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용--></head>
+<body>
+<a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>글번호</th>
+      <th>제목</th>
+      <th>작성자</th>
+    </tr>
+    </thead>
+    <tr th:each="FreeBoard: ${freelist}">
+      <td th:text="${FreeBoard.id}"></td>
+      <td><a th:text="${FreeBoard.title}" th:href="@{/menu/board/free-write(id=${FreeBoard.id})}"></a></td>
+      <td>홍길동</td>
+    </tr>
+  </table>
+  <a type="button" th:href="@{/menu/board/free-write}">쓰기</a>
+</div>
+<a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
+</body>
+</html>

@@ -36,15 +36,15 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                        <li><a class="dropdown-item" th:href="@{/menu/gym_position/chest}">가슴</a></li>
-                        <li><a class="dropdown-item" th:href="@{/menu/gym_position/shoulder}">어깨</a></li>
-                        <li><a class="dropdown-item" th:href="@{/menu/gym_position/arm}">팔</a></li>
-                        <li><a class="dropdown-item" th:href="@{/menu/gym_position/back}">등</a></li>
-                        <li><a class="dropdown-item" th:href="@{/menu/gym_position/leg}">하체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/menu/gym-position/chest}">가슴</a></li>
+                        <li><a class="dropdown-item" th:href="@{/menu/gym-position/shoulder}">어깨</a></li>
+                        <li><a class="dropdown-item" th:href="@{/menu/gym-position/arm}">팔</a></li>
+                        <li><a class="dropdown-item" th:href="@{/menu/gym-position/back}">등</a></li>
+                        <li><a class="dropdown-item" th:href="@{/menu/gym-position/leg}">하체</a></li>
                     </ul>
                 </li>
                 <li class="nav-item" >
-                    <a class="nav-link"th:classappend="${menu} == 'free'?'active'" th:href="@{/menu/board/freelist}" style="padding-right:40px;">자유 게시판</a>
+                    <a class="nav-link"th:classappend="${menu} == 'free'?'active'" th:href="@{/menu/board/free-list}" style="padding-right:40px;">자유 게시판</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:classappend="${menu} == 'video'?'active'"th:href="@{/menu/board/video}" style="padding-right:40px;">영상공유 게시판</a>
@@ -83,13 +83,13 @@
 <!--carousel fragments end-->
 <!-- footer -->
 <footer th:fragment="footer">
-<div class="text-center">
-    <hr />
-    <p>푸터입니다아아아아아아아아아아</p>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+    <div class="text-center">
+        <hr />
+        <p>푸터입니다아아아아아아아아아아</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
 </footer>
 <!--footer end-->
 </body>

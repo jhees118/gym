@@ -16,43 +16,43 @@ import javax.validation.Valid;
 @RequestMapping("/menu/board")
 public class FreeBoardController {
 
-        @Autowired
-        private FreeBoardService freeboardService;
-        @Autowired
-        private FreeBoardRepository freeboardRepository;
+    @Autowired
+    private FreeBoardService freeboardService;
+    @Autowired
+    private FreeBoardRepository freeboardRepository;
 
-        @GetMapping("/freelist")
-        public String freeList(Model model,Pageable pageable){
-            model.addAttribute("freelist",freeboardService.freeList(pageable));
+    @GetMapping("/free-list")
+    public String freelist(Model model,Pageable pageable){
+        model.addAttribute("freelist",freeboardService.freelist(pageable));
 
-            return  "/menu/board/freelist";
+        return  "/menu/board/free-list";
+    }
+    @GetMapping("/free-write")
+    public String freewrite(Model model, @RequestParam(required = false) Integer id){
+
+        if(id == null) {
+            model.addAttribute("freeBoard", new FreeBoard());
+        } else {
+            FreeBoard freeboard = freeboardRepository.findById(id).orElse(null);
+            model.addAttribute("freeBoard",freeboard);
         }
-        @GetMapping("/freewrite")
-        public String freewrite(Model model, @RequestParam(required = false) Integer id){
-
-            if(id == null) {
-                model.addAttribute("freeBoard", new FreeBoard());
-            } else {
-                FreeBoard freeboard = freeboardRepository.findById(id).orElse(null);
-                model.addAttribute("freeBoard",freeboard);
-            }
-            return "/menu/board/freewrite";
+        return "/menu/board/free-write";
+    }
+    @PostMapping("/free-write")  //getMapping에서 post로변환
+    public String greetingsubmit(@Valid FreeBoard freeBoard, BindingResult bindingResult, Model model, @RequestParam(required = false) Integer id){
+        if(bindingResult.hasErrors()){
+            return "/menu/board/free-write";
         }
-        @PostMapping("/freewrite")  //getMapping에서 post로변환
-        public String greetingSubmit(@Valid FreeBoard freeBoard, BindingResult bindingResult, Model model, @RequestParam(required = false) Integer id){
-            if(bindingResult.hasErrors()){
-                return "/menu/board/freewrite";
-            }
-            freeboardService.write(freeBoard);
+        freeboardService.write(freeBoard);
 
-            if(id == null){
-                model.addAttribute("message","글작성이 완료되었습니다");
-            }else{
-                model.addAttribute("message","글작성이 수정되었습니다");
-            }
-
-            model.addAttribute("searchUrl","/menu/board/freelist");
-            return "/menu/board/message";
+        if(id == null){
+            model.addAttribute("message","글작성이 완료되었습니다");
+        }else{
+            model.addAttribute("message","글작성이 수정되었습니다");
         }
+
+        model.addAttribute("searchUrl","/menu/board/free-list");
+        return "/menu/board/message";
+    }
 
 }

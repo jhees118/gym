@@ -6,7 +6,7 @@
 
 
     <div>
-            <form th:action="@{/menu/board/freewrite}" th:object="${freeBoard}" method="post">
+            <form th:action="@{/menu/board/free-write}" th:object="${freeBoard}" method="post">
                 <input type="hidden" th:field="*{id}">
                  제목<input id="title" th:field="*{title}" name="title" th:errorclass="error-input">
                     <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">제목에러메시지</div>
@@ -14,7 +14,7 @@
                     </textarea>
                 <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">제목내용메시지</div>
                     <button type="submit">확인</button>
-                    <a type="button" th:href="@{/menu/board/freelist}">취소</a>
+                    <a type="button" th:href="@{/menu/board/free-list}">취소</a>
 
             </form>
     </div>

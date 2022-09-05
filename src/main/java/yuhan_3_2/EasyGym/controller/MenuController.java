@@ -7,26 +7,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/menu")
 public class MenuController {
-        @GetMapping("/calorie")
-        public String calorie() { return "/menu/calorie"; }
-        @GetMapping("/gym_position/shoulder")
-        public String shoulder() {
-            return "/menu/gym_position/shoulder";
+    @GetMapping("/calorie")
+    public String calorie() { return "/menu/calorie"; }
+    @GetMapping("/gym-position/shoulder")
+    public String shoulder() {
+        return "/menu/gym-position/shoulder";
     }
-        @GetMapping("/gym_position/chest")
-        public String chest() {
-        return "/menu/gym_position/chest";
+    @GetMapping("/gym-position/chest")
+    public String chest() {
+        return "/menu/gym-position/chest";
     }
-        @GetMapping("/gym_position/arm")
-        public String arm() {
-            return "/menu/gym_position/arm";
+    @GetMapping("/gym-position/arm")
+    public String arm() {
+        return "/menu/gym-position/arm";
     }
-        @GetMapping("/gym_position/back")
-        public String back() {
-            return "/menu/gym_position/back";
+    @GetMapping("/gym-position/back")
+    public String back() {
+        return "/menu/gym-position/back";
     }
-        @GetMapping("/gym_position/leg")
-        public String leg() {
-            return "/menu/gym_position/leg";
+    @GetMapping("/gym-position/leg")
+    public String leg() {
+        return "/menu/gym-position/leg";
     }
 }

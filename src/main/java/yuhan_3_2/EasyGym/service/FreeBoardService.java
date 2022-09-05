@@ -17,7 +17,7 @@ public class FreeBoardService {
         freeboardRepository.save(freeboard);
     } //쓰기위한 메소드
 
-    public Page<FreeBoard> freeList(Pageable pageable){
+    public Page<FreeBoard> freelist(Pageable pageable){
         return freeboardRepository.findAll(pageable);
     }   //리스트를보여주기위한메소드
 
