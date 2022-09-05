@@ -6,21 +6,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.spring5.processor.SpringTextareaFieldTagProcessor;
-import yuhan_3_2.EasyGym.entity.freeBoard;
-import yuhan_3_2.EasyGym.repository.freeBoardRepository;
-import yuhan_3_2.EasyGym.service.freeBoardService;
+import yuhan_3_2.EasyGym.entity.FreeBoard;
+import yuhan_3_2.EasyGym.repository.FreeBoardRepository;
+import yuhan_3_2.EasyGym.service.FreeBoardService;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/menu/board")
-public class freeBoardController {
+public class FreeBoardController {
 
         @Autowired
-        private freeBoardService freeboardService;
+        private FreeBoardService freeboardService;
         @Autowired
-        private freeBoardRepository freeboardRepository;
+        private FreeBoardRepository freeboardRepository;
 
         @GetMapping("/freelist")
         public String freeList(Model model,Pageable pageable){
@@ -32,15 +31,15 @@ public class freeBoardController {
         public String freewrite(Model model, @RequestParam(required = false) Integer id){
 
             if(id == null) {
-                model.addAttribute("freeBoard", new freeBoard());
+                model.addAttribute("freeBoard", new FreeBoard());
             } else {
-                freeBoard freeboard = freeboardRepository.findById(id).orElse(null);
+                FreeBoard freeboard = freeboardRepository.findById(id).orElse(null);
                 model.addAttribute("freeBoard",freeboard);
             }
             return "/menu/board/freewrite";
         }
         @PostMapping("/freewrite")  //getMapping에서 post로변환
-        public String greetingSubmit(@Valid freeBoard freeBoard, BindingResult bindingResult,Model model,@RequestParam(required = false) Integer id){
+        public String greetingSubmit(@Valid FreeBoard freeBoard, BindingResult bindingResult, Model model, @RequestParam(required = false) Integer id){
             if(bindingResult.hasErrors()){
                 return "/menu/board/freewrite";
             }
