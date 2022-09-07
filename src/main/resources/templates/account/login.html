@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
+<body class="text-center">
+<a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
+<div th:if="${param.error}" class="alert alert-danger" role="alert">
+  아이디 또는 비밀번호가 틀렸습니다.
+</div>
+<div th:if="${param.logout}" class="alert alert-primary" role="alert">
+  로그아웃 되었습니다.
+</div>
+<form th:action="@{/account/login}" method="post">
+  <h1 class="h3 mb-3 fw-normal">로그인</h1>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="floatingInput" nmae="username">
+    <label for="floatingInput">아이디 입력</label>
+  </div>
+  <div class="form-floating">
+    <input type="password" class="form-control" id="floatingPassword" name="password">
+    <label for="floatingPassword">비밀번호 입력</label>
+  </div>
+  <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+</form>
+<a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
+</body>
+</html>

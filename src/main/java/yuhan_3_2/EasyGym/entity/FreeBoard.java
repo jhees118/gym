@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class FreeBoard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @NotNull
     @Size(min=2,max=20,message = "제목은 2글자에서 20글자여야합니다.")
     private String title;

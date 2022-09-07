@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
 
 @Repository
-public interface FreeBoardRepository extends JpaRepository<FreeBoard,Integer> {
+public interface FreeBoardRepository extends JpaRepository<FreeBoard,Long> {
 }

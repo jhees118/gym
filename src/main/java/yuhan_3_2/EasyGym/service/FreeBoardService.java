@@ -1,5 +1,5 @@
-package yuhan_3_2.EasyGym.service;
 
+package yuhan_3_2.EasyGym.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +17,7 @@ public class FreeBoardService {
         freeboardRepository.save(freeboard);
     } //쓰기위한 메소드
 
-    public Page<FreeBoard> freelist(Pageable pageable){
+    public Page<FreeBoard> freeList(Pageable pageable){
         return freeboardRepository.findAll(pageable);
     }   //리스트를보여주기위한메소드
 
