@@ -65,7 +65,7 @@ public class FreeBoardController {
         }
 
         model.addAttribute("searchUrl","/menu/board/free-list");
-        return "/menu/board/message";
+        return "/menu/message";
     }
 
 }
