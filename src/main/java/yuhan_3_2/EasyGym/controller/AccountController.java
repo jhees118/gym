@@ -40,7 +40,7 @@ public class AccountController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid User user, BindingResult bindingResult , Model model){
+    public String register(@Valid User user, BindingResult bindingResult , Model model ){
 
         if(bindingResult.hasErrors()){
             return "account/register";

@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,11 +54,12 @@ public class FreeBoardController {
         return "/menu/board/free-write";
     }
     @PostMapping("/free-write")  //getMapping에서 post로변환
-    public String greetingSubmit(@Valid FreeBoard freeBoard, BindingResult bindingResult, Model model, @RequestParam(required = false) Long id){
+    public String greetingSubmit(@Valid FreeBoard freeBoard, BindingResult bindingResult, Model model, @RequestParam(required = false) Long id, Authentication authentication){
         if(bindingResult.hasErrors()){
             return "/menu/board/free-write";
         }
-        freeBoardService.write(freeBoard);
+        String username = authentication.getName();
+        freeBoardService.write(username,freeBoard);
 
         if(id == null){
             model.addAttribute("message","글작성이 완료되었습니다");

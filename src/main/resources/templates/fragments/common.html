@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!--head fragments-->
 <head th:fragment="header">
     <meta charset="UTF-8">
@@ -53,6 +53,12 @@
                     <a class="nav-link" th:classappend="${menu} == 'calorie'?'active'" th:href="@{/menu/calorie}" style="padding-right:40px;">칼로리 계산기</a>
                 </li>
             </ul>
+                <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/login}" sec:authorize="isAnonymous()">로그인</a>
+            <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/register}" sec:authorize="isAnonymous()">회원가입</a>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/logout}"  method="post" sec:authorize="isAuthenticated()">
+                <span class="text-white" sec:authentication="name">사용자</span>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">로그아웃</button>
+            </form>
         </div>
     </div>
 </nav>

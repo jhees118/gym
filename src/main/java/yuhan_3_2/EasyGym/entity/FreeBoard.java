@@ -19,4 +19,8 @@ public class FreeBoard {
     @NotNull
     @Size(min = 0,max =1000 ,message = "글자가 1000자 이상입니다.")
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

@@ -30,17 +30,20 @@ public class WebSecurityConfig{
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/","/account/register","/img/*").permitAll()
+                .antMatchers("/","/account/register","/img/*","/menu/board/free-list","/menu/board/free-write","/calorie","/menu/message","/account/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
 
                 .formLogin()
                 .loginPage("/account/login")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
 
                 .logout()
+                .logoutSuccessUrl("/")
                 .permitAll();
         return http.build();
     }
