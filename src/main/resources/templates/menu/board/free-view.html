@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
+<body>
+<a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
+
+<h1 th:text="${freeBoard.title}">제목입니다</h1>
+<p th:text="${freeBoard.content}">내용 들어갈 부분입니다.</p>
+<a th:href="@{/menu/board/free-delete?(id=${freeBoard.id})}">글삭제</a>
+<a th:href="@{/menu/board/free-write(id=${freeBoard.id})}">글수정</a>
+
+<a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
+</body>
+</html>

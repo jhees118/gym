@@ -35,7 +35,7 @@ public class User {
     )
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,orphanRemoval = true)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private  List<FreeBoard> freeBoards = new ArrayList<>();
 
 

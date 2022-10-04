@@ -14,7 +14,7 @@
     </thead>
     <tr th:each="FreeBoard: ${freelist}"style="background-color: #eeeeee; text-align: center;">
       <td th:text="${FreeBoard.id}"style="background-color: #eeeeee; text-align: center;"></td>
-      <td><a th:text="${FreeBoard.title}" th:href="@{/menu/board/free-write(id=${FreeBoard.id})}"style="background-color: #eeeeee; text-align: center;"></a></td>
+      <td><a th:text="${FreeBoard.title}" th:href="@{/menu/board/free-view(id=${FreeBoard.id})}"style="background-color: #eeeeee; text-align: center;"></a></td>
       <td><a th:text="${FreeBoard.user.username}" style="background-color: #eeeeee; text-align: center;"></a></td>
     </tr>
   </table>

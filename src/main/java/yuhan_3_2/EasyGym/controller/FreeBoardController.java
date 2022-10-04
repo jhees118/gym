@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
+import yuhan_3_2.EasyGym.entity.User;
 import yuhan_3_2.EasyGym.repository.FreeBoardRepository;
+import yuhan_3_2.EasyGym.repository.UserRepository;
 import yuhan_3_2.EasyGym.service.FreeBoardService;
 
 import javax.validation.Valid;
@@ -25,6 +27,8 @@ public class FreeBoardController {
     private FreeBoardService freeBoardService;
     @Autowired
     private FreeBoardRepository freeBoardRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/free-list")
     public String freeList(Model model, @PageableDefault(page = 0,size = 5,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
@@ -58,17 +62,41 @@ public class FreeBoardController {
         if(bindingResult.hasErrors()){
             return "/menu/board/free-write";
         }
+
+
         String username = authentication.getName();
-        freeBoardService.write(username,freeBoard);
 
         if(id == null){
+            freeBoardService.write(username,freeBoard);
             model.addAttribute("message","글작성이 완료되었습니다");
-        }else{
+        }else if(id != null){
+            freeBoardService.write(username,freeBoard);
             model.addAttribute("message","글작성이 수정되었습니다");
         }
+        else {
+            model.addAttribute("message","작성자가 아니여서 수정이 불가합니다");
+        }
+
+
 
         model.addAttribute("searchUrl","/menu/board/free-list");
         return "/menu/message";
     }
+    @GetMapping("/free-view")
+    public String freeView(Model model,Long id)
+    {
+        model.addAttribute("freeBoard",freeBoardService.view(id));
+        return "/menu/board/free-view";
+    }
+
+    @GetMapping("/free-delete")
+    public String freeDelete(Long id)
+    {
+
+        freeBoardService.freeDelete(id);
+
+        return "redirect:/menu/board/free-list";
+    }
+
 
 }

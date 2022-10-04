@@ -16,14 +16,23 @@ public class FreeBoardService {
     private FreeBoardRepository freeboardRepository; //레파지토리 기능들사용위함
     @Autowired
     private UserRepository userRepository;
-    public void write(String username,FreeBoard freeboard){     //입력저장 메소드
+    public FreeBoard write(String username, FreeBoard freeboard){     //입력저장 메소드
          User user = userRepository.findByUsername(username);
          freeboard.setUser(user);
-        freeboardRepository.save(freeboard);
+       return freeboardRepository.save(freeboard);
     } //쓰기위한 메소드
 
     public Page<FreeBoard> freeList(Pageable pageable){
         return freeboardRepository.findAll(pageable);
     }   //리스트를보여주기위한메소드
 
+    //상세 페이지
+    public FreeBoard view(Long id){
+        return freeboardRepository.findById(id).get();
+    }
+
+    //게시글 삭제
+    public void freeDelete(Long id){
+        freeboardRepository.deleteById(id);
+    }
 }
