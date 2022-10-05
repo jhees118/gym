@@ -52,7 +52,7 @@ public class FreeBoardController {
     }
     @GetMapping("/free-write")
     public String freeWrite(Model model, @RequestParam(required = false) Long id,Authentication authentication){
-        String username = authentication.getName();//현재로그인중인 사용자를 가져온다
+
 
         if(id == null) {
             model.addAttribute("freeBoard", new FreeBoard());
@@ -126,6 +126,8 @@ public class FreeBoardController {
 
         return "redirect:/menu/board/free-list";
     }
+
+
 }
 
 

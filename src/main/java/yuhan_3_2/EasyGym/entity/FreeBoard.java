@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,6 +25,9 @@ public class FreeBoard {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "heart",cascade = CascadeType.REMOVE)
+    private List<Heart> hearts = new ArrayList<>();
 
 
 }
