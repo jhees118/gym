@@ -12,6 +12,8 @@
       <th>작성자</th>
     </tr>
     </thead>
+
+    <strong th:text="${user}">hello</strong>
     <tr th:each="FreeBoard: ${freelist}"style="background-color: #eeeeee; text-align: center;">
       <td th:text="${FreeBoard.id}"style="background-color: #eeeeee; text-align: center;"></td>
       <td><a th:text="${FreeBoard.title}" th:href="@{/menu/board/free-view(id=${FreeBoard.id})}"style="background-color: #eeeeee; text-align: center;"></a></td>

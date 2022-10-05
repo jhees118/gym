@@ -27,7 +27,7 @@ public class User {
     private String phone;
     private Boolean enabled;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name ="user_role",
             joinColumns = @JoinColumn(name ="user_id"),
@@ -37,6 +37,7 @@ public class User {
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private  List<FreeBoard> freeBoards = new ArrayList<>();
+
 
 
 }

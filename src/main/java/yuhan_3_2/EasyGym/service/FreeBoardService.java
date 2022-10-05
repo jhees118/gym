@@ -9,6 +9,7 @@ import yuhan_3_2.EasyGym.entity.User;
 import yuhan_3_2.EasyGym.repository.FreeBoardRepository;
 import yuhan_3_2.EasyGym.repository.UserRepository;
 
+
 @Service
 public class FreeBoardService {
 
@@ -16,10 +17,12 @@ public class FreeBoardService {
     private FreeBoardRepository freeboardRepository; //레파지토리 기능들사용위함
     @Autowired
     private UserRepository userRepository;
-    public FreeBoard write(String username, FreeBoard freeboard){     //입력저장 메소드
+    public FreeBoard write(String username, FreeBoard freeBoard){     //입력저장 메소드
          User user = userRepository.findByUsername(username);
-         freeboard.setUser(user);
-       return freeboardRepository.save(freeboard);
+         freeBoard.setUser(user);
+
+
+       return freeboardRepository.save(freeBoard);
     } //쓰기위한 메소드
 
     public Page<FreeBoard> freeList(Pageable pageable){
@@ -28,6 +31,7 @@ public class FreeBoardService {
 
     //상세 페이지
     public FreeBoard view(Long id){
+
         return freeboardRepository.findById(id).get();
     }
 
@@ -35,4 +39,7 @@ public class FreeBoardService {
     public void freeDelete(Long id){
         freeboardRepository.deleteById(id);
     }
+
+
+
 }

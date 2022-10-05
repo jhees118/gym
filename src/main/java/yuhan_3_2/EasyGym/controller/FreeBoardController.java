@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,10 @@ import yuhan_3_2.EasyGym.repository.FreeBoardRepository;
 import yuhan_3_2.EasyGym.repository.UserRepository;
 import yuhan_3_2.EasyGym.service.FreeBoardService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/menu/board")
@@ -47,7 +51,8 @@ public class FreeBoardController {
         return  "/menu/board/free-list";
     }
     @GetMapping("/free-write")
-    public String freeWrite(Model model, @RequestParam(required = false) Long id){
+    public String freeWrite(Model model, @RequestParam(required = false) Long id,Authentication authentication){
+        String username = authentication.getName();//현재로그인중인 사용자를 가져온다
 
         if(id == null) {
             model.addAttribute("freeBoard", new FreeBoard());
@@ -55,48 +60,72 @@ public class FreeBoardController {
             FreeBoard freeBoard = freeBoardRepository.findById(id).orElse(null);
             model.addAttribute("freeBoard",freeBoard);
         }
+
+
+
         return "/menu/board/free-write";
     }
     @PostMapping("/free-write")  //getMapping에서 post로변환
-    public String greetingSubmit(@Valid FreeBoard freeBoard, BindingResult bindingResult, Model model, @RequestParam(required = false) Long id, Authentication authentication){
+    public String greetingSubmit(@Valid FreeBoard freeBoard, BindingResult bindingResult, Model model, @RequestParam(required = false) Long id,
+                                 Authentication authentication){
         if(bindingResult.hasErrors()){
             return "/menu/board/free-write";
         }
 
-
         String username = authentication.getName();
+
 
         if(id == null){
             freeBoardService.write(username,freeBoard);
             model.addAttribute("message","글작성이 완료되었습니다");
-        }else if(id != null){
+        }else{
             freeBoardService.write(username,freeBoard);
             model.addAttribute("message","글작성이 수정되었습니다");
         }
-        else {
-            model.addAttribute("message","작성자가 아니여서 수정이 불가합니다");
-        }
-
-
 
         model.addAttribute("searchUrl","/menu/board/free-list");
         return "/menu/message";
     }
+
+
     @GetMapping("/free-view")
-    public String freeView(Model model,Long id)
-    {
-        model.addAttribute("freeBoard",freeBoardService.view(id));
+    public String freeView(Authentication authentication, Model model,Long id) {
+
+        if(authentication == null){ //사용자가 로그인중이아니면
+            model.addAttribute("currentUser", null);           //html 사용자 권한에따른 구성으로 설정값입력
+        }else {
+            model.addAttribute("currentUser", authentication.getName());
+        }
+        model.addAttribute("freeBoard", freeBoardService.view(id));
         return "/menu/board/free-view";
     }
 
     @GetMapping("/free-delete")
-    public String freeDelete(Long id)
+    public String freeDelete(Authentication authentication,Long id)
     {
+        String username = authentication.getName();
+        FreeBoard board = freeBoardService.view(id); //id값의 보드 리스트 를 가져온후
+
+        if (!username.equals(board.getUser().getUsername())){
+            return "redirect:/menu/board/free-list";
+        }
 
         freeBoardService.freeDelete(id);
 
         return "redirect:/menu/board/free-list";
     }
 
+    @GetMapping("/free-modify/{id}")
+    public String freeUpdate(@PathVariable("id") Long id,Model model,Authentication authentication){
+        String username = authentication.getName();
+        FreeBoard board = freeBoardService.view(id);
+        model.addAttribute("freeBoard",freeBoardService.view(id));
+        if (username.equals(board.getUser().getUsername())){ //id값에맞는 보드에 유저안에 유저이름을 가져온다.
+            return "/menu/board/free-modify";
+        }
 
+        return "redirect:/menu/board/free-list";
+    }
 }
+
+

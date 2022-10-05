@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
+<body>
+<a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
+
+
+<div class="container">
+  <div class ="row">
+    <form th:action="@{/menu/board/free-write}" th:object="${freeBoard}" method="post">
+      <table class="table table-striped" style="text-align:center; border:1px">
+
+        <input type="hidden" th:field="*{id}">
+        <tr>
+          <td>
+            글 제목<input id="title" th:field="*{title}" name="title" th:errorclass="error-input" class="form-control">
+            <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">제목에러메시지</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            내용<textarea id="content" th:field="*{content}" th:errorclass="error-input" class="form-control"maxlength="2048" style="height: 350px;">
+                    </textarea>
+          </td>
+        </tr>
+
+      </table>
+
+      <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">제목내용메시지</div>
+      <button type="submit"class="btn btn-primary"style="float: right;">수정</button>
+      <a type="button" th:href="@{/menu/board/free-list}"class="btn btn-primary"style="float: right;">취소</a>
+    </form>
+  </div>
+
+</div>
+
+
+<a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
+</body>
+</html>
