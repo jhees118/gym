@@ -12,9 +12,11 @@
 <p th:text="${currentUser}">현재 로그인 유저</p>
 
 
-
-<a th:href="@{/menu/board/free-delete?(id=${freeBoard.id})}">글삭제</a>
-<a th:href="@{/menu/board/free-modify/{id}(id=${freeBoard.id})}">글수정</a>
+<p th:if="${freeBoard.user.username == currentUser}">
+    <a th:href="@{/menu/board/free-delete?(id=${freeBoard.id})}">글삭제</a>
+    <a th:href="@{/menu/board/free-modify/{id}(id=${freeBoard.id})}">글수정</a>
+</p>
+<a type="button" th:href="@{/menu/board/free-heart/{id}(id=${freeBoard.id})}">좋아요</a>
 
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>

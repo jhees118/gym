@@ -26,7 +26,7 @@ public class FreeBoard {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "heart",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "freeBoard",cascade = CascadeType.REMOVE)
     private List<Heart> hearts = new ArrayList<>();
 
 

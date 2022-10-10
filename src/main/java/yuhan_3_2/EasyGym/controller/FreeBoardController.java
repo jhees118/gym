@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,15 +15,19 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
+import yuhan_3_2.EasyGym.entity.Heart;
 import yuhan_3_2.EasyGym.entity.User;
 import yuhan_3_2.EasyGym.repository.FreeBoardRepository;
+import yuhan_3_2.EasyGym.repository.HeartRepository;
 import yuhan_3_2.EasyGym.repository.UserRepository;
 import yuhan_3_2.EasyGym.service.FreeBoardService;
+import yuhan_3_2.EasyGym.service.HeartService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/menu/board")
@@ -33,6 +39,11 @@ public class FreeBoardController {
     private FreeBoardRepository freeBoardRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private HeartService heartService;
+    @Autowired
+    private HeartRepository heartRepository;
+
 
     @GetMapping("/free-list")
     public String freeList(Model model, @PageableDefault(page = 0,size = 5,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
@@ -96,6 +107,8 @@ public class FreeBoardController {
         }else {
             model.addAttribute("currentUser", authentication.getName());
         }
+
+
         model.addAttribute("freeBoard", freeBoardService.view(id));
         return "/menu/board/free-view";
     }
@@ -127,6 +140,31 @@ public class FreeBoardController {
         return "redirect:/menu/board/free-list";
     }
 
+    @GetMapping("/free-heart/{id}")
+    public String heartCheck(Model model,Heart heart,@PathVariable("id") Long id,Authentication authentication)
+    {
+        String username = authentication.getName();
+        System.out.println(heart);
+        System.out.println(id);
+        System.out.println(username);
+        Long heart1 = heartService.heartView(9l).getUser().getId();
+        System.out.println(heart1);
+
+            heartService.HeartClick(heart, id, username);
+
+        model.addAttribute("freeBoard", freeBoardService.view(id));
+        return "redirect:/menu/board/free-view?id={id}";
+    }
+
+    @GetMapping("/asdf/{id}")
+    public String getJPATest(@PathVariable("id") Long id){
+
+     Long heart1 = heartService.heartView(id).getFreeBoard().getId();
+      Long heart =  heartService.heartView(id).getUser().getId();
+       System.out.println(heart1);
+        System.out.println(heart);
+        return "redirect:/menu/board/asdf/{id}";
+    }
 
 }
 

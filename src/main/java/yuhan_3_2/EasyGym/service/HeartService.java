@@ -19,13 +19,24 @@ public class HeartService {
     @Autowired
     private UserRepository userRepository;
 
-    public Heart HeartClick(String username ,Long id ,Heart heart){     //입력저장 메소드
+    public Heart HeartClick(Heart heart,Long id ,String username){     //입력저장 메소드
         User user = userRepository.findByUsername(username);
-        FreeBoard freeBoard = freeboardRepository.findByFreeBoardId(id);
+        FreeBoard freeBoard = freeboardRepository.findById(id).orElse(null);
         heart.setUser(user);
         heart.setFreeBoard(freeBoard);
 
 
         return heartRepository.save(heart); //하트레포지토리에 유저이름 보드 id 입력
     } //쓰기위한 메소드
+
+    public Heart heartView(Long id){
+
+        return heartRepository.findById(id).get();
+    }
+
+    public void heartDelete(Long id){
+        heartRepository.deleteById(id);
+    }
+
+
 }

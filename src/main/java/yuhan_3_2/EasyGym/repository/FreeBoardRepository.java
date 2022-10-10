@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface FreeBoardRepository extends JpaRepository<FreeBoard,Long> {
-    FreeBoard findByFreeBoardId(Long id);
+
 
 }
