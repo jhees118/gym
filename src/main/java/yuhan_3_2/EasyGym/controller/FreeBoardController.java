@@ -144,27 +144,23 @@ public class FreeBoardController {
     public String heartCheck(Model model,Heart heart,@PathVariable("id") Long id,Authentication authentication)
     {
         String username = authentication.getName();
-        System.out.println(heart);
-        System.out.println(id);
-        System.out.println(username);
-        Long heart1 = heartService.heartView(9l).getUser().getId();
-        System.out.println(heart1);
+        Long userId = userRepository.findByUsername(username).getId();  //유저 아이디를통해 프라이머리키 찾기
+        Heart heartId = heartRepository.findByUserAndFreeBoard(userRepository.getReferenceById(userId), freeBoardRepository.getReferenceById(id)); // 유저Id 보드Id 를통해 하트 Id찾기
+
+
+        if(heartId == null) { //하트Id가 null 값이면 새로운 데이터 생성
 
             heartService.HeartClick(heart, id, username);
+        }
+        else { //null이 아니면 데이터 삭제
+            heartService.heartDelete(heartId.getId());
+        }
+
 
         model.addAttribute("freeBoard", freeBoardService.view(id));
         return "redirect:/menu/board/free-view?id={id}";
     }
 
-    @GetMapping("/asdf/{id}")
-    public String getJPATest(@PathVariable("id") Long id){
-
-     Long heart1 = heartService.heartView(id).getFreeBoard().getId();
-      Long heart =  heartService.heartView(id).getUser().getId();
-       System.out.println(heart1);
-        System.out.println(heart);
-        return "redirect:/menu/board/asdf/{id}";
-    }
 
 }
 
