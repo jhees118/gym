@@ -29,5 +29,7 @@ public class FreeBoard {
     @OneToMany(mappedBy = "freeBoard",cascade = CascadeType.REMOVE)
     private List<Heart> hearts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "freeBoard",cascade = CascadeType.REMOVE)
+    private List<Comment> comments = new ArrayList<>();
 
 }
