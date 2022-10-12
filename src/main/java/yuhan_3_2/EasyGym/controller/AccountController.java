@@ -52,6 +52,7 @@ public class AccountController {
             return "account/register";
         }
             model.addAttribute("message","회원가입이 완료되었습니다.");
+             model.addAttribute("searchUrl","/account/login");
             userService.save(user);
 
         return "/menu/message";

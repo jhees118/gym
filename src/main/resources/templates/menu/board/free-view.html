@@ -18,6 +18,23 @@
 </p>
 <a type="button" th:href="@{/menu/board/free-heart/{id}(id=${freeBoard.id})}">좋아요</a>
 
+<div class="container">
+    <div class ="row">
+        <form  method="post">
+            <table class="table table-striped" style="text-align:center; border:1px">
+                <input type="hidden" >
+                    <td>
+                        댓글<textarea id="content"  class="form-control"maxlength="100" style="height: 350px;">
+                    </textarea>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit"class="btn btn-primary"style="float: right;">확인</button>
+        </form>
+    </div>
+
+</div>
+
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>
 </html>

@@ -14,12 +14,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import yuhan_3_2.EasyGym.entity.Comment;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
 import yuhan_3_2.EasyGym.entity.Heart;
 import yuhan_3_2.EasyGym.entity.User;
+import yuhan_3_2.EasyGym.repository.CommentRepository;
 import yuhan_3_2.EasyGym.repository.FreeBoardRepository;
 import yuhan_3_2.EasyGym.repository.HeartRepository;
 import yuhan_3_2.EasyGym.repository.UserRepository;
+import yuhan_3_2.EasyGym.service.CommentService;
 import yuhan_3_2.EasyGym.service.FreeBoardService;
 import yuhan_3_2.EasyGym.service.HeartService;
 
@@ -43,6 +46,10 @@ public class FreeBoardController {
     private HeartService heartService;
     @Autowired
     private HeartRepository heartRepository;
+    @Autowired
+    private CommentRepository commentRepository;
+    @Autowired
+    private CommentService commentService;
 
 
     @GetMapping("/free-list")
@@ -62,7 +69,7 @@ public class FreeBoardController {
         return  "/menu/board/free-list";
     }
     @GetMapping("/free-write")
-    public String freeWrite(Model model, @RequestParam(required = false) Long id,Authentication authentication){
+    public String freeWrite(Model model, @RequestParam(required = false) Long id){
 
 
         if(id == null) {
@@ -87,10 +94,10 @@ public class FreeBoardController {
 
 
         if(id == null){
-            freeBoardService.write(username,freeBoard);
+            freeBoardService.freeBoardWrite(username,freeBoard);
             model.addAttribute("message","글작성이 완료되었습니다");
         }else{
-            freeBoardService.write(username,freeBoard);
+            freeBoardService.freeBoardWrite(username,freeBoard);
             model.addAttribute("message","글작성이 수정되었습니다");
         }
 
@@ -160,6 +167,7 @@ public class FreeBoardController {
         model.addAttribute("freeBoard", freeBoardService.view(id));
         return "redirect:/menu/board/free-view?id={id}";
     }
+
 
 
 

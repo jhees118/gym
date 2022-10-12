@@ -1,5 +1,6 @@
 package yuhan_3_2.EasyGym.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,6 +30,8 @@ public class FreeBoard {
     @OneToMany(mappedBy = "freeBoard",cascade = CascadeType.REMOVE)
     private List<Heart> hearts = new ArrayList<>();
 
+    @OrderBy("id desc")
+    @JsonIgnoreProperties({"freeBoard"})
     @OneToMany(mappedBy = "freeBoard",cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
