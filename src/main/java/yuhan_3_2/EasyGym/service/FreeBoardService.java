@@ -17,7 +17,7 @@ public class FreeBoardService {
     private FreeBoardRepository freeboardRepository; //레파지토리 기능들사용위함
     @Autowired
     private UserRepository userRepository;
-    public FreeBoard write(String username, FreeBoard freeBoard){     //입력저장 메소드
+    public FreeBoard freeBoardWrite(String username, FreeBoard freeBoard){     //입력저장 메소드
          User user = userRepository.findByUsername(username);
          freeBoard.setUser(user);
 
