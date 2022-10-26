@@ -90,10 +90,10 @@ public class FreeBoardController {
 
 
         if(id == null){
-            freeBoardService.write(username,freeBoard);
+            freeBoardService.freeBoardWrite(username,freeBoard);
             model.addAttribute("message","글작성이 완료되었습니다");
         }else{
-            freeBoardService.write(username,freeBoard);
+            freeBoardService.freeBoardWrite(username,freeBoard);
             model.addAttribute("message","글작성이 수정되었습니다");
         }
 
@@ -122,7 +122,7 @@ public class FreeBoardController {
         model.addAttribute("freeBoard", freeBoardService.view(id));
         model.addAttribute("commentList",commentList);
         if(comment.getContent()==null){}else {
-            commentService.write(username, id, comment);
+            commentService.write(comment, id, username);
             if (request.getHeader("Referer")!=null) {               //이전페이지로 리다이렉트하는 if문
                 return  "redirect:" + request.getHeader("Referer");
             }else{
