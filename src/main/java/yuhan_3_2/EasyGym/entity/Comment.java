@@ -23,6 +23,7 @@ public class Comment {
     @JoinColumn(name = "free_board_id")
     private FreeBoard freeBoard;
 
+
     @Size(min = 1,max =100 ,message = "댓글이 너무 깁니다.")
     private String content;
 

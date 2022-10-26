@@ -18,6 +18,19 @@
 </p>
 <a type="button" th:href="@{/menu/board/free-heart/{id}(id=${freeBoard.id})}">좋아요</a>
 
+<form th:action="@{/menu/board/free-view}" th:object="${comment}" method="get">
+    <input type="hidden" th:field="*{id}">
+    <textarea id="content" th:field="*{content}" th:errorclass="error-input" class="form-control"maxlength="2048" style="height: 350px;"></textarea>
+    <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">제목내용메시지</div>
+    <button type="submit"class="btn btn-primary"style="float: right;">댓글</button>
+</form>
+
+<table class ="table table-striped" style="text-align: center;"border="1px" >
+<tr th:each="Comment: ${commentList}"style="background-color: #eeeeee; text-align: center;">
+    <td th:text="${Comment.user.username}"style="background-color: #eeeeee; text-align: left;"></td>
+    <td><a th:text="${Comment.content}" style="background-color: #eeeeee; text-align: center;"></a></td>
+</tr>
+</table>
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>
 </html>

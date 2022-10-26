@@ -14,12 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import yuhan_3_2.EasyGym.entity.Comment;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
 import yuhan_3_2.EasyGym.entity.Heart;
 import yuhan_3_2.EasyGym.entity.User;
 import yuhan_3_2.EasyGym.repository.FreeBoardRepository;
 import yuhan_3_2.EasyGym.repository.HeartRepository;
 import yuhan_3_2.EasyGym.repository.UserRepository;
+import yuhan_3_2.EasyGym.service.CommentService;
 import yuhan_3_2.EasyGym.service.FreeBoardService;
 import yuhan_3_2.EasyGym.service.HeartService;
 
@@ -43,7 +45,8 @@ public class FreeBoardController {
     private HeartService heartService;
     @Autowired
     private HeartRepository heartRepository;
-
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/free-list")
     public String freeList(Model model, @PageableDefault(page = 0,size = 5,sort = "id",direction = Sort.Direction.DESC) Pageable pageable){
@@ -100,7 +103,14 @@ public class FreeBoardController {
 
 
     @GetMapping("/free-view")
-    public String freeView(Authentication authentication, Model model,Long id) {
+    public String freeView(Authentication authentication, Model model,@RequestParam(required = false) Long id,
+                           @Valid Comment comment,BindingResult bindingResult,Pageable pageable,HttpServletRequest request,FreeBoard freeBoard) {
+        if(bindingResult.hasErrors()){
+            return "/menu/board/free-view";
+        }
+        String username = authentication.getName();
+        Long userId = userRepository.findByUsername(username).getId();
+        Page<Comment> commentList = commentService.commentList(pageable,freeBoard);
 
         if(authentication == null){ //사용자가 로그인중이아니면
             model.addAttribute("currentUser", null);           //html 사용자 권한에따른 구성으로 설정값입력
@@ -110,6 +120,15 @@ public class FreeBoardController {
 
 
         model.addAttribute("freeBoard", freeBoardService.view(id));
+        model.addAttribute("commentList",commentList);
+        if(comment.getContent()==null){}else {
+            commentService.write(username, id, comment);
+            if (request.getHeader("Referer")!=null) {               //이전페이지로 리다이렉트하는 if문
+                return  "redirect:" + request.getHeader("Referer");
+            }else{
+                return "redirect:/";
+            }
+        }
         return "/menu/board/free-view";
     }
 

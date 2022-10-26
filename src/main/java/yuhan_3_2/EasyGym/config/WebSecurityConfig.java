@@ -41,7 +41,7 @@ public class WebSecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers("/","/account/register","/img/*","/menu/board/free-list",
-                        "/menu/board/free-view","/calorie","/menu/message","/account/login").permitAll()
+                        "/calorie","/menu/message","/account/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
 
