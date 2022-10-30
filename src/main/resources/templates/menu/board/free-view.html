@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
 <body>
 <a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
@@ -11,20 +12,20 @@
 <p th:text="${freeBoard.user.username}">작성자</p>
 <p th:text="${currentUser}">현재 로그인 유저</p>
 
-
 <p th:if="${freeBoard.user.username == currentUser}">
     <a th:href="@{/menu/board/free-delete?(id=${freeBoard.id})}">글삭제</a>
     <a th:href="@{/menu/board/free-modify/{id}(id=${freeBoard.id})}">글수정</a>
 </p>
 <a type="button" th:href="@{/menu/board/free-heart/{id}(id=${freeBoard.id})}">좋아요</a>
 
+
 <form th:action="@{/menu/board/free-view}" th:object="${comment}" method="get">
     <input type="hidden" th:field="*{id}">
-    <textarea id="content" th:field="*{content}" th:errorclass="error-input" class="form-control"maxlength="2048" style="height: 350px;"></textarea>
+    <input  type="text" id="content" th:field="*{content}" th:errorclass="error-input" class="form-control" >
     <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">제목내용메시지</div>
-    <button type="submit"class="btn btn-primary"style="float: right;">댓글</button>
+    <button id="submit" type="submit"class="btn btn-primary"style="float: right;" disabled>댓글</button>
 </form>
-
+<script type="text/javascript" src="/js/button.js"></script>
 <table class ="table table-striped" style="text-align: center;"border="1px" >
 <tr th:each="Comment: ${commentList}"style="background-color: #eeeeee; text-align: center;">
     <td th:text="${Comment.user.username}"style="background-color: #eeeeee; text-align: left;"></td>

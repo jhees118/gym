@@ -20,7 +20,7 @@ public class FreeBoard {
     @Size(min=2,max=20,message = "제목은 2글자에서 20글자여야합니다.")
     private String title;
     @NotNull
-    @Size(min = 0,max =1000 ,message = "글자가 1000자 이상입니다.")
+    @Size(min = 1,message = "내용을 입력해주세요")
     private String content;
 
     @ManyToOne

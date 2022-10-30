@@ -9,7 +9,7 @@
 <div th:if="${param.logout}" class="alert alert-primary" role="alert">
   로그아웃 되었습니다.
 </div>
-<form th:action="@{/account/login}" method="post">
+<form th:action="@{/account/login}" method="post" autocomplete="off">
   <h1 class="h3 mb-3 fw-normal">로그인</h1>
   <div class="form-floating">
     <input type="text" class="form-control" id="floatingInput" name="username">
