@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h3>이미지 출력</h3>
+<div th:each="imageFile : ${all} ">
+  <img  th:src="|/images/${imageFile.id}|" width="150" height="150">
+  <p th:text="${imageFile.orgNm}"></p>
+</div>
+<div th:each="videoFile : ${all} ">
+  <video controls  th:src="|/video/${videoFile.id}|" width="1000" height="1000"></video>
+  <p th:text="${videoFile.orgNm}"></p>
+
+</div>
+</body>
+</html>
