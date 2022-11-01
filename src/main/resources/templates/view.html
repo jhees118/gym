@@ -6,14 +6,14 @@
 </head>
 <body>
 <h3>이미지 출력</h3>
-<div th:each="imageFile : ${all} ">
-  <img  th:src="|/images/${imageFile.id}|" width="150" height="150">
-  <p th:text="${imageFile.orgNm}"></p>
+<div th:each="File : ${all} " >
+  <img  th:src="|/images/${File.id}|" width="300" height="300">
+  <p th:text="${File.orgNm}"></p>
+  <video controls  th:src="|/video/${File.id}|" width="500" height="500"></video>
+  <p th:text="${File.orgNm}"></p>
+  <hr>
 </div>
-<div th:each="videoFile : ${all} ">
-  <video controls  th:src="|/video/${videoFile.id}|" width="1000" height="1000"></video>
-  <p th:text="${videoFile.orgNm}"></p>
 
-</div>
+
 </body>
 </html>
