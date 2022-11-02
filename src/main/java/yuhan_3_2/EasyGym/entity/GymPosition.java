@@ -20,12 +20,15 @@ public class GymPosition {
     private String savedNm;
     @Column(name="gym_url")
     private String savedPath;
+    @Column(name="position")
+    private String position;
 
     @Builder
-    public GymPosition(Long id, String orgNm, String savedNm, String savedPath) {
+    public GymPosition(Long id, String orgNm, String savedNm, String savedPath,String position) {
         this.id = id;
         this.orgNm = orgNm;
         this.savedNm = savedNm;
         this.savedPath = savedPath;
+        this.position = position;
     }
 }

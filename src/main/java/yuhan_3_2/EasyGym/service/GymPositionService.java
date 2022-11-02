@@ -3,19 +3,20 @@ package yuhan_3_2.EasyGym.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import yuhan_3_2.EasyGym.entity.Comment;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
 import yuhan_3_2.EasyGym.entity.GymPosition;
-import yuhan_3_2.EasyGym.entity.User;
 import yuhan_3_2.EasyGym.repository.GymPositionRepository;
 
-import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.util.List;
 import java.util.UUID;
-import java.nio.file.Path;
+
 @RequiredArgsConstructor
 @Service
 public class GymPositionService {
@@ -26,7 +27,7 @@ public class GymPositionService {
     @Autowired
     private GymPositionRepository gymPositionRepository;
 
-    public Long saveFile(MultipartFile files) throws IOException {
+    public Long saveGymFile(MultipartFile files, GymPosition gymPosition) throws IOException {
         if (files.isEmpty()) {
             return null;
         }
@@ -51,6 +52,7 @@ public class GymPositionService {
                 .orgNm(origName)
                 .savedNm(savedName)
                 .savedPath(savedPath)
+                .position(gymPosition.getPosition())
                 .build();
 
         // 실제로 로컬에 uuid를 파일명으로 저장
@@ -62,6 +64,16 @@ public class GymPositionService {
         return savedFile.getId();
     }
 
+    public List<GymPosition> gymArmList(){
+        return gymPositionRepository.findByPosition("arm");
+    }
+    public List<GymPosition> gymLegList(){
+        return gymPositionRepository.findByPosition("leg");
+    }
 
+    public GymPosition view(Long id){
+
+        return gymPositionRepository.findById(id).get();
+    }
 
 }

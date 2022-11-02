@@ -6,16 +6,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.support.ResourceRegion;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import yuhan_3_2.EasyGym.entity.Comment;
+import yuhan_3_2.EasyGym.entity.FreeBoard;
 import yuhan_3_2.EasyGym.entity.GymPosition;
 import yuhan_3_2.EasyGym.repository.GymPositionRepository;
 import yuhan_3_2.EasyGym.service.GymPositionService;
 
-import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -31,12 +38,16 @@ public class GymPositionController{
     private GymPositionService gymPositionService;
     @Autowired
     private GymPositionRepository gymPositionRepository;
+
     @GetMapping("/view")
     public String view(Model model) {
 
-        List<GymPosition> files = gymPositionRepository.findAll();
-        model.addAttribute("all",files);
-        return "view";
+
+        List<GymPosition> gymList = gymPositionService.gymLegList();
+
+
+        model.addAttribute("gymList",gymList);
+        return "/view";
     }
 
     @GetMapping("/upload")
@@ -46,11 +57,11 @@ public class GymPositionController{
     }
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file,@RequestParam("files") List<MultipartFile> files) throws IOException {
-        gymPositionService.saveFile(file);
+    public String uploadFile(@RequestParam("files") List<MultipartFile> files,GymPosition gymPosition) throws IOException {
+
 
         for (MultipartFile multipartFile : files) {
-            gymPositionService.saveFile(multipartFile);
+            gymPositionService.saveGymFile(multipartFile,gymPosition);
         }
 
         return "/upload";
@@ -94,4 +105,18 @@ public class GymPositionController{
                 .body(resourceRegion);
     }
 
+    @GetMapping("/menu/gym-position/gym-view")
+    public String gymView(Authentication authentication, Model model, @RequestParam(required = false) Long id) {
+
+        String username = authentication.getName();
+
+
+
+
+        model.addAttribute("gymPosition", gymPositionService.view(id));
+
+
+
+        return "/menu/gym-position/gym-view";
+    }
 }

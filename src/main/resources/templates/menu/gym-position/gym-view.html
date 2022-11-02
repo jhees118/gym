@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h3>이미지 출력</h3>
+
+
+    <video controls autoplay th:src="|/video/${gymPosition.id}|" width="500" height="500"></video>
+    <p th:text="${gymPosition.orgNm}"></p>
+
+</div>
+</body>
+</html>
