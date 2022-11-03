@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -25,16 +27,13 @@ public class GymPosition {
     @Column(name="content")
     private String content;
     @Column(name="gym_title")
-    private
-    String gymTitle;
-    @Builder
-    public GymPosition(Long id, String orgNm, String savedNm, String savedPath,String position,String content,String gymTitle) {
-        this.id = id;
-        this.orgNm = orgNm;
-        this.savedNm = savedNm;
-        this.savedPath = savedPath;
-        this.position = position;
-        this.content = content;
-        this.gymTitle = gymTitle;
-    }
+    private String title;
+    @Column(name="gym_heart_count")
+    private int gymHeartCount;
+
+
+    @OneToMany(mappedBy = "gymPosition",cascade = CascadeType.REMOVE)
+    private List<GymHeart> gymHearts = new ArrayList<>();
+
+
 }

@@ -5,10 +5,10 @@
 <body>
 <a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
 
-<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+<form th:action="@{/menu/gym-position/upload}" method="post" enctype="multipart/form-data">
 
   <h4>파일 업로드</h4>
-  <input type="text" th:name="gymTitle">
+  <input type="text" th:name="title">
   <select th:name="position">
     <option th:value="arm">팔</option>
     <option th:value="back">등</option>

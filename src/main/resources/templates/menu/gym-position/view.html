@@ -9,7 +9,7 @@
 <div th:each="File : ${gymLegList} " >
   <p th:text="${File.gymTitle}"></p>
   <a th:href="@{/menu/gym-position/gym-view(id=${File.id})}">
-  <video th:src="|/video/${File.id}|" width="500" height="500"></video>
+  <video th:src="|/menu/gym-position/video/${File.id}|" width="500" height="500"></video>
   <p th:text="${File.content}"></p>
   </a>
 </div>

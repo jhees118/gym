@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import yuhan_3_2.EasyGym.entity.Comment;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
 import yuhan_3_2.EasyGym.entity.GymPosition;
+import yuhan_3_2.EasyGym.entity.User;
 import yuhan_3_2.EasyGym.repository.GymPositionRepository;
 
 import java.io.File;
@@ -27,7 +28,7 @@ public class GymPositionService {
     @Autowired
     private GymPositionRepository gymPositionRepository;
 
-    public Long saveGymFile(MultipartFile files, GymPosition gymPosition) throws IOException {
+    public Long saveGymFile(MultipartFile files, GymPosition gymPosition,String username) throws IOException {
         if (files.isEmpty()) {
             return null;
         }
@@ -48,14 +49,14 @@ public class GymPositionService {
         String savedPath = gymPositionDir + savedName;
 
         // 파일 엔티티 생성
-        GymPosition file = GymPosition.builder()
-                .orgNm(origName)
-                .savedNm(savedName)
-                .savedPath(savedPath)
-                .position(gymPosition.getPosition())
-                .content(gymPosition.getContent())
-                .gymTitle(gymPosition.getGymTitle())
-                .build();
+        GymPosition file = new GymPosition();
+                file.setOrgNm(origName);
+                file.setGymHeartCount(0);
+                file.setSavedPath(savedPath);
+                file.setPosition(gymPosition.getPosition());
+                file.setContent(gymPosition.getContent());
+                file.setTitle(gymPosition.getTitle());
+                file.setSavedNm(savedName);
 
         // 실제로 로컬에 uuid를 파일명으로 저장
         files.transferTo(new File(savedPath));
@@ -88,5 +89,6 @@ public class GymPositionService {
 
         return gymPositionRepository.findById(id).get();
     }
+
 
 }

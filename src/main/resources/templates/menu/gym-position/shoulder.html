@@ -4,6 +4,14 @@
 <body>
 <a th:replace="fragments/common :: navbar('position')"></a><!--네비바 프래그먼트 사용-->
 
+<div th:each="File : ${gymShoulderList} " >
+    <p th:text="${File.title}"></p>
+    <a th:href="@{/menu/gym-position/gym-view(id=${File.id})}">
+        <video th:src="|/menu/gym-position/video/${File.id}|" width="500" height="500"></video>
+        <p th:text="${File.content}"></p>
+    </a>
+</div>
+
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>
 </html>

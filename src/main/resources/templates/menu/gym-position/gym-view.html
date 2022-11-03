@@ -7,9 +7,24 @@
 <body>
 <h3>이미지 출력</h3>
 
+<span th:if="${not #strings.isEmpty(currentUser)}">
+<span th:if="${gymHeartCheck==1}">
+    <a type="button" th:href="@{/menu/gym-position/gym-heart/{id}(id=${gymPosition.id})}"><img src="../../../img/heart.png" alt=""></a>
+    </span>
+<span th:if="${gymHeartCheck==0}">
+    <a type="button" th:href="@{/menu/gym-position/gym-heart/{id}(id=${gymPosition.id})}"><img src="../../../img/emptyHeart.png" alt=""></a>
+    </span>
+    <span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span>
+</span>
+<span th:unless="${not #strings.isEmpty(currentUser)}">
+<a type="button" onclick="location.href='http://localhost:8080/account/login'"><img src="../../../img/emptyHeart.png" alt=""></a>
+<span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span>
+<div><input type="text"placeholder="좋아요 댓글은 로그인후 이용가능 합니다." class="form-control" onclick="location.href='http://localhost:8080/account/login'"></div>
+</span>
+    <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" width="500" height="500"></video>
+<p th:text="${gymPosition.title}"></p>
+<p th:text="${gymPosition.content}"></p>
 
-    <video controls autoplay th:src="|/video/${gymPosition.id}|" width="500" height="500"></video>
-    <p th:text="${gymPosition.orgNm}"></p>
 
 </div>
 </body>
