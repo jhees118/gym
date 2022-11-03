@@ -3,6 +3,7 @@ package yuhan_3_2.EasyGym.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
 import yuhan_3_2.EasyGym.entity.User;
@@ -10,6 +11,7 @@ import yuhan_3_2.EasyGym.repository.FreeBoardRepository;
 import yuhan_3_2.EasyGym.repository.UserRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 
 @Service
@@ -45,4 +47,7 @@ public class FreeBoardService {
 
 
 
-}
+    }
+
+
+

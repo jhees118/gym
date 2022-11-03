@@ -30,8 +30,6 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
-
-
 public class GymPositionController{
 
     @Autowired
@@ -39,15 +37,14 @@ public class GymPositionController{
     @Autowired
     private GymPositionRepository gymPositionRepository;
 
-    @GetMapping("/view")
-    public String view(Model model) {
 
+    @GetMapping("/view")
+    public String View(Model model) {
 
         List<GymPosition> gymLegList = gymPositionService.gymLegList();
 
-
         model.addAttribute("gymLegList",gymLegList);
-        return "/view";
+        return "view";
     }
 
     @GetMapping("/upload")
