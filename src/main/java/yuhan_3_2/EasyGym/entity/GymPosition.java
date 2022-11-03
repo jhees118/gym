@@ -22,13 +22,19 @@ public class GymPosition {
     private String savedPath;
     @Column(name="position")
     private String position;
-
+    @Column(name="content")
+    private String content;
+    @Column(name="gym_title")
+    private
+    String gymTitle;
     @Builder
-    public GymPosition(Long id, String orgNm, String savedNm, String savedPath,String position) {
+    public GymPosition(Long id, String orgNm, String savedNm, String savedPath,String position,String content,String gymTitle) {
         this.id = id;
         this.orgNm = orgNm;
         this.savedNm = savedNm;
         this.savedPath = savedPath;
         this.position = position;
+        this.content = content;
+        this.gymTitle = gymTitle;
     }
 }

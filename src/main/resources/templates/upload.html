@@ -1,22 +1,24 @@
-<!DOCTYPE HTML>
-<head>
-  <meta charset="utf-8">
-</head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
 <body>
-<h2>파일 업로드</h2>
+<a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
 
-<form action="/upload" method="post" enctype="multipart/form-data">
+<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
 
-  <h4>다중 파일 업로드</h4>
-  <select name="position">
-    <option value="arm">팔</option>
-    <option value="back">등</option>
-    <option value="chest">가슴</option>
-    <option value="leg">다리</option>
-    <option value="shoulder">어깨</option>
-    <option value="abs">복근</option>
+  <h4>파일 업로드</h4>
+  <input type="text" th:name="gymTitle">
+  <select th:name="position">
+    <option th:value="arm">팔</option>
+    <option th:value="back">등</option>
+    <option th:value="chest">가슴</option>
+    <option th:value="leg">다리</option>
+    <option th:value="shoulder">어깨</option>
+    <option th:value="abs">복근</option>
   </select>
-  <input type="file" multiple="multiple" name="files">
+  <input type="file" multiple="multiple" th:name="files">
+  <textarea th:name="content" class="form-control"maxlength="2048" style="height: 350px;"></textarea>
   <input type="submit"/>
 </form>
 </body>

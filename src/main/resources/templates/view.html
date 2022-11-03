@@ -6,10 +6,12 @@
 </head>
 <body>
 <h3>이미지 출력</h3>
-<div th:each="File : ${gymList} " >
+<div th:each="File : ${gymLegList} " >
+  <p th:text="${File.gymTitle}"></p>
   <a th:href="@{/menu/gym-position/gym-view(id=${File.id})}">
-  <video controls autoplay th:src="|/video/${File.id}|" width="500" height="500"></video>
-  <p th:text="${File.orgNm}"></p>
+  <video th:src="|/video/${File.id}|" width="500" height="500"></video>
+  <p th:text="${File.content}"></p>
+
   </a>
 </div>
 </body>

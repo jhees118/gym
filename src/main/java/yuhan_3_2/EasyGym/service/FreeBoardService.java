@@ -9,6 +9,8 @@ import yuhan_3_2.EasyGym.entity.User;
 import yuhan_3_2.EasyGym.repository.FreeBoardRepository;
 import yuhan_3_2.EasyGym.repository.UserRepository;
 
+import javax.transaction.Transactional;
+
 
 @Service
 public class FreeBoardService {
@@ -20,7 +22,8 @@ public class FreeBoardService {
     public FreeBoard freeBoardWrite(String username, FreeBoard freeBoard){     //입력저장 메소드
          User user = userRepository.findByUsername(username);
          freeBoard.setUser(user);
-
+        freeBoard.setViewCount(0);
+        freeBoard.setHeartCount(0);
 
        return freeboardRepository.save(freeBoard);
     } //쓰기위한 메소드

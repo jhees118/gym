@@ -23,6 +23,11 @@ public class FreeBoard {
     @Size(min = 1,message = "내용을 입력해주세요")
     private String content;
 
+    @Column(name="view_count")
+    private int viewCount;
+    @Column(name="heart_count")
+    private int heartCount;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

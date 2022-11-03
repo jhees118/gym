@@ -10,6 +10,8 @@
       <th>글번호</th>
       <th>제목</th>
       <th>작성자</th>
+      <th>조회수</th>
+      <th>좋아요</th>
     </tr>
     </thead>
 
@@ -18,13 +20,21 @@
       <td th:text="${FreeBoard.id}"style="background-color: #eeeeee; text-align: center;"></td>
       <td><a th:text="${FreeBoard.title}" th:href="@{/menu/board/free-view(id=${FreeBoard.id})}"style="background-color: #eeeeee; text-align: center;"></a></td>
       <td><a th:text="${FreeBoard.user.username}" style="background-color: #eeeeee; text-align: center;"></a></td>
+      <td><a th:text="${FreeBoard.viewCount}"></a></td>
+      <td><a th:text="${FreeBoard.heartCount}"></a></td>
     </tr>
+
   </table>
   <th:block th:each="page : ${#numbers.sequence(startPage,endPage)}">
     <a th:if="${page != nowPage}" th:href="@{/menu/board/free-list(page =  ${page -1})}" th:text="${page}"></a>
     <strong th:if ="${page == nowPage}" th:text="${page}" style="color : red"></strong>
   </th:block>
+  <span th:if="${currentUser!=1}">
   <a type="button" th:href="@{/menu/board/free-write}" class ="btn btn-primary"style="float: right;">글쓰기</a>
+    </span>
+  <span th:if="${currentUser==1}">
+  <a type="button" onclick="location.href='http://localhost:8080/account/login'" class ="btn btn-primary"style="float: right;">글쓰기</a>
+    </span>
 </div>
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>

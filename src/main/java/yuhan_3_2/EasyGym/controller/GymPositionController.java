@@ -43,10 +43,10 @@ public class GymPositionController{
     public String view(Model model) {
 
 
-        List<GymPosition> gymList = gymPositionService.gymLegList();
+        List<GymPosition> gymLegList = gymPositionService.gymLegList();
 
 
-        model.addAttribute("gymList",gymList);
+        model.addAttribute("gymLegList",gymLegList);
         return "/view";
     }
 
@@ -57,8 +57,7 @@ public class GymPositionController{
     }
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("files") List<MultipartFile> files,GymPosition gymPosition) throws IOException {
-
+    public String uploadFile(@RequestParam("files") List<MultipartFile> files,@Valid GymPosition gymPosition,BindingResult bindingResult) throws IOException {
 
         for (MultipartFile multipartFile : files) {
             gymPositionService.saveGymFile(multipartFile,gymPosition);
@@ -108,7 +107,7 @@ public class GymPositionController{
     @GetMapping("/menu/gym-position/gym-view")
     public String gymView(Authentication authentication, Model model, @RequestParam(required = false) Long id) {
 
-        String username = authentication.getName();
+
 
 
 

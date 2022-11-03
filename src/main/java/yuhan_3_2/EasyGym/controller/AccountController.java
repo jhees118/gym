@@ -30,8 +30,12 @@ public class AccountController {
     private UserRepository userRepository;
 
     @GetMapping("/login")
-    public String login(){
-
+    public String login( HttpServletRequest request,
+                         Model model){
+        String uri = request.getHeader("Referer");
+        if (uri != null && !uri.contains("/login")) {
+            request.getSession().setAttribute("prevPage", uri);
+        }
         return "account/login";
     }
 

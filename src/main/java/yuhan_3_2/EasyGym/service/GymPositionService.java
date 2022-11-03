@@ -53,6 +53,8 @@ public class GymPositionService {
                 .savedNm(savedName)
                 .savedPath(savedPath)
                 .position(gymPosition.getPosition())
+                .content(gymPosition.getContent())
+                .gymTitle(gymPosition.getGymTitle())
                 .build();
 
         // 실제로 로컬에 uuid를 파일명으로 저장
@@ -63,9 +65,20 @@ public class GymPositionService {
 
         return savedFile.getId();
     }
-
     public List<GymPosition> gymArmList(){
         return gymPositionRepository.findByPosition("arm");
+    }
+    public List<GymPosition> gymBackList(){
+        return gymPositionRepository.findByPosition("back");
+    }
+    public List<GymPosition> gymChestList(){
+        return gymPositionRepository.findByPosition("chest");
+    }
+    public List<GymPosition> gymShoulderList(){
+        return gymPositionRepository.findByPosition("shoulder");
+    }
+    public List<GymPosition> gymAbsList(){
+        return gymPositionRepository.findByPosition("abs");
     }
     public List<GymPosition> gymLegList(){
         return gymPositionRepository.findByPosition("leg");

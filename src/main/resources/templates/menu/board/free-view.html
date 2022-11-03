@@ -16,21 +16,40 @@
     <a th:href="@{/menu/board/free-delete?(id=${freeBoard.id})}">글삭제</a>
     <a th:href="@{/menu/board/free-modify/{id}(id=${freeBoard.id})}">글수정</a>
 </p>
-<a type="button" th:href="@{/menu/board/free-heart/{id}(id=${freeBoard.id})}">좋아요</a>
-
-
-<form th:action="@{/menu/board/free-view}" th:object="${comment}" method="get">
+<span th:if="${not #strings.isEmpty(currentUser)}">
+<span th:if="${heartCheck==1}">
+    <a type="button" th:href="@{/menu/board/free-heart/{id}(id=${freeBoard.id})}"><img src="../../../img/heart.png" alt=""></a>
+    </span>
+<span th:if="${heartCheck==0}">
+    <a type="button" th:href="@{/menu/board/free-heart/{id}(id=${freeBoard.id})}"><img src="../../../img/emptyHeart.png" alt=""></a>
+    </span>
+    <span>좋아요:</span><span th:text="${#lists.size(heartCount)}"></span>
+    <form th:action="@{/menu/board/free-view}" th:object="${comment}" method="get">
     <input type="hidden" th:field="*{id}">
     <input  type="text" id="content" th:field="*{content}" th:errorclass="error-input" class="form-control" >
     <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">제목내용메시지</div>
     <button id="submit" type="submit"class="btn btn-primary"style="float: right;" disabled>댓글</button>
 </form>
+</span>
+<span th:unless="${not #strings.isEmpty(currentUser)}">
+<a type="button" onclick="location.href='http://localhost:8080/account/login'"><img src="../../../img/emptyHeart.png" alt=""></a>
+<span>좋아요:</span><span th:text="${#lists.size(heartCount)}"></span>
+<div><input type="text"placeholder="좋아요 댓글은 로그인후 이용가능 합니다." class="form-control" onclick="location.href='http://localhost:8080/account/login'"></div>
+</span>
+
+
 <script type="text/javascript" src="/js/button.js"></script>
 <table class ="table table-striped" style="text-align: center;"border="1px" >
-<tr th:each="Comment: ${commentList}"style="background-color: #eeeeee; text-align: center;">
-    <td th:text="${Comment.user.username}"style="background-color: #eeeeee; text-align: left;"></td>
-    <td><a th:text="${Comment.content}" style="background-color: #eeeeee; text-align: center;"></a></td>
-</tr>
+    <tr th:each="Comment: ${commentList}"style="background-color: #eeeeee; text-align: center;">
+        <td th:text="${Comment.user.username}"style="background-color: #eeeeee; text-align: left;"></td>
+        <td><a th:text="${Comment.content}" style="background-color: #eeeeee; text-align: center;"></a></td>
+        <span th:if="${Comment.user.username == currentUser}">
+       <td><a th:href="@{/menu/board/comment-delete?(id=${Comment.id})}">댓글삭제</a></td>
+        </span>
+        <span th:if="${Comment.user.username != currentUser}">
+       <td></td>
+        </span>
+    </tr>
 </table>
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>

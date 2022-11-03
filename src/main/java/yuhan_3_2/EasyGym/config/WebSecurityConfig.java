@@ -16,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import yuhan_3_2.EasyGym.service.CredentialService;
 
@@ -32,6 +33,8 @@ public class WebSecurityConfig {
 
     @Autowired
     private DataSource dataSource;
+    @Autowired
+    private  AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Bean
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
@@ -40,14 +43,13 @@ public class WebSecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/","/account/register","/img/*","/menu/board/free-list",
-                        "/calorie","/menu/message","/account/login").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
 
                 .formLogin()
                 .loginPage("/account/login")
-                .defaultSuccessUrl("/")
+                .successHandler(authenticationSuccessHandler)
                 .permitAll()
                 .and()
 

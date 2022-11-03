@@ -3,11 +3,14 @@ package yuhan_3_2.EasyGym.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
+import yuhan_3_2.EasyGym.entity.GymPosition;
 import yuhan_3_2.EasyGym.entity.Heart;
 import yuhan_3_2.EasyGym.entity.User;
 import yuhan_3_2.EasyGym.repository.FreeBoardRepository;
 import yuhan_3_2.EasyGym.repository.HeartRepository;
 import yuhan_3_2.EasyGym.repository.UserRepository;
+
+import java.util.List;
 
 @Service
 public class HeartService {
@@ -29,9 +32,13 @@ public class HeartService {
         return heartRepository.save(heart); //하트레포지토리에 유저이름 보드 id 입력
     } //쓰기위한 메소드
 
-    public Heart heartView(Long id){
+    public Heart heartView(User user , FreeBoard freeBoard){
 
-        return heartRepository.findById(id).get();
+        return heartRepository.findByUserAndFreeBoard(user,freeBoard);
+    }
+
+    public List<Heart> heartCount(FreeBoard freeBoard){
+        return heartRepository.findByFreeBoard(freeBoard);
     }
 
     public void heartDelete(Long id){

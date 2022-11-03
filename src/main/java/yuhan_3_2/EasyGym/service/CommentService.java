@@ -34,4 +34,6 @@ public class CommentService {
         return commentRepository.findByFreeBoard(freeBoard,pageable);
     }   //리스트를보여주기위한메소드
 
+
+
 }
