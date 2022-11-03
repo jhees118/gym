@@ -57,6 +57,7 @@ public class GymPositionService {
                 file.setContent(gymPosition.getContent());
                 file.setTitle(gymPosition.getTitle());
                 file.setSavedNm(savedName);
+                file.setGymViewCount(0);
 
         // 실제로 로컬에 uuid를 파일명으로 저장
         files.transferTo(new File(savedPath));

@@ -30,6 +30,8 @@ public class GymPosition {
     private String title;
     @Column(name="gym_heart_count")
     private int gymHeartCount;
+    @Column(name="gym_view_count")
+    private int gymViewCount;
 
 
     @OneToMany(mappedBy = "gymPosition",cascade = CascadeType.REMOVE)

@@ -4,12 +4,15 @@
 <body>
 <a th:replace="fragments/common :: navbar('position')"></a><!--네비바 프래그먼트 사용-->
 
-<div th:each="File : ${gymLegList} " >
-    <p th:text="${File.title}"></p>
-    <a th:href="@{/menu/gym-position/gym-view(id=${File.id})}">
-        <video th:src="|/menu/gym-position/video/${File.id}|" width="500" height="500"></video>
-        <p th:text="${File.content}"></p>
+<div th:each="GymPosition : ${gymLegList} " >
+    <p th:text="${GymPosition.title}"></p>
+    <a th:href="@{/menu/gym-position/gym-view(id=${GymPosition.id})}">
+        <video th:src="|/menu/gym-position/video/${GymPosition.id}|" width="500" height="500"></video>
+        <p th:text="${GymPosition.content}"></p>
     </a>
+        <span>조회수:</span><a th:text="${GymPosition.gymViewCount}"></a>
+        <span>좋아요:</span><a th:text="${GymPosition.gymHeartCount}"></a>
+
 </div>
 
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->

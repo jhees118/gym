@@ -24,6 +24,7 @@ import yuhan_3_2.EasyGym.service.GymCommentService;
 import yuhan_3_2.EasyGym.service.GymHeartService;
 import yuhan_3_2.EasyGym.service.GymPositionService;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -157,6 +158,7 @@ public class GymPositionController{
     }
 
     @GetMapping("/menu/gym-position/gym-view")
+    @Transactional
     public String gymView(Authentication authentication,  Model model, @RequestParam(required = false) Long id,
                           User user, Pageable pageable, GymPosition gymPosition, HttpServletRequest request, HttpServletResponse response,GymComment gymComment) {
 
@@ -176,6 +178,30 @@ public class GymPositionController{
             }else{
                 model.addAttribute("gymHeartCheck", 1);
 
+            }
+        }
+        gymPosition = gymPositionRepository.findById(id).get(); //조회수증가를위한 레포지토리 아이디값
+
+
+        Cookie[] videoCookies = request.getCookies();
+        int videoVisitor = 0;
+        if(videoCookies != null) {
+            for (Cookie cookie : videoCookies) {
+                if (cookie.getName().equals("visit")) {
+                    videoVisitor = 1;
+                    if (cookie.getValue().contains(request.getParameter("id"))) {
+
+                    } else {
+                        cookie.setValue(cookie.getValue() + "_" + request.getParameter("id"));
+                        response.addCookie(cookie);
+                        gymPosition.setGymViewCount(gymPosition.getGymViewCount() + 1); //조회수 증가
+                    }
+                }
+            }
+            if (videoVisitor == 0) {
+                Cookie cookie5 = new Cookie("visit", request.getParameter("id"));
+                response.addCookie(cookie5);
+                gymPosition.setGymViewCount(gymPosition.getGymViewCount() + 1); //조회수 증가
             }
         }
         List<GymHeart> gymHeartCount = gymHeartService.gymHeartCount(gymPosition);
