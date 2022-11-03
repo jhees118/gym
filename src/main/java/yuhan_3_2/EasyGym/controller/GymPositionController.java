@@ -16,9 +16,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import yuhan_3_2.EasyGym.entity.*;
+import yuhan_3_2.EasyGym.repository.GymCommentRepository;
 import yuhan_3_2.EasyGym.repository.GymHeartRepository;
 import yuhan_3_2.EasyGym.repository.GymPositionRepository;
 import yuhan_3_2.EasyGym.repository.UserRepository;
+import yuhan_3_2.EasyGym.service.GymCommentService;
 import yuhan_3_2.EasyGym.service.GymHeartService;
 import yuhan_3_2.EasyGym.service.GymPositionService;
 
@@ -45,7 +47,10 @@ public class GymPositionController{
     private GymHeartRepository gymHeartRepository;
     @Autowired
     private GymHeartService gymHeartService;
-
+    @Autowired
+    private GymCommentService gymCommentService;
+    @Autowired
+    private GymCommentRepository gymCommentRepository;
 
     @GetMapping("/menu/gym-position/view")
     public String View(Model model) {
@@ -153,7 +158,7 @@ public class GymPositionController{
 
     @GetMapping("/menu/gym-position/gym-view")
     public String gymView(Authentication authentication,  Model model, @RequestParam(required = false) Long id,
-                          User user, Pageable pageable, GymPosition gymPosition, HttpServletRequest request, HttpServletResponse response) {
+                          User user, Pageable pageable, GymPosition gymPosition, HttpServletRequest request, HttpServletResponse response,GymComment gymComment) {
 
         model.addAttribute("gymPosition", gymPositionService.view(id));
         if(authentication == null){ //사용자가 로그인중이아니면
@@ -175,7 +180,19 @@ public class GymPositionController{
         }
         List<GymHeart> gymHeartCount = gymHeartService.gymHeartCount(gymPosition);
         model.addAttribute("gymHeartCount",gymHeartCount);
+        Page<GymComment> gymCommentList = gymCommentService.gymCommentList(pageable,gymPosition);
+        model.addAttribute("gymPosition", gymPositionService.view(id));
+        model.addAttribute("gymCommentList",gymCommentList);
 
+        if(gymComment.getContent()==null){}else {
+            String username = authentication.getName();
+            gymCommentService.gymWrite(gymComment, id, username);
+            if (request.getHeader("Referer")!=null) {               //이전페이지로 리다이렉트하는 if문
+                return  "redirect:" + request.getHeader("Referer");
+            }else{
+                return "redirect:/";
+            }
+        }
         return "/menu/gym-position/gym-view";
     }
     @GetMapping("/menu/gym-position/gym-heart/{id}")
@@ -197,7 +214,22 @@ public class GymPositionController{
 
         }
 
-        model.addAttribute("gymPosition", gymPositionService.view(id));
         return "redirect:/menu/gym-position/gym-view?id={id}";
+    }
+    @GetMapping("/menu/gym-position/gymComment-delete")
+    public String gymCommentDelete(Authentication authentication,Long id,HttpServletRequest request)
+    {
+        String username = authentication.getName();
+
+
+        if(gymCommentRepository.findById(id).get().getUser().getUsername().equals(username)){
+            gymCommentRepository.deleteById(id);
+        }
+
+        if (request.getHeader("Referer")!=null) {               //이전페이지로 리다이렉트하는 if문
+            return  "redirect:" + request.getHeader("Referer");
+        }else{
+            return "redirect:/";
+        }
     }
 }

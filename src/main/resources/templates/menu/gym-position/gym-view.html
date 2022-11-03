@@ -1,31 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-<h3>이미지 출력</h3>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+<a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
+<body>
+<a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
+<video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" width="500" height="500"></video>
+<p th:text="${gymPosition.title}"></p>
+<p th:text="${gymPosition.content}"></p>
 <span th:if="${not #strings.isEmpty(currentUser)}">
-<span th:if="${gymHeartCheck==1}">
-    <a type="button" th:href="@{/menu/gym-position/gym-heart/{id}(id=${gymPosition.id})}"><img src="../../../img/heart.png" alt=""></a>
-    </span>
-<span th:if="${gymHeartCheck==0}">
-    <a type="button" th:href="@{/menu/gym-position/gym-heart/{id}(id=${gymPosition.id})}"><img src="../../../img/emptyHeart.png" alt=""></a>
-    </span>
-    <span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span>
+         <span th:if="${gymHeartCheck==1}">
+                <a type="button" th:href="@{/menu/gym-position/gym-heart/{id}(id=${gymPosition.id})}"><img src="../../../img/heart.png" alt=""></a>
+         </span>
+         <span th:if="${gymHeartCheck==0}">
+                <a type="button" th:href="@{/menu/gym-position/gym-heart/{id}(id=${gymPosition.id})}"><img src="../../../img/emptyHeart.png" alt=""></a>
+         </span>
+                <span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span>
+    <form th:action="@{/menu/gym-position/gym-view}" th:object="${gymComment}" method="get">
+            <input type="hidden" th:field="*{id}">
+            <input  type="text" id="content" th:field="*{content}" th:errorclass="error-input" class="form-control" >
+            <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">제목내용메시지</div>
+            <button id="submit" type="submit"class="btn btn-primary"style="float: right;" disabled>댓글</button>
+    </form>
 </span>
 <span th:unless="${not #strings.isEmpty(currentUser)}">
 <a type="button" onclick="location.href='http://localhost:8080/account/login'"><img src="../../../img/emptyHeart.png" alt=""></a>
 <span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span>
 <div><input type="text"placeholder="좋아요 댓글은 로그인후 이용가능 합니다." class="form-control" onclick="location.href='http://localhost:8080/account/login'"></div>
 </span>
-    <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" width="500" height="500"></video>
-<p th:text="${gymPosition.title}"></p>
-<p th:text="${gymPosition.content}"></p>
 
-
+<script type="text/javascript" src="/js/button.js"></script>
+<table class ="table table-striped" style="text-align: center;"border="1px" >
+    <tr th:each="GymComment: ${gymCommentList}"style="background-color: #eeeeee; text-align: center;">
+        <td th:text="${GymComment.user.username}"style="background-color: #eeeeee; text-align: left;"></td>
+        <td><a th:text="${GymComment.content}" style="background-color: #eeeeee; text-align: center;"></a></td>
+        <span th:if="${GymComment.user.username == currentUser}">
+       <td><a th:href="@{/menu/gym-position/gymComment-delete?(id=${GymComment.id})}">댓글삭제</a></td>
+        </span>
+        <span th:if="${GymComment.user.username != currentUser}">
+       <td></td>
+        </span>
+    </tr>
+</table>
 </div>
 </body>
 </html>

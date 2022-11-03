@@ -177,8 +177,6 @@ public class FreeBoardController {
         }
 
 
-
-
         return "/menu/board/free-view";
     }
 

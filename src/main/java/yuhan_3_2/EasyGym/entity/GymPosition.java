@@ -34,6 +34,8 @@ public class GymPosition {
 
     @OneToMany(mappedBy = "gymPosition",cascade = CascadeType.REMOVE)
     private List<GymHeart> gymHearts = new ArrayList<>();
+    @OneToMany(mappedBy = "gymPosition",cascade = CascadeType.REMOVE)
+    private List<GymComment> gymComments = new ArrayList<>();
 
 
 }
