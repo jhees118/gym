@@ -5,48 +5,26 @@
 <body>
 <a th:replace="fragments/common :: navbar('position')"></a><!--네비바 프래그먼트 사용-->
 
+
+
+
 <style>
-.main_container {
-
-width:100%;
-
-height:100%;}
+ .col-9 video{max-width:100%;}
+@media (max-width: 800px) {
 
 
-.main_left_frame {
 
-width:75%;
-margin-left:30px;
-margin-top:20px;
+  .col-3 video {
+    width:500px;
+    height:500px;
 
-float:left;}
-
-.main_right_frame {
-background-color:red;
-width:445px;
-float:right;
-height: 3000px;}
-
-.sub_left_frame {
-
-width:53%;
-background-color:blue;
-float:left;}
-
-.sub_right_frame {
-width:47%;
-background-color:yellow;
-float:right;
-margin-top:20px;
-
+  }
 }
-
 
 </style>
 
-
-    <div class="main_container">
-        <div class="main_left_frame">
+    <div class="row">
+        <div class="col-9">
         <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" width="1400" height="700"></video>
         <p th:text="${gymPosition.title}"></p>
         <p th:text="${gymPosition.content}"></p>
@@ -85,20 +63,11 @@ margin-top:20px;
             </tr>
         </table>
     </div>
-        <div class="main_right_frame">
-                <div class="sub_left_frame">
+        <div class="col-3">
                     <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" width="230" height="170"></video>
-                </div>
-                 <div class="sub_right_frame">
                      <div><span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span></div>
-                </div>
-            <div class="sub_left_frame">
                 <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" width="230" height="170"></video>
-            </div>
-            <div class="sub_right_frame">
                 <div><span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span></div>
-            </div>
-
     </div>
 </div>
 
