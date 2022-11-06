@@ -15,11 +15,10 @@
     </tr>
     </thead>
 
-    <strong th:text="${user}">hello</strong>
-    <tr th:each="FreeBoard: ${freelist}"style="background-color: #eeeeee; text-align: center;">
-      <td th:text="${FreeBoard.id}"style="background-color: #eeeeee; text-align: center;"></td>
-      <td><a th:text="${FreeBoard.title}" th:href="@{/menu/board/free-view(id=${FreeBoard.id})}"style="background-color: #eeeeee; text-align: center;"></a></td>
-      <td><a th:text="${FreeBoard.user.username}" style="background-color: #eeeeee; text-align: center;"></a></td>
+    <tr th:each="FreeBoard: ${freelist}"style=" text-align: center;">
+      <td th:text="${FreeBoard.id}"style=" text-align: center;"></td>
+      <td><a th:text="${FreeBoard.title}" th:href="@{/menu/board/free-view(id=${FreeBoard.id})}"style="color:#606060 text-align: center;"></a></td>
+      <td><a th:text="${FreeBoard.user.username}" style="; text-align: center;"></a></td>
       <td><a th:text="${FreeBoard.viewCount}"></a></td>
       <td><a th:text="${FreeBoard.heartCount}"></a></td>
     </tr>

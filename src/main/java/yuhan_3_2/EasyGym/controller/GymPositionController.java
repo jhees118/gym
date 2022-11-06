@@ -138,7 +138,7 @@ public class GymPositionController{
     @GetMapping("/menu/gym-position/arm")
     public String arm(Model model) {
         List<GymPosition> gymArmList = gymPositionService.gymArmList();
-        model.addAttribute("gymLegList",gymArmList);
+        model.addAttribute("gymArmList",gymArmList);
         return "/menu/gym-position/arm";
     }
     @GetMapping("/menu/gym-position/back")

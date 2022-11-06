@@ -11,7 +11,18 @@
           crossorigin="anonymous"
     >
     <style>
-    body{padding-top:100px;}
+    body{padding-top:100px; }
+
+a:hover{
+    color:#ACACD1 ;
+}
+
+ a{text-decoration: none;
+    color:black;
+    }
+#positionNavbar {
+   padding-top:100px;
+}
     </style><!--중첩되는 네비바 공간 때문에 탑패딩100px -->
 </head>
 
@@ -88,6 +99,36 @@
     </button>
 </div>
 <!--carousel fragments end-->
+<!-- gymPosition fragments -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="positionNavbar" th:fragment="positionNavbar(gymPosition)">
+    <div class="container-fluid">
+        <div class="navbar-brand" >운동자세</div>
+        <div class="collapse navbar-collapse" id="navbarColor03">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${gymPosition} == 'shoulder'?'active'" th:href="@{/menu/gym-position/shoulder}">어깨</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${gymPosition} == 'back'?'active'" th:href="@{/menu/gym-position/back}" >등</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${gymPosition} == 'chest'?'active'" th:href="@{/menu/gym-position/chest}">가슴</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${gymPosition} == 'abs'?'active'" th:href="@{/menu/gym-position/abs}">복근</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${gymPosition} == 'arm'?'active'" th:href="@{/menu/gym-position/arm}">팔</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${gymPosition} == 'leg'?'active'" th:href="@{/menu/gym-position/leg}">하체</a>
+                </li>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- gymPosition fragments end -->
 <!-- footer -->
 <footer th:fragment="footer">
     <div class="text-center">

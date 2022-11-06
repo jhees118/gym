@@ -3,11 +3,54 @@
 
 <a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
 <body>
-<a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
-<video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" width="500" height="500"></video>
-<p th:text="${gymPosition.title}"></p>
-<p th:text="${gymPosition.content}"></p>
-<span th:if="${not #strings.isEmpty(currentUser)}">
+<a th:replace="fragments/common :: navbar('position')"></a><!--네비바 프래그먼트 사용-->
+
+<style>
+.main_container {
+
+width:100%;
+
+height:100%;}
+
+
+.main_left_frame {
+
+width:75%;
+margin-left:30px;
+margin-top:20px;
+
+float:left;}
+
+.main_right_frame {
+background-color:red;
+width:445px;
+float:right;
+height: 3000px;}
+
+.sub_left_frame {
+
+width:53%;
+background-color:blue;
+float:left;}
+
+.sub_right_frame {
+width:47%;
+background-color:yellow;
+float:right;
+margin-top:20px;
+
+}
+
+
+</style>
+
+
+    <div class="main_container">
+        <div class="main_left_frame">
+        <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" width="1400" height="700"></video>
+        <p th:text="${gymPosition.title}"></p>
+        <p th:text="${gymPosition.content}"></p>
+        <span th:if="${not #strings.isEmpty(currentUser)}">
          <span th:if="${gymHeartCheck==1}">
                 <a type="button" th:href="@{/menu/gym-position/gym-heart/{id}(id=${gymPosition.id})}"><img src="../../../img/heart.png" alt=""></a>
          </span>
@@ -22,25 +65,45 @@
             <button id="submit" type="submit"class="btn btn-primary"style="float: right;" disabled>댓글</button>
     </form>
 </span>
-<span th:unless="${not #strings.isEmpty(currentUser)}">
+        <span th:unless="${not #strings.isEmpty(currentUser)}">
 <a type="button" onclick="location.href='http://localhost:8080/account/login'"><img src="../../../img/emptyHeart.png" alt=""></a>
 <span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span>
 <div><input type="text"placeholder="좋아요 댓글은 로그인후 이용가능 합니다." class="form-control" onclick="location.href='http://localhost:8080/account/login'"></div>
 </span>
 
-<script type="text/javascript" src="/js/button.js"></script>
-<table class ="table table-striped" style="text-align: center;"border="1px" >
-    <tr th:each="GymComment: ${gymCommentList}"style="background-color: #eeeeee; text-align: center;">
-        <td th:text="${GymComment.user.username}"style="background-color: #eeeeee; text-align: left;"></td>
-        <td><a th:text="${GymComment.content}" style="background-color: #eeeeee; text-align: center;"></a></td>
-        <span th:if="${GymComment.user.username == currentUser}">
+        <script type="text/javascript" src="/js/button.js"></script>
+        <table class ="table table-striped" style="text-align: center;"border="1px" >
+            <tr th:each="GymComment: ${gymCommentList}"style="background-color: #eeeeee; text-align: center;">
+                <td th:text="${GymComment.user.username}"style="background-color: #eeeeee; text-align: left;"></td>
+                <td><a th:text="${GymComment.content}" style="background-color: #eeeeee; text-align: center;"></a></td>
+                <span th:if="${GymComment.user.username == currentUser}">
        <td><a th:href="@{/menu/gym-position/gymComment-delete?(id=${GymComment.id})}">댓글삭제</a></td>
         </span>
-        <span th:if="${GymComment.user.username != currentUser}">
+                <span th:if="${GymComment.user.username != currentUser}">
        <td></td>
         </span>
-    </tr>
-</table>
+            </tr>
+        </table>
+    </div>
+        <div class="main_right_frame">
+                <div class="sub_left_frame">
+                    <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" width="230" height="170"></video>
+                </div>
+                 <div class="sub_right_frame">
+                     <div><span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span></div>
+                </div>
+            <div class="sub_left_frame">
+                <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" width="230" height="170"></video>
+            </div>
+            <div class="sub_right_frame">
+                <div><span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span></div>
+            </div>
+
+    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
 <body>
-<a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
+<a th:replace="fragments/common :: navbar('position')"></a><!--네비바 프래그먼트 사용-->
+
 
 <form th:action="@{/menu/gym-position/upload}" method="post" enctype="multipart/form-data">
 
@@ -21,5 +21,6 @@
   <textarea th:name="content" class="form-control"maxlength="2048" style="height: 350px;"></textarea>
   <input type="submit"/>
 </form>
+<a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>
 </html>

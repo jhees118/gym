@@ -18,11 +18,12 @@ public class HomeController {
     @Autowired
     private FreeBoardService freeBoardService;
     @GetMapping
-    public String index(Model model,@PageableDefault(page = 0,size = 5,sort = "heartCount",direction = Sort.Direction.DESC) Pageable pageable){
+    public String index(Model model,@PageableDefault(page = 0,size = 4,sort = "heartCount",direction = Sort.Direction.DESC) Pageable pageable){
         Page<FreeBoard> freeHeartList= freeBoardService.freeList(pageable);
          model.addAttribute("freeHeartList",freeHeartList);
         return  "index";
     }
+
 
 
 }
