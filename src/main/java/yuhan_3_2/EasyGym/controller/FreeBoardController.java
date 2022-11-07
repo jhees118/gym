@@ -49,7 +49,8 @@ public class FreeBoardController {
     private CommentRepository commentRepository;
 
     @GetMapping("/free-list")
-    public String freeList(Model model,FreeBoard freeBoard,@PageableDefault(page = 0,size = 10,sort = "id",direction = Sort.Direction.DESC) Pageable pageable,Authentication authentication){
+    public String freeList(Model model,FreeBoard freeBoard,@PageableDefault(page = 0,size = 10,sort = "id",direction = Sort.Direction.DESC) Pageable pageable,
+                          Authentication authentication){
 
         if(authentication == null){
             model.addAttribute("currentUser",1);
@@ -65,7 +66,9 @@ public class FreeBoardController {
         model.addAttribute("freelist",freeList);
         model.addAttribute("startPage",startPage);
         model.addAttribute("endPage",endPage);
+        List<FreeBoard> freeHeartList =freeBoardService.freeHeartList();
 
+        model.addAttribute("freeHeartList",freeHeartList);
 
         return  "/menu/board/free-list";
     }
@@ -162,7 +165,7 @@ public class FreeBoardController {
         }
         List<Heart> heartCount = heartService.heartCount(freeBoard);
 
-        Page<Comment> commentList = commentService.commentList(pageable,freeBoard);
+        List<Comment> commentList = commentService.commentList(freeBoard);
         model.addAttribute("freeBoard", freeBoardService.view(id));
         model.addAttribute("commentList",commentList);
         model.addAttribute("heartCount",heartCount);

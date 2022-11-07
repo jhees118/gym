@@ -9,6 +9,8 @@ import yuhan_3_2.EasyGym.repository.GymCommentRepository;
 import yuhan_3_2.EasyGym.repository.GymPositionRepository;
 import yuhan_3_2.EasyGym.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 public class GymCommentService {
 
@@ -28,7 +30,7 @@ public class GymCommentService {
 
         return gymCommentRepository.save(gymComment); //하트레포지토리에 유저이름 보드 id 입력
     } //쓰기위한 메소드
-    public Page<GymComment> gymCommentList(Pageable pageable,GymPosition gymPosition){
-        return gymCommentRepository.findByGymPosition(gymPosition,pageable);
+    public List<GymComment> gymCommentList(GymPosition gymPosition){
+        return gymCommentRepository.findByGymPosition(gymPosition);
     }   //리스트를보여주기위한메소드
 }

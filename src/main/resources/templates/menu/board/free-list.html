@@ -4,9 +4,36 @@
 <body>
 <a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
 <div>
+
   <table class ="table table-striped" style="text-align: center;"border="1px" >
+    <h1>TOP</h1>
     <thead>
-    <tr>
+    <tr class="table-dark">
+      <th>글번호</th>
+      <th>제목</th>
+      <th>작성자</th>
+      <th>조회수</th>
+      <th>좋아요</th>
+    </tr>
+    </thead>
+    <tr th:each="FreeHeartList,i: ${freeHeartList}"style="background-color: #eeeeee; text-align: center;" class="table-light">
+      <th:block th:if="${i.count < 5}">
+      <td th:text="${FreeHeartList.id}"style=" text-align: center;"></td>
+      <td><a th:text="${FreeHeartList.title}" th:href="@{/menu/board/free-view(id=${FreeHeartList.id})}"style="background-color: #eeeeee; text-align: center;"></a></td>
+      <td><a th:text="${FreeHeartList.user.username}" style="; text-align: center;"></a></td>
+      <td><a th:text="${FreeHeartList.viewCount}"></a></td>
+      <td><a th:text="${FreeHeartList.heartCount}"></a></td>
+      </span>
+      </th:block>
+    </tr>
+  </table>
+  <br>
+  <hr>
+  <br>
+  <table class ="table table-striped" style="text-align: center;"border="1px" >
+    <h1>자유게시판</h1>
+    <thead>
+    <tr class="table-dark">
       <th>글번호</th>
       <th>제목</th>
       <th>작성자</th>
@@ -15,14 +42,13 @@
     </tr>
     </thead>
 
-    <tr th:each="FreeBoard: ${freelist}"style=" text-align: center;">
+    <tr th:each="FreeBoard: ${freelist}"style=" text-align: center;" class="table-light">
       <td th:text="${FreeBoard.id}"style=" text-align: center;"></td>
       <td><a th:text="${FreeBoard.title}" th:href="@{/menu/board/free-view(id=${FreeBoard.id})}"style="color:#606060 text-align: center;"></a></td>
       <td><a th:text="${FreeBoard.user.username}" style="; text-align: center;"></a></td>
       <td><a th:text="${FreeBoard.viewCount}"></a></td>
       <td><a th:text="${FreeBoard.heartCount}"></a></td>
     </tr>
-
   </table>
   <th:block th:each="page : ${#numbers.sequence(startPage,endPage)}">
     <a th:if="${page != nowPage}" th:href="@{/menu/board/free-list(page =  ${page -1})}" th:text="${page}"></a>

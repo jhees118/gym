@@ -12,6 +12,8 @@ import yuhan_3_2.EasyGym.repository.CommentRepository;
 import yuhan_3_2.EasyGym.repository.FreeBoardRepository;
 import yuhan_3_2.EasyGym.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 public class CommentService {
     @Autowired
@@ -30,8 +32,8 @@ public class CommentService {
 
         return commentRepository.save(comment); //하트레포지토리에 유저이름 보드 id 입력
     } //쓰기위한 메소드
-    public Page<Comment> commentList(Pageable pageable,FreeBoard freeBoard){
-        return commentRepository.findByFreeBoard(freeBoard,pageable);
+    public List<Comment> commentList(FreeBoard freeBoard){
+        return commentRepository.findByFreeBoard(freeBoard);
     }   //리스트를보여주기위한메소드
 
 

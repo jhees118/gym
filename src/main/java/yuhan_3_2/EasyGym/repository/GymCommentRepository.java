@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import yuhan_3_2.EasyGym.entity.GymComment;
 import yuhan_3_2.EasyGym.entity.GymPosition;
 
+import java.util.List;
+
 public interface GymCommentRepository extends JpaRepository<GymComment,Long> {
-    Page<GymComment> findByGymPosition(GymPosition gymPosition, Pageable pageable);
+    List<GymComment> findByGymPosition(GymPosition gymPosition);
 }

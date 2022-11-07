@@ -8,6 +8,8 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -159,10 +161,12 @@ public class GymPositionController{
 
     @GetMapping("/menu/gym-position/gym-view")
     @Transactional
-    public String gymView(Authentication authentication,  Model model, @RequestParam(required = false) Long id,
-                          User user, Pageable pageable, GymPosition gymPosition, HttpServletRequest request, HttpServletResponse response,GymComment gymComment) {
+    public String gymView(Authentication authentication, Model model, @RequestParam(required = false) Long id,
+                          User user, @PageableDefault(page = 0,size = 20,sort = "gymHeartCount",direction = Sort.Direction.DESC) Pageable pageable, GymPosition gymPosition, HttpServletRequest request, HttpServletResponse response, GymComment gymComment) {
 
-        model.addAttribute("gymPosition", gymPositionService.view(id));
+        Page<GymPosition> gymHeartList = gymPositionRepository.findAll(pageable);
+
+        model.addAttribute("gymHeartList", gymHeartList);
         if(authentication == null){ //사용자가 로그인중이아니면
             model.addAttribute("currentUser", null);  //html 사용자 권한에따른 구성으로 설정값입력
 
@@ -206,7 +210,7 @@ public class GymPositionController{
         }
         List<GymHeart> gymHeartCount = gymHeartService.gymHeartCount(gymPosition);
         model.addAttribute("gymHeartCount",gymHeartCount);
-        Page<GymComment> gymCommentList = gymCommentService.gymCommentList(pageable,gymPosition);
+        List<GymComment> gymCommentList = gymCommentService.gymCommentList(gymPosition);
         model.addAttribute("gymPosition", gymPositionService.view(id));
         model.addAttribute("gymCommentList",gymCommentList);
 

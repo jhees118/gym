@@ -34,6 +34,9 @@ public class FreeBoardService {
         return freeboardRepository.findAll(pageable);
     }   //리스트를보여주기위한메소드
 
+    public List<FreeBoard> freeHeartList(){
+       return  freeboardRepository.findAll(Sort.by(Sort.Direction.DESC,"heartCount"));
+    }
     //상세 페이지
     public FreeBoard view(Long id){
 

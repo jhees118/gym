@@ -13,7 +13,7 @@
 <p th:text="${currentUser}">현재 로그인 유저</p>
 
 <p th:if="${freeBoard.user.username == currentUser}">
-    <a th:href="@{/menu/board/free-delete?(id=${freeBoard.id})}">글삭제</a>
+    <a th:href="@{/menu/board/free-delete?(id=${freeBoard.id})}"onclick="alert('글이 삭제 되었습니다.');">글삭제</a>
     <a th:href="@{/menu/board/free-modify/{id}(id=${freeBoard.id})}">글수정</a>
 </p>
 <span th:if="${not #strings.isEmpty(currentUser)}">
