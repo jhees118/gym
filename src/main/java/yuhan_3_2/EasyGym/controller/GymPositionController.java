@@ -151,10 +151,12 @@ public class GymPositionController{
         return "/menu/gym-position/back";
     }
     @GetMapping("/menu/gym-position/leg")
-    public String leg(Model model) {
-        List<GymPosition> gymLegList = gymPositionService.gymLegList();
+    public String leg(Model model,@PageableDefault(page = 0,size = 4,sort = "gymHeartCount",direction = Sort.Direction.DESC)Pageable pageable) {
+        List<GymPosition> gymLegList = gymPositionService.gymLegList();//전체리스트
+        Page<GymPosition> gymLegHeartList = gymPositionService.gymLegHeartList(pageable);//하트 순 4개정렬
 
         model.addAttribute("gymLegList",gymLegList);
+        model.addAttribute("gymLegHeartList",gymLegHeartList);
 
         return "/menu/gym-position/leg";
     }

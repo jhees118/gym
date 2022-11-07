@@ -23,6 +23,7 @@ a:hover{
 #positionNavbar {
    padding-top:100px;
 }
+
     </style><!--중첩되는 네비바 공간 때문에 탑패딩100px -->
 </head>
 
@@ -38,7 +39,7 @@ a:hover{
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div style="font-size:25px;" class="collapse navbar-collapse" id="navbarSupportedContent"> <!-- 서브메뉴 폰트크기=25px -->
+        <div style="font-size:23px;" class="collapse navbar-collapse" id="navbarSupportedContent"> <!-- 서브메뉴 폰트크기=23px -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-2">
                 <li class="nav-item dropdown" th:classappend="${menu} == 'position'?'active'">
                     <a class="nav-link dropdown-toggle" th:classappend="${menu} == 'position'?'active'" href="#" id="navbarDropdown"
@@ -56,13 +57,16 @@ a:hover{
                     </ul>
                 </li>
                 <li class="nav-item" >
-                    <a class="nav-link"th:classappend="${menu} == 'free'?'active'" th:href="@{/menu/board/free-list}" style="padding-right:40px;">자유 게시판</a>
+                    <a class="nav-link"th:classappend="${menu} == 'free'?'active'" th:href="@{/menu/board/free-list}" style="padding-right:40px;font-size:21px ">자유 게시판</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:classappend="${menu} == 'video'?'active'"th:href="@{/menu/board/video}" style="padding-right:40px;">영상공유 게시판</a>
+                    <a class="nav-link" th:classappend="${menu} == 'video'?'active'"th:href="@{/menu/board/video}" style="padding-right:40px;font-size:21px ">영상공유 게시판</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:classappend="${menu} == 'calorie'?'active'" th:href="@{/menu/calorie}" style="padding-right:40px;">칼로리 계산기</a>
+                    <a class="nav-link" th:classappend="${menu} == 'calorie'?'active'" th:href="@{/menu/calorie}" style="padding-right:40px;font-size:21px ">칼로리 계산기</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${menu} == 'myPage'?'active'" th:href="@{/menu/myPage}" style="padding-right:40px;font-size:15px " sec:authorize="isAuthenticated()">마이페이지</a>
                 </li>
             </ul>
                 <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/login}" sec:authorize="isAnonymous()">로그인</a>
@@ -71,6 +75,7 @@ a:hover{
                 <span class="text-white" sec:authentication="name">사용자</span>
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">로그아웃</button>
             </form>
+
         </div>
     </div>
 </nav>

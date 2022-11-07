@@ -8,10 +8,12 @@
 
 <th:block>
 <section class="py-5">
+    <h1 style="text-align:center;">TOP</h1>
     <div class="container px-4 px-lg-5 mt-5">
+
         <div class="row gx-1 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <!-- 나누는기준점-->
-            <div class="col mb-5" th:each="GymPosition, i : ${gymLegList} ">
+            <div class="col mb-5" th:each="GymPosition, i : ${gymLegHeartList} ">
                 <a th:href="@{/menu/gym-position/gym-view(id=${GymPosition.id})}">
                 <div class="card h-70">
                     <!-- Sale badge-->
@@ -23,7 +25,7 @@
                         <div class="text-center">
                             <!-- Product title-->
                             <h5 class="fw-bolder" th:text="${GymPosition.title}">제목</h5>
-                            <span>좋아요:</span><span th:text="${GymPosition.gymViewCount}"></span>
+                            <span>좋아요:</span><span th:text="${GymPosition.gymHeartCount}"></span>
                             <span>조회수:</span><span th:text="${GymPosition.gymViewCount}"></span>
                         </div>
                     </div>
@@ -44,8 +46,6 @@
                 <div class="col mb-5" th:each="GymPosition, i : ${gymLegList} ">
                     <a th:href="@{/menu/gym-position/gym-view(id=${GymPosition.id})}">
                         <div class="card h-70">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">TOP<span th:text="${i.count}"></span></div>
                             <!-- Product video-->
                             <video class="card-img-top" th:src="|/menu/gym-position/video/${GymPosition.id}|" alt="..." /></video>
                             <!-- Product details-->
@@ -53,7 +53,7 @@
                                 <div class="text-center">
                                     <!-- Product title-->
                                     <h5 class="fw-bolder" th:text="${GymPosition.title}">제목</h5>
-                                    <span>좋아요:</span><span th:text="${GymPosition.gymViewCount}"></span>
+                                    <span>좋아요:</span><span th:text="${GymPosition.gymHeartCount}"></span>
                                     <span>조회수:</span><span th:text="${GymPosition.gymViewCount}"></span>
                                 </div>
                             </div>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
+<body>
+<a th:replace="fragments/common :: navbar('myPage')"></a><!--네비바 프래그먼트 사용-->
+<br>
+<th:black>
+<table class ="table table-striped" style="text-align: center;"border="1px" >
+    <h1>좋아요한 자유게시판</h1>
+    <thead>
+    <tr class="table-dark">
+        <th>글번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>조회수</th>
+        <th>좋아요</th>
+    </tr>
+    </thead>
+    <tr th:each="UserHeartFreeList: ${userHeartFreeList}"style=" text-align: center;" class="table-light">
+        <td th:text="${UserHeartFreeList.FreeBoard.id}"style=" text-align: center;"></td>
+        <td><a th:text="${UserHeartFreeList.FreeBoard.title}" th:href="@{/menu/board/free-view(id=${UserHeartFreeList.FreeBoard.id})}"style="color:#606060 text-align: center;"></a></td>
+        <td><a th:text="${UserHeartFreeList.FreeBoard.user.username}" style="; text-align: center;"></a></td>
+        <td><a th:text="${UserHeartFreeList.FreeBoard.viewCount}"></a></td>
+        <td><a th:text="${UserHeartFreeList.FreeBoard.heartCount}"></a></td>
+    </tr>
+</table>
+</th:black>
+<hr>
+
+<a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
+</body>
+</html>

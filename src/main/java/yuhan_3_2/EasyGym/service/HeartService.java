@@ -45,5 +45,9 @@ public class HeartService {
         heartRepository.deleteById(id);
     }
 
+    public List<Heart> userHeartList(User user){
+        return heartRepository.findByUser(user);
+    }
+
 
 }

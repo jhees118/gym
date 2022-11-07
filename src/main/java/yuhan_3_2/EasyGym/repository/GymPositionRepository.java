@@ -11,4 +11,5 @@ import java.util.Optional;
 
 public interface GymPositionRepository extends JpaRepository<GymPosition,Long> {
     List<GymPosition> findByPosition(String position);
+    Page<GymPosition> findByPosition(String position,Pageable pageable);
 }

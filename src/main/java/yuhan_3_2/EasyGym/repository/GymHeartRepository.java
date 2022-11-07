@@ -12,4 +12,5 @@ public interface GymHeartRepository extends JpaRepository<GymHeart,Long> {
     GymHeart findByUserAndGymPosition(User user, GymPosition gymPosition);
     List<GymHeart> findByGymPosition(GymPosition gymPosition);
 
+
 }

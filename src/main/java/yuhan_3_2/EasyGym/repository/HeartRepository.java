@@ -12,5 +12,6 @@ import java.util.List;
 public interface HeartRepository extends JpaRepository<Heart,Long> {
     Heart findByUserAndFreeBoard(User user,FreeBoard freeBoard);
     List<Heart> findByFreeBoard(FreeBoard freeBoard);
+    List<Heart> findByUser(User user);
 
 }

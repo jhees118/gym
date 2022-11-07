@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import yuhan_3_2.EasyGym.entity.Comment;
@@ -85,6 +86,8 @@ public class GymPositionService {
     public List<GymPosition> gymLegList(){
         return gymPositionRepository.findByPosition("leg");
     }
+
+    public Page<GymPosition> gymLegHeartList(Pageable pageable){ return gymPositionRepository.findByPosition("leg",pageable); }//좋아요순 리스트를위한 pageable
 
     public GymPosition view(Long id){
 
