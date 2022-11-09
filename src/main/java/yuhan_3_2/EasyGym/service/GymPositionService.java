@@ -113,6 +113,9 @@ public class GymPositionService {
 
     public Page<GymPosition> gymLegHeartList(Pageable pageable){ return gymPositionRepository.findByPosition("leg",pageable); }//좋아요순 리스트를위한 pageable
 
+    public List<GymPosition> gymPositionHeartList(){
+        return  gymPositionRepository.findAll(Sort.by(Sort.Direction.DESC,"gymHeartCount"));
+    }
     public GymPosition view(Long id){
 
         return gymPositionRepository.findById(id).get();

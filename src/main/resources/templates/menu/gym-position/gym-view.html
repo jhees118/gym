@@ -3,7 +3,7 @@
 <a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
 
 <body>
-<a th:replace="fragments/common :: positionNavbar('back')"></a><!-- 포지션 네비바 프래그먼트 사용-->
+<a th:replace="fragments/common :: positionNavbar(${gymPosition.position})"></a><!-- 포지션 네비바 프래그먼트 사용-->
 <a th:replace="fragments/common :: navbar('position')"></a><!--네비바 프래그먼트 사용-->
 <style>
 .quick_pos { position: relative; top:0px; min-width: 1300x; width: 100%; }
@@ -52,7 +52,10 @@
 <div class="mainVideo"style="position: absolute; left: 50px; top: 210px;">
     <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" th:poster="|/menu/gym-position/image/${gymPosition.id}|" width="1400" height="700"></video>
     <br>
-    <span th:text="${gymPosition.content}"></span>
+    <p th:text="${gymPosition.content}"></p>
+    <p th:text="${gymPosition.method}"></p>
+    <p th:text="${gymPosition.effect}"></p>
+    <span th:text="${gymPosition.notes}"></span>
     <br>
     <span th:if="${not #strings.isEmpty(currentUser)}">
          <span th:if="${gymHeartCheck==1}">
