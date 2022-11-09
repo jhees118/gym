@@ -22,12 +22,26 @@ public class GymPosition {
     private String savedNm;
     @Column(name="gym_url")
     private String savedPath;
+
+    @Column(name="gym_img_ori_name")
+    private String imgOrgNm;
+    @Column(name="gym_img_name")
+    private String imgSavedNm;
+    @Column(name="gym_img_url")
+    private String imgSavedPath;
+
     @Column(name="position")
     private String position;
-    @Column(name="content")
+    @Column(name="gym_content")
     private String content;
     @Column(name="gym_title")
     private String title;
+    @Column(name="gym_method")
+    private String method;
+    @Column(name="gym_notes")
+    private String notes;
+    @Column(name="gym_effect")
+    private String effect;
     @Column(name="gym_heart_count")
     private int gymHeartCount;
     @Column(name="gym_view_count")

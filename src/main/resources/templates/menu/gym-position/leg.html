@@ -13,13 +13,15 @@
 
         <div class="row gx-1 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <!-- 나누는기준점-->
+            <th:block></th:block>
             <div class="col mb-5" th:each="GymPosition, i : ${gymLegHeartList} ">
+                <th:if></th:if>
                 <a th:href="@{/menu/gym-position/gym-view(id=${GymPosition.id})}">
                 <div class="card h-70">
                     <!-- Sale badge-->
                     <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">TOP<span th:text="${i.count}"></span></div>
                     <!-- Product video-->
-                    <video class="card-img-top" th:src="|/menu/gym-position/video/${GymPosition.id}|" alt="..." /></video>
+                    <video class="card-img-top" th:src="|/menu/gym-position/video/${GymPosition.id}|" th:poster="|/menu/gym-position/image/${GymPosition.id}|"  alt="..." /></video>
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">

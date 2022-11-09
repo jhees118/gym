@@ -28,7 +28,7 @@
             <a th:href="@{/menu/gym-position/gym-view(id=${GymPosition.id})}">
                 <div class="card h-70">
                     <!-- Product video-->
-                    <video class="card-img-top" th:src="|/menu/gym-position/video/${GymPosition.id}|" width="170" height="130" alt="..." /></video>
+                    <video class="card-img-top" th:src="|/menu/gym-position/video/${GymPosition.id}|" th:poster="|/menu/gym-position/image/${GymPosition.id}|" width="170" height="130" alt="..." /></video>
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
@@ -50,7 +50,7 @@
 </div>
 
 <div class="mainVideo"style="position: absolute; left: 50px; top: 210px;">
-    <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" width="1400" height="700"></video>
+    <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" th:poster="|/menu/gym-position/image/${gymPosition.id}|" width="1400" height="700"></video>
     <br>
     <span th:text="${gymPosition.content}"></span>
     <br>

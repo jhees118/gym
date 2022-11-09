@@ -8,7 +8,6 @@
 <form th:action="@{/menu/gym-position/upload}" method="post" enctype="multipart/form-data">
 
   <h4>파일 업로드</h4>
-  <input type="text" th:name="title">
   <select th:name="position">
     <option th:value="arm">팔</option>
     <option th:value="back">등</option>
@@ -17,8 +16,20 @@
     <option th:value="shoulder">어깨</option>
     <option th:value="abs">복근</option>
   </select>
+  <p>영상</p>
   <input type="file" multiple="multiple" th:name="files">
-  <textarea th:name="content" class="form-control"maxlength="2048" style="height: 350px;"></textarea>
+  <p>섬네일</p>
+  <input type="file" multiple="multiple" th:name="imgFiles">
+  <p>운동이름</p>
+  <input th:name="title" class="form-control">
+  <p>운동내용</p>
+  <textarea th:name="content" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
+  <p>운동방법</p>
+   <textarea th:name="method" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
+  <p>운동효과</p>
+   <textarea th:name="effect" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
+  <p>주의점</p>
+  <textarea th:name="notes" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
   <input type="submit"/>
 </form>
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->

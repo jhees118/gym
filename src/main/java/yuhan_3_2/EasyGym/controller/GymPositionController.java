@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -71,25 +72,26 @@ public class GymPositionController{
     }
 
     @PostMapping("/menu/gym-position/upload")
-    public String uploadFile(@RequestParam("files") List<MultipartFile> files,@Valid GymPosition gymPosition,BindingResult bindingResult,Authentication authentication) throws IOException {
+    public String uploadFile(@RequestParam("files") MultipartFile files, @RequestParam("imgFiles") MultipartFile imgFiles, @Valid GymPosition gymPosition, BindingResult bindingResult, Authentication authentication) throws IOException {
 
        String username = authentication.getName();
-        for (MultipartFile multipartFile : files) {
-            gymPositionService.saveGymFile(multipartFile,gymPosition,username);
-        }
+
+            gymPositionService.saveGymFile(files,imgFiles,gymPosition,username);
+
 
         return "/menu/gym-position/upload";
     }
-    @GetMapping("/menu/gym-position/images/{id}")
+    @GetMapping("/menu/gym-position/image/{id}")
     @ResponseBody
     public UrlResource gymImage(@PathVariable("id") Long id, Model model) throws IOException{
 
         GymPosition file = gymPositionRepository.findById(id).orElse(null);
-        return new UrlResource("file:" +file.getSavedPath());
+        return new UrlResource("file:" +file.getImgSavedPath());
     }
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
 
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping("/menu/gym-position/video/{id}")
     public ResponseEntity<ResourceRegion> gymVideo(@PathVariable("id") Long id,@RequestHeader HttpHeaders headers) throws IOException {

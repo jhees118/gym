@@ -29,7 +29,7 @@ public class GymPositionService {
     @Autowired
     private GymPositionRepository gymPositionRepository;
 
-    public Long saveGymFile(MultipartFile files, GymPosition gymPosition,String username) throws IOException {
+    public Long saveGymFile(MultipartFile files,MultipartFile imgFiles, GymPosition gymPosition,String username) throws IOException {
         if (files.isEmpty()) {
             return null;
         }
@@ -49,6 +49,23 @@ public class GymPositionService {
         // 파일을 불러올 때 사용할 파일 경로
         String savedPath = gymPositionDir + savedName;
 
+        //여기까지가 동영상 파일/////////////////////////////
+
+        // 원래 파일 이름 추출
+        String imgOrigName = imgFiles.getOriginalFilename();
+
+        // 파일 이름으로 쓸 uuid 생성
+        String imgUuid = UUID.randomUUID().toString();
+
+        // 확장자 추출(ex : .png)
+        String imgExtension = imgOrigName.substring(imgOrigName.lastIndexOf("."));
+
+        // uuid와 확장자 결합
+        String imgSavedName = imgUuid + imgExtension;
+
+        // 파일을 불러올 때 사용할 파일 경로
+        String imgSavedPath = gymPositionDir + imgSavedName;
+
         // 파일 엔티티 생성
         GymPosition file = new GymPosition();
                 file.setOrgNm(origName);
@@ -59,9 +76,16 @@ public class GymPositionService {
                 file.setTitle(gymPosition.getTitle());
                 file.setSavedNm(savedName);
                 file.setGymViewCount(0);
+                file.setEffect(gymPosition.getEffect());
+                file.setMethod(gymPosition.getMethod());
+                file.setNotes(gymPosition.getNotes());
+                file.setImgOrgNm(imgOrigName);
+                file.setImgSavedNm(imgSavedName);
+                file.setImgSavedPath(imgSavedPath);
 
         // 실제로 로컬에 uuid를 파일명으로 저장
         files.transferTo(new File(savedPath));
+        imgFiles.transferTo(new File(imgSavedPath));
 
         // 데이터베이스에 파일 정보 저장
         GymPosition savedFile = gymPositionRepository.save(file);
