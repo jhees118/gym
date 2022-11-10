@@ -66,7 +66,14 @@ public class GymPositionController{
     }
 
     @GetMapping("/menu/gym-position/upload")
-    public String testUploadForm() {
+    public String testUploadForm(Model model,@RequestParam(required = false) Long id) {
+
+        if(id == null) {
+            model.addAttribute("gymPosition", new GymPosition());
+        } else {
+            GymPosition gymPosition = gymPositionRepository.findById(id).orElse(null);
+            model.addAttribute("gymPosition",gymPosition);
+        }
 
         return "/menu/gym-position/upload";
     }
@@ -89,7 +96,14 @@ public class GymPositionController{
         return new UrlResource("file:" +file.getImgSavedPath());
     }
 
+    @GetMapping("/menu/gym-position/gym-modify/{id}")
+    public String freeUpdate(@PathVariable("id") Long id,Model model,Authentication authentication){
 
+        GymPosition gymPosition = gymPositionRepository.findById(id).orElse(null);
+        model.addAttribute("gymPosition",gymPosition);
+
+       return "/menu/gym-position/gym-modify";
+    }
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -122,33 +136,42 @@ public class GymPositionController{
     }
 
     @GetMapping("/menu/gym-position/abs")
-    public String abs(Model model) {
+    public String abs(Model model,@PageableDefault(page = 0,size = 4,sort = "gymHeartCount",direction = Sort.Direction.DESC)Pageable pageable) {
         List<GymPosition> gymAbsList = gymPositionService.gymAbsList();
+        Page<GymPosition> gymAbsHeartList = gymPositionService.gymAbsHeartList(pageable);//하트 순 4개정렬
+        model.addAttribute("gymAbsHeartList",gymAbsHeartList);
         model.addAttribute("gymAbsList",gymAbsList);
         return "/menu/gym-position/abs";
     }
     @GetMapping("/menu/gym-position/shoulder")
-    public String shoulder(Model model) {
+    public String shoulder(Model model,@PageableDefault(page = 0,size = 4,sort = "gymHeartCount",direction = Sort.Direction.DESC)Pageable pageable) {
         List<GymPosition> gymShoulderList = gymPositionService.gymShoulderList();
+        Page<GymPosition> gymShoulderHeartList = gymPositionService.gymShoulderHeartList(pageable);//하트 순 4개정렬
+        model.addAttribute("gymShoulderHeartList",gymShoulderHeartList);
         model.addAttribute("gymShoulderList",gymShoulderList);
         return "/menu/gym-position/shoulder";
     }
     @GetMapping("/menu/gym-position/chest")
-    public String chest(Model model) {
+    public String chest(Model model,@PageableDefault(page = 0,size = 4,sort = "gymHeartCount",direction = Sort.Direction.DESC)Pageable pageable) {
         List<GymPosition> gymChestList = gymPositionService.gymChestList();
+        Page<GymPosition> gymChestHeartList = gymPositionService.gymChestHeartList(pageable);//하트 순 4개정렬
+        model.addAttribute("gymChestHeartList",gymChestHeartList);
         model.addAttribute("gymChestList",gymChestList);
         return "/menu/gym-position/chest";
     }
     @GetMapping("/menu/gym-position/arm")
-    public String arm(Model model) {
+    public String arm(Model model,@PageableDefault(page = 0,size = 4,sort = "gymHeartCount",direction = Sort.Direction.DESC)Pageable pageable) {
         List<GymPosition> gymArmList = gymPositionService.gymArmList();
+        Page<GymPosition> gymArmHeartList = gymPositionService.gymArmHeartList(pageable);//하트 순 4개정렬
+        model.addAttribute("gymArmHeartList",gymArmHeartList);
         model.addAttribute("gymArmList",gymArmList);
         return "/menu/gym-position/arm";
     }
     @GetMapping("/menu/gym-position/back")
-    public String back(Model model) {
+    public String back(Model model,@PageableDefault(page = 0,size = 4,sort = "gymHeartCount",direction = Sort.Direction.DESC)Pageable pageable) {
         List<GymPosition> gymBackList = gymPositionService.gymBackList();
-
+        Page<GymPosition> gymBackHeartList = gymPositionService.gymBackHeartList(pageable);//하트 순 4개정렬
+        model.addAttribute("gymBackHeartList",gymBackHeartList);
         model.addAttribute("gymBackList",gymBackList);
         return "/menu/gym-position/back";
     }
@@ -158,6 +181,7 @@ public class GymPositionController{
         Page<GymPosition> gymLegHeartList = gymPositionService.gymLegHeartList(pageable);//하트 순 4개정렬
 
         model.addAttribute("gymLegList",gymLegList);
+
         model.addAttribute("gymLegHeartList",gymLegHeartList);
 
         return "/menu/gym-position/leg";
@@ -266,4 +290,16 @@ public class GymPositionController{
             return "redirect:/";
         }
     }
-}
+
+    @GetMapping("/menu/gym-position/gym-delete")
+    public String gymDelete(Authentication authentication,Long id,HttpServletRequest request)
+    {
+
+        gymPositionRepository.deleteById(id);
+
+
+            return "redirect:/menu/gym-position/leg";
+        }
+    }
+
+

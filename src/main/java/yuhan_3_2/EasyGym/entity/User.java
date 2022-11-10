@@ -49,6 +49,8 @@ public class User {
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<GymComment> gymComments = new ArrayList<>();
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private List<VideoBoard> videoBoards = new ArrayList<>();
 
 
 

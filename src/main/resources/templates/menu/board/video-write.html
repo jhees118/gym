@@ -7,6 +7,19 @@
 #write-form textarea {
   width: 99%;
 }
+.file-label {
+  margin-top: 30px;
+  background-color: #5b975b;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  width: 65%;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.file {
+  display: none;
+}
 html {
   height: 100%;
 }
@@ -34,9 +47,9 @@ body {
 <main id="main-holder">
 <div class="container">
     <div class ="row">
-        <form th:action="@{/menu/board/free-write}" th:object="${freeBoard}" method="post">
+        <form th:action="@{/menu/board/video-write}" th:object="${videoBoard}" method="post" enctype="multipart/form-data">
             <table class="table table-hover" style="text-align:center;border:1px solid #dddddd">
-                <h3>글쓰기</h3>
+                <h3>영상 게시판 글쓰기</h3>
                 <input type="hidden" th:field="*{id}">
                 <tr class="table-dark">
                     <td>
@@ -51,11 +64,15 @@ body {
                         <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">내용에러메시지</div>
                     </td>
                 </tr>
+                <tr class="table-dark">
+                    <td>
+                     <input type="file" multiple="multiple" th:name="file"><br>영상을 꼭 올려주세요!
+                    </td>
+                </tr>
             </table>
-
             <div style="text-align: center;padding-bottom: 15px;">
-            <button type="submit"class="btn btn-dark"style="float: right;">확인</button>
-                <a type="button" class="btn btn-dark" th:href="@{/menu/board/free-list}" style="float: right;">취소</a>
+                <button type="submit"class="btn btn-dark"style="float: right;">확인</button>
+                <a type="button" class="btn btn-dark" th:href="@{/menu/board/video-list}" style="float: right;">취소</a>
             </div>
         </form>
     </div>

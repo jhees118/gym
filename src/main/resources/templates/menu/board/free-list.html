@@ -4,7 +4,56 @@
 <body>
 <a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
 <div>
+<style>
 
+body {
+
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  justify-items: center;
+  align-items: center;
+  background-color: #3a3a3a;
+}
+  #main-holder {
+  width: 90%;
+  height: 85%;
+  position: relative;
+  left:93px;
+  top:15px;
+  justify-items: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 0px 0px 5px 2px black;
+}
+#write-form {
+  width: 5%;
+  padding:7px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  background-color: #;
+  cursor: pointer;
+  outline: none;
+    position: relative;
+    left:780px;
+}
+#write-form2 {
+  width: 5%;
+  padding:7px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  background-color: #;
+  cursor: pointer;
+  outline: none;
+   position: relative;
+    left:780px;
+}
+</style>
+  <main id="main-holder">
   <table class ="table table-striped" style="text-align: center;"border="1px" >
     <h1>TOP</h1>
     <thead>
@@ -31,7 +80,7 @@
   <hr>
   <br>
   <table class ="table table-striped" style="text-align: center;"border="1px" >
-    <h1>자유게시판</h1>
+    <h1>Free Board</h1>
     <thead>
     <tr class="table-dark">
       <th>글번호</th>
@@ -41,7 +90,6 @@
       <th>좋아요</th>
     </tr>
     </thead>
-
     <tr th:each="FreeBoard: ${freelist}"style=" text-align: center;" class="table-light">
       <td th:text="${FreeBoard.id}"style=" text-align: center;"></td>
       <td><a th:text="${FreeBoard.title}" th:href="@{/menu/board/free-view(id=${FreeBoard.id})}"style="color:#606060 text-align: center;"></a></td>
@@ -51,16 +99,20 @@
     </tr>
   </table>
   <th:block th:each="page : ${#numbers.sequence(startPage,endPage)}">
-    <a th:if="${page != nowPage}" th:href="@{/menu/board/free-list(page =  ${page -1})}" th:text="${page}"></a>
-    <strong th:if ="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+    <a th:if="${page != nowPage}" th:href="@{/menu/board/free-list(page =  ${page -1})}" th:text="${page}" style="font-size:20px;"></a>
+    <strong th:if ="${page == nowPage}" th:text="${page}" style="color : red; font-size:25px;"></strong>
   </th:block>
   <span th:if="${currentUser!=1}">
-  <a type="button" th:href="@{/menu/board/free-write}" class ="btn btn-primary"style="float: right;">글쓰기</a>
+  <a type="button" th:href="@{/menu/board/free-write}"class="btn btn-dark fixed-bottom" id="write-form2" >글쓰기</a>
     </span>
   <span th:if="${currentUser==1}">
-  <a type="button" onclick="location.href='http://localhost:8080/account/login'" class ="btn btn-primary"style="float: right;">글쓰기</a>
+  <a type="button" onclick="location.href='http://localhost:8080/account/login'" class="btn btn-dark fixed-bottom" id="write-form" >글쓰기</a>
     </span>
+  </main>
 </div>
-<a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

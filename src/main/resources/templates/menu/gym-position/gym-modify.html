@@ -5,7 +5,7 @@
 <a th:replace="fragments/common :: navbar('position')"></a><!--네비바 프래그먼트 사용-->
 
 
-<form th:action="@{/menu/gym-position/upload}" th:object="${gymPosition}" method="post" enctype="multipart/form-data">
+<form th:action="@{/menu/gym-position/upload}"  th:object="${gymPosition}"method="post" enctype="multipart/form-data">
 
   <h4>파일 업로드</h4>
   <select th:name="position">
@@ -25,9 +25,9 @@
   <p>운동내용</p>
   <textarea th:name="content" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
   <p>운동방법</p>
-   <textarea th:name="method" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
+  <textarea th:name="method" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
   <p>운동효과</p>
-   <textarea th:name="effect" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
+  <textarea th:name="effect" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
   <p>주의점</p>
   <textarea th:name="notes" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
   <input type="submit"/>

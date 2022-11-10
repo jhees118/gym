@@ -14,7 +14,7 @@
 	height:10px;
 }
  .mainVideo video{max-width:100%;}
- @media (max-width: 1890px) {
+ @media (max-width: 1770px) {
 
   .quick {
     display: none;
@@ -22,27 +22,34 @@
 }
   </style>
 <a th:replace="fragments/common :: navbar('position')"></a><!--네비바 프래그먼트 사용-->
+
 <div class="quick_pos" aria-hidden="true">
     <ul class="quick">
-        <li> <div class="col mb-5" th:each="GymPosition : ${gymHeartList} ">
-            <a th:href="@{/menu/gym-position/gym-view(id=${GymPosition.id})}">
-                <div class="card h-70">
-                    <!-- Product video-->
-                    <video class="card-img-top" th:src="|/menu/gym-position/video/${GymPosition.id}|" th:poster="|/menu/gym-position/image/${GymPosition.id}|" width="170" height="130" alt="..." /></video>
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product title-->
-                            <h5 class="fw-bolder" th:text="${GymPosition.title}">제목</h5>
-                            <span>좋아요:</span><span th:text="${GymPosition.gymViewCount}"></span>
-                            <span>조회수:</span><span th:text="${GymPosition.gymViewCount}"></span>
-                        </div>
+        <th:black>
+        <span th:each="GymPosition : ${gymHeartList} ">
+        <span th:if="${GymPosition.id != gymPosition.id}" >
+        <div class="card mb-4" style="width:95%;" >
+            <a th:href="@{/menu/gym-position/gym-view(id=${GymPosition.id})}" id="hover">
+            <div class="row g-0">
+                <div class="col-md-5">
+                    <img th:src="|/menu/gym-position/image/${GymPosition.id}|" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <p class="card-text"><span th:text="${GymPosition.title}"></span></p>
+                        <span class="card-text"><small class="text-muted"><span th:text="${GymPosition.position}"></span></small></span>
+                        <span class="card-text"><small class="text-muted">좋아요:<span th:text="${GymPosition.gymHeartCount}"></span></small></span>
                     </div>
                 </div>
+            </div>
             </a>
-        </div></li>
+        </div>
+        </span>
+        </span>
+        </th:black>
     </ul>
 </div>
+
 <br></br><br></br><br></br>
 
 <div style="position: absolute; left: 100px; top: 160px;">
@@ -50,7 +57,7 @@
 </div>
 
 <div class="mainVideo"style="position: absolute; left: 50px; top: 210px;">
-    <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" th:poster="|/menu/gym-position/image/${gymPosition.id}|" width="1400" height="700"></video>
+    <video controls  th:src="|/menu/gym-position/video/${gymPosition.id}|" th:poster="|/menu/gym-position/image/${gymPosition.id}|" width="1350" height="700"></video>
     <br>
     <p th:text="${gymPosition.content}"></p>
     <p th:text="${gymPosition.method}"></p>
@@ -65,6 +72,9 @@
                 <a type="button" th:href="@{/menu/gym-position/gym-heart/{id}(id=${gymPosition.id})}"><img src="../../../img/emptyHeart.png" alt=""></a>
          </span>
                 <span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span>
+
+        <a th:href="@{/menu/gym-position/gym-delete(id=${gymPosition.id})}"onclick="alert('글이 삭제 되었습니다.');">글삭제</a>
+
     <form th:action="@{/menu/gym-position/gym-view}" th:object="${gymComment}" method="get">
         <div>
             <input type="hidden" th:field="*{id}">

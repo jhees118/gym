@@ -29,7 +29,7 @@ public class GymPositionService {
     @Autowired
     private GymPositionRepository gymPositionRepository;
 
-    public Long saveGymFile(MultipartFile files,MultipartFile imgFiles, GymPosition gymPosition,String username) throws IOException {
+    public GymPosition saveGymFile(MultipartFile files,MultipartFile imgFiles, GymPosition gymPosition,String username) throws IOException {
         if (files.isEmpty()) {
             return null;
         }
@@ -67,30 +67,28 @@ public class GymPositionService {
         String imgSavedPath = gymPositionDir + imgSavedName;
 
         // 파일 엔티티 생성
-        GymPosition file = new GymPosition();
-                file.setOrgNm(origName);
-                file.setGymHeartCount(0);
-                file.setSavedPath(savedPath);
-                file.setPosition(gymPosition.getPosition());
-                file.setContent(gymPosition.getContent());
-                file.setTitle(gymPosition.getTitle());
-                file.setSavedNm(savedName);
-                file.setGymViewCount(0);
-                file.setEffect(gymPosition.getEffect());
-                file.setMethod(gymPosition.getMethod());
-                file.setNotes(gymPosition.getNotes());
-                file.setImgOrgNm(imgOrigName);
-                file.setImgSavedNm(imgSavedName);
-                file.setImgSavedPath(imgSavedPath);
+
+                gymPosition.setOrgNm(origName);
+                gymPosition.setGymHeartCount(0);
+                gymPosition.setSavedPath(savedPath);
+                gymPosition.setPosition(gymPosition.getPosition());
+                gymPosition.setContent(gymPosition.getContent());
+                gymPosition.setTitle(gymPosition.getTitle());
+                gymPosition.setSavedNm(savedName);
+                gymPosition.setGymViewCount(0);
+                gymPosition.setEffect(gymPosition.getEffect());
+                gymPosition.setMethod(gymPosition.getMethod());
+                gymPosition.setNotes(gymPosition.getNotes());
+                gymPosition.setImgOrgNm(imgOrigName);
+                gymPosition.setImgSavedNm(imgSavedName);
+                gymPosition.setImgSavedPath(imgSavedPath);
 
         // 실제로 로컬에 uuid를 파일명으로 저장
         files.transferTo(new File(savedPath));
         imgFiles.transferTo(new File(imgSavedPath));
 
-        // 데이터베이스에 파일 정보 저장
-        GymPosition savedFile = gymPositionRepository.save(file);
 
-        return savedFile.getId();
+        return gymPositionRepository.save(gymPosition);
     }
     public List<GymPosition> gymArmList(){
         return gymPositionRepository.findByPosition("arm");
@@ -112,6 +110,11 @@ public class GymPositionService {
     }
 
     public Page<GymPosition> gymLegHeartList(Pageable pageable){ return gymPositionRepository.findByPosition("leg",pageable); }//좋아요순 리스트를위한 pageable
+    public Page<GymPosition> gymArmHeartList(Pageable pageable){ return gymPositionRepository.findByPosition("arm",pageable); }
+    public Page<GymPosition> gymBackHeartList(Pageable pageable){ return gymPositionRepository.findByPosition("back",pageable); }
+    public Page<GymPosition> gymChestHeartList(Pageable pageable){ return gymPositionRepository.findByPosition("chest",pageable); }
+    public Page<GymPosition> gymShoulderHeartList(Pageable pageable){ return gymPositionRepository.findByPosition("shoulder",pageable); }
+    public Page<GymPosition> gymAbsHeartList(Pageable pageable){ return gymPositionRepository.findByPosition("abs",pageable); }
 
     public List<GymPosition> gymPositionHeartList(){
         return  gymPositionRepository.findAll(Sort.by(Sort.Direction.DESC,"gymHeartCount"));
@@ -121,5 +124,8 @@ public class GymPositionService {
         return gymPositionRepository.findById(id).get();
     }
 
+    public void gymDelete(Long id){
+        gymPositionRepository.deleteById(id);
+    }
 
 }

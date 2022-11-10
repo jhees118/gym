@@ -3,39 +3,110 @@
 <a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
 <body class="text-center">
 <a th:replace="fragments/common :: navbar('free')"></a><!--네비바 프래그먼트 사용-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<style>
+html {
+  height: 100%;
+}
 
+body {
+  height: 100%;
+
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  display: grid;
+
+  background-color: #3a3a3a;
+}
+
+#main-holder {
+  width: 50%;
+  height: 70%;
+  display: grid;
+
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 0px 0px 5px 2px black;
+}
+
+#login-error-msg-holder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+#login-error-msg {
+  width: 23%;
+  text-align: center;
+  margin: 0;
+  padding: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #8a0000;
+  border: 1px solid #8a0000;
+  background-color: #e58f8f;
+  opacity: 0;
+}
+
+#error-msg-second-line {
+  display: block;
+}
+
+#login-form {
+  align-self: flex-start;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.login-form-field::placeholder {
+  color: #3a3a3a;
+}
+
+.login-form-field {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #3a3a3a;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  outline: none;
+  padding: 0px 0px 5px 5px;
+}
+
+#login-form-submit {
+  width: 100%;
+  padding:7px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  background-color: #;
+  cursor: pointer;
+  outline: none;
+}
+</style>
 <div th:if="${param.error}" class="alert alert-danger" role="alert">
   아이디 또는 비밀번호가 틀렸습니다.
 </div>
 <div th:if="${param.logout}" class="alert alert-primary" role="alert">
   로그아웃 되었습니다.
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<form th:action="@{/account/register}" th:object="${user}" method="post" autocomplete="off">
-  <h1 class="h3 mb-3 fw-normal">회원가입</h1>
-  <div class="form-floating">
-    <input type="text" class="form-control" id="floatingInput" th:field="*{username}"  autocomplete="nope" th:errorclass="error-input">
-    <label for="floatingInput">아이디 입력</label>
+<main id="main-holder">
+  <h1 id="login-header">회원가입</h1>
+  <form th:action="@{/account/register}" th:object="${user}" method="post" autocomplete="off">
+    <input type="text" class="login-form-field" id="username-field" th:field="*{username}"  autocomplete="nope" th:errorclass="error-input" placeholder="아이디">
     <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">아이디에러메시지</div>
-  </div>
-  <div class="form-floating">
-    <input type="password" class="form-control" id="pwd1" th:field="*{password}"  autocomplete="new-password" th:errorclass="error-input">
-    <label for="pwd1">비밀번호 입력</label>
+    <input type="password" class="login-form-field" id="pwd1" th:field="*{password}"  autocomplete="new-password" th:errorclass="error-input"  placeholder="비밀번호">
     <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">비번에러메시지</div>
-  </div>
-  <div class="form-floating">
-    <input type="password" class="form-control" id="pwd2">
-    <label for="pwd2">비밀번호 재입력</label>
+    <input type="password" class="login-form-field" id="pwd2"  placeholder="비밀번호 재확인">
     <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
     <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
-  </div>
-  <div class="form-floating">
-    <input type="text" class="form-control" id="floatingPhone" th:field="*{phone}" th:errorclass="error-input">
-    <label for="floatingPhone">전화번호 입력</label>
+    <input type="text" class="login-form-field" id="floatingPhone" th:field="*{phone}" th:errorclass="error-input"  placeholder="전화번호">
     <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">전화번호에러메시지</div>
-  </div>
-  <button class="w-100 btn btn-lg btn-primary" id="submit" type="submit">회원가입</button>
-</form>
+    <input type="submit" class="btn btn-dark"value="회원가입" id="login-form-submit">
+  </form>
 
 <script type="text/javascript">
     $(function(){
@@ -48,17 +119,19 @@
                 if(pwd1 == pwd2){
                     $("#alert-success").show();
                     $("#alert-danger").hide();
-                    $("#submit").removeAttr("disabled");
+                    $("#login-form-submit").removeAttr("disabled");
                 }else{
                     $("#alert-success").hide();
                     $("#alert-danger").show();
-                    $("#submit").attr("disabled", "disabled");
+                    $("#login-form-submit").attr("disabled", "disabled");
                 }
             }
         });
     });
 
 </script>
+</main>
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
+
 </body>
 </html>

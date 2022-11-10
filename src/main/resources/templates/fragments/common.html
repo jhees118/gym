@@ -11,7 +11,11 @@
           crossorigin="anonymous"
     >
     <style>
-    body{padding-top:100px; }
+    body{padding-top:100px;
+        font-family: Arial, Helvetica, sans-serif;
+  justify-items: center;
+  align-items: center;
+        }
 
 a:hover{
     color:#ACACD1 ;
@@ -23,7 +27,18 @@ a:hover{
 #positionNavbar {
    padding-top:100px;
 }
-
+#hover:hover {
+    width:300px;
+    overflow: hidden
+    transform:scale(1.2,1.1);
+    transition: transform.3s;
+    }
+#hover2:hover {
+    width:300px;
+    overflow: hidden
+    transform:scale(1.2,1.1);
+    transition: transform.3s;
+    }
     </style><!--중첩되는 네비바 공간 때문에 탑패딩100px -->
 </head>
 
@@ -60,7 +75,7 @@ a:hover{
                     <a class="nav-link"th:classappend="${menu} == 'free'?'active'" th:href="@{/menu/board/free-list}" style="padding-right:40px;font-size:21px ">자유 게시판</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:classappend="${menu} == 'video'?'active'"th:href="@{/menu/board/video}" style="padding-right:40px;font-size:21px ">영상공유 게시판</a>
+                    <a class="nav-link" th:classappend="${menu} == 'video'?'active'"th:href="@{/menu/board/video-list}" style="padding-right:40px;font-size:21px ">영상공유 게시판</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:classappend="${menu} == 'calorie'?'active'" th:href="@{/menu/calorie}" style="padding-right:40px;font-size:21px ">칼로리 계산기</a>
@@ -70,7 +85,7 @@ a:hover{
                 </li>
             </ul>
                 <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/login}" sec:authorize="isAnonymous()">로그인</a>
-            <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/register}" sec:authorize="isAnonymous()">회원가입</a>
+            <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/register}" sec:authorize="isAnonymous()" >회원가입</a>
             <form class="form-inline my-2 my-lg-0" th:action="@{/logout}"  method="post" sec:authorize="isAuthenticated()">
                 <span class="text-white" sec:authentication="name">사용자</span>
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">로그아웃</button>
@@ -79,6 +94,7 @@ a:hover{
         </div>
     </div>
 </nav>
+
 <!-- navbar fragments end-->
 
 <!--carousel fragments-->
@@ -136,9 +152,21 @@ a:hover{
 <!-- gymPosition fragments end -->
 <!-- footer -->
 <footer th:fragment="footer">
-    <div class="text-center">
-        <hr />
-        <p>푸터입니다아아아아아아아아아아</p>
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">환영합니다.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    회원가입 되었습니다.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

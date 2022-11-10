@@ -14,25 +14,50 @@
  position: relative;
   top:-120px;
 }
-</Style>
+body {
 
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  justify-items: center;
+  align-items: center;
+  background-color: #3a3a3a;
+}
+  #main-holder {
+  width: 80%;
+  height: 85%;
+  position: relative;
+  left:170px;
+
+  justify-items: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 0px 0px 5px 2px black;
+}
+#top-video{
+position: relative;
+top:40px;
+}
+
+</Style>
+<main id="main-holder">
 <th:block>
     <section class="py-5">
-        <h1 style="text-align:center;">Fitness Top four</h1>
         <div class="container px-4 px-lg-5 mt-5">
+            <h1 style="text-align:center; position:relative; top:30px;">Fitness Top four</h1>
             <div class="row gx-1 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <!-- 나누는기준점-->
 
-                <div class="col mb-5" th:each="GymPosition, i : ${gymHeartList} ">
+                <div class="col mb-5"  th:each="GymPosition, i : ${gymHeartList} " id="top-video">
                     <span th:if="${i.count<5}">
                     <a th:href="@{/menu/gym-position/gym-view(id=${GymPosition.id})}">
-                        <div class="card h-70">
+                        <div class="card h-70 ">
                             <!-- Sale badge-->
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">TOP<span th:text="${i.count}"></span></div>
                             <!-- Product video-->
                             <video class="card-img-top" th:src="|/menu/gym-position/video/${GymPosition.id}|" th:poster="|/menu/gym-position/image/${GymPosition.id}|"  alt="..." /></video>
                             <!-- Product details-->
-                            <div class="card-body p-4">
+                            <div class="card-body p-4 ">
                                 <div class="text-center">
                                     <!-- Product title-->
                                     <h5 class="fw-bolder" th:text="${GymPosition.title}">제목</h5>
@@ -51,6 +76,7 @@
     </section>
 </th:block>
 <hr class="hrStyle">
+    <h1 style="text-align:center;position:relative; bottom:120px;">Fitness Top four</h1>
 <div class="container">
     <div class="row my-5">
         <div class="col-sm-7"><br/><br/><br/><img src="img/dora.png" alt="" class="w-100"/></div>
@@ -80,7 +106,7 @@
         </div>
     </div>
 </div>
-<
+</main>
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>
 </html>

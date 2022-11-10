@@ -49,7 +49,7 @@ public class FreeBoardController {
     private CommentRepository commentRepository;
 
     @GetMapping("/free-list")
-    public String freeList(Model model,FreeBoard freeBoard,@PageableDefault(page = 0,size = 10,sort = "id",direction = Sort.Direction.DESC) Pageable pageable,
+    public String freeList(Model model,FreeBoard freeBoard,@PageableDefault(page = 0,size = 8,sort = "id",direction = Sort.Direction.DESC) Pageable pageable,
                           Authentication authentication){
 
         if(authentication == null){
@@ -252,6 +252,7 @@ public class FreeBoardController {
             return "redirect:/";
         }
     }
+
 
 
 }
