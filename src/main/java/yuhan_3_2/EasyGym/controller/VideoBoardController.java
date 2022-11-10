@@ -25,6 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.io.EOFException;
+import java.io.FilterInputStream;
+import java.io.IOError;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -115,6 +118,7 @@ public class VideoBoardController {
 
 
 
+
         return "/menu/board/video-write";
     }
 
@@ -130,13 +134,16 @@ public class VideoBoardController {
         String username = authentication.getName();
 
 
-        if(id == null){
+
+        if(id == null&& !file.isEmpty()){
+
             videoBoardService.saveVideoFile(file,videoBoard,username);
             model.addAttribute("message","글작성이 완료되었습니다");
         }else{
-            videoBoardService.saveVideoFile(file,videoBoard,username);
-            model.addAttribute("message","글작성이 수정되었습니다");
+            model.addAttribute("message","영상을 업로드 해주세요");
         }
+
+
 
 
 
