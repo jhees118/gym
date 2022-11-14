@@ -85,6 +85,7 @@ body {
   background-color: #;
   cursor: pointer;
   outline: none;
+
 }
 #register-form{
   width: 100%;
@@ -96,7 +97,10 @@ body {
   background-color: #;
   cursor: pointer;
   outline: none;
+  position: relative;
+  top:10px;
 }
+
 </style>
 <main id="main-holder">
 <h1 id="login-header">Login</h1>
@@ -109,8 +113,8 @@ body {
 <form th:action="@{/account/login}" method="post" autocomplete="off" id="login-form">
   <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
   <input type="password"  name="password" id="password-field" class="login-form-field" placeholder="Password">
-  <input type="submit"class="btn btn-dark" value="로그인" id="login-form-submit">
-  <a type="button" class="btn btn-dark"  id="register-form"  th:href="@{/account/register}" onclick="alert('회원가입 완료!.');">회원가입</a>
+  <input type="submit"class="btn btn-dark" value="로그인" id="login-form-submit" >
+  <a type="button" class="btn btn-dark"  id="register-form"  th:href="@{/account/register}">회원가입</a>
 </form>
 </main>
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->

@@ -17,7 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Size(min=2,max=20,message = "아이디는 2글자이상 20글자이하입니다.")
+    @Size(min=6,max=20,message = "아이디는 6글자이상 20글자이하입니다.")
     private String username;
     @NotNull
     @Size(min=8,max=100,message = "비밀번호는 8글자이상 입력해주세요")

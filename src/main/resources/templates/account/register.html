@@ -86,7 +86,9 @@ body {
   cursor: pointer;
   outline: none;
 }
+
 </style>
+
 <div th:if="${param.error}" class="alert alert-danger" role="alert">
   아이디 또는 비밀번호가 틀렸습니다.
 </div>
@@ -96,16 +98,18 @@ body {
 <main id="main-holder">
   <h1 id="login-header">회원가입</h1>
   <form th:action="@{/account/register}" th:object="${user}" method="post" autocomplete="off">
-    <input type="text" class="login-form-field" id="username-field" th:field="*{username}"  autocomplete="nope" th:errorclass="error-input" placeholder="아이디">
+    <input type="text" class="login-form-field" id="username" th:field="*{username}"  autocomplete="nope" th:errorclass="error-input" placeholder="아이디는 6글자이상 20글자이하 입력해주세요." oninput = "checkId()">
     <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">아이디에러메시지</div>
-    <input type="password" class="login-form-field" id="pwd1" th:field="*{password}"  autocomplete="new-password" th:errorclass="error-input"  placeholder="비밀번호">
+    <div class="alert alert-success" id="id-success" style="display:none">사용 가능한 아이디 입니다.</div>
+    <div class="alert alert-danger" id="id-danger" style="display:none">아이디가 중복 됐습니다.</div>
+    <input type="password" class="login-form-field" id="pwd1" th:field="*{password}"  autocomplete="new-password" th:errorclass="error-input"  placeholder="비밀번호는 8글자이상 입력해주세요">
     <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">비번에러메시지</div>
     <input type="password" class="login-form-field" id="pwd2"  placeholder="비밀번호 재확인">
     <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
     <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
     <input type="text" class="login-form-field" id="floatingPhone" th:field="*{phone}" th:errorclass="error-input"  placeholder="전화번호">
     <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">전화번호에러메시지</div>
-    <input type="submit" class="btn btn-dark"value="회원가입" id="login-form-submit">
+    <input type="submit" class="btn btn-dark"value="회원가입" id="login-form-submit" disabled >
   </form>
 
 <script type="text/javascript">
@@ -123,13 +127,54 @@ body {
                 }else{
                     $("#alert-success").hide();
                     $("#alert-danger").show();
-                    $("#login-form-submit").attr("disabled", "disabled");
+                     $("#login-form-submit").attr("disabled", "disabled");
                 }
             }
         });
     });
-
 </script>
+  <script src = "js/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript">
+
+	function checkId() {
+
+    if ($('#username').val() != '') {
+
+        // 아이디를 서버로 전송 > DB 유효성 검사 > 결과 반환받기
+        $.ajax({
+
+            type: 'POST',
+            url: '/account/user-check',
+            data: 'username=' + $('#username').val(),
+            dataType: 'json',
+            success: function(result) {
+
+
+                if (result == '1') { //1은 사용가능 아이디
+
+                    $("#id-success").show();
+                    $("#id-danger").hide();
+
+
+                } else {    //중복
+                    $("#id-success").hide();
+                    $("#id-danger").show();
+                }
+
+            },
+            error: function(a, b, c) {
+                console.log(a, b, c);
+            }
+
+        });
+
+    } else {
+        alert('아이디를 입력하세요.');
+        $('#username').focus();
+    }
+
+};
+ </script>
 </main>
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 

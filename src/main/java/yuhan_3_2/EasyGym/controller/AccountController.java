@@ -1,23 +1,18 @@
 package yuhan_3_2.EasyGym.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import yuhan_3_2.EasyGym.entity.FreeBoard;
+import org.springframework.web.bind.annotation.*;
 import yuhan_3_2.EasyGym.entity.User;
 import yuhan_3_2.EasyGym.repository.UserRepository;
 import yuhan_3_2.EasyGym.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.lang.reflect.Member;
-import java.util.List;
 
 @Controller
 @RequestMapping("/account")
@@ -61,4 +56,15 @@ public class AccountController {
 
         return "/menu/message";
     }
+    @RequestMapping(value = "/user-check", method = { RequestMethod.POST })
+    @ResponseBody
+    public int userCheck(String username) {
+       boolean a= userService.checkUsernameDuplicate(username); //username 이 있으면 true 없으면 false
+           int b;
+       if(a==true){ //중복이름이있으면 0
+           b=0;
+       }else{b=1;} //없으면 1
+       return b;
+    }
+
 }

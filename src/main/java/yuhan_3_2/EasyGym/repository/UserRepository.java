@@ -7,4 +7,6 @@ import yuhan_3_2.EasyGym.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
     User findByUsername(String username);
+
+    boolean existsByUsername(String username);
 }

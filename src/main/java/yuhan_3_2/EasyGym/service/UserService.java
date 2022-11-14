@@ -7,6 +7,8 @@ import yuhan_3_2.EasyGym.entity.Role;
 import yuhan_3_2.EasyGym.entity.User;
 import yuhan_3_2.EasyGym.repository.UserRepository;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -24,6 +26,10 @@ public class UserService {
         role.setId(1l);
         user.getRoles().add(role);
         return userRepository.save(user);
+    }
+
+    public boolean checkUsernameDuplicate(String username){
+        return userRepository.existsByUsername(username);
     }
 
 }

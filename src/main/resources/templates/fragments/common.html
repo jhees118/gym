@@ -39,6 +39,11 @@ a:hover{
     transform:scale(1.2,1.1);
     transition: transform.3s;
     }
+#paddingForm{
+position: relative;
+  left:10px;
+  }
+
     </style><!--중첩되는 네비바 공간 때문에 탑패딩100px -->
 </head>
 
@@ -85,7 +90,7 @@ a:hover{
                 </li>
             </ul>
                 <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/login}" sec:authorize="isAnonymous()">로그인</a>
-            <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/register}" sec:authorize="isAnonymous()" >회원가입</a>
+            <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/register}" sec:authorize="isAnonymous()"id="paddingForm" >회원가입</a>
             <form class="form-inline my-2 my-lg-0" th:action="@{/logout}"  method="post" sec:authorize="isAuthenticated()">
                 <span class="text-white" sec:authentication="name">사용자</span>
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">로그아웃</button>
