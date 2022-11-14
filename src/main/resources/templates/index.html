@@ -41,6 +41,50 @@ top:40px;
 
 </Style>
 <main id="main-holder">
+
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-sm-7"><br/><br/><br/>
+                <form name = "myform">
+                    <input type = "text" name = "stage" size = "20" />
+                </form>
+                <img src=img/gymPosition.png usemap=#hmap class="map">
+                <map name=hmap>
+                    <area shape=rect coords="60,22,128,136"  th:href="@{/menu/gym-position/arm}"onMouseOver = "showTutorial('팔운동 바로 가기!')"
+                          onMouseOut = "showTutorial('')"> <!--팔-->
+                    <area shape=rect coords="223,21,296,136" th:href="@{/menu/gym-position/arm}">
+                    <area shape=rect coords="129,86,222,136" th:href="@{/menu/gym-position/chest}">  <!-- 가슴 -->
+                    <area shape=rect coords="129,136,223,224"th:href="@{/menu/gym-position/abs}"> <!-- 복근 -->
+                    <area shape=rect coords="112,225,241,405"th:href="@{/menu/gym-position/leg}"> <!--다리 -->
+                </map>
+            </div>
+            <div class="col-sm-5">
+		<span class="text-center">
+		<h1>인기동영상</h1>
+		<p>&nbsp;&nbsp;&nbsp;카테고리</p>
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;--헬스 자세/영상공유 게시판--</p>
+		</span>
+                <div class="row row-cols-2 my-3"> <!--  부트스트랩 2칸씩 나눠서 -->
+                    <table class ="table table-striped" style="text-align: center;"border="1px" >
+                        <thead>
+                        <tr>
+                            <th>제목</th>
+                            <th>조회수</th>
+                            <th>좋아요</th>
+                        </tr>
+                        </thead>
+                        <tr th:each="FreeHeartList: ${freeHeartList}"style="background-color: #eeeeee; text-align: center;">
+                            <td><a th:text="${FreeHeartList.title}" th:href="@{/menu/board/free-view(id=${FreeHeartList.id})}"style="background-color: #eeeeee; text-align: center;"></a></td>
+                            <td><a th:text="${FreeHeartList.viewCount}"></a></td>
+                            <td><a th:text="${FreeHeartList.heartCount}"></a></td>
+                            </span>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <th:block>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
@@ -107,6 +151,14 @@ top:40px;
     </div>
 </div>
 </main>
+
+<script type = "text/javascript">
+
+            function showTutorial(name) {
+               document.myform.stage.value = name
+            }
+
+      </script>
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>
 </html>

@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="col-xs-2 col-md-1" style="padding:0;">
-        <img class="foodimg" src="http://bmi.calcevery.me/img/hansik/images/1_2.jpg" style="width:90%;height:80px;border-radius: 70%;" onclick="javascript:eatfood('쌀밥1공기', '300');" alt="쌀밥1공기" title="쌀밥1공기">
+        <img class="foodimg" src="http://bmi.calcevery.me/img/hansik/images/1_2.jpg" style="width:90%;height:80px;border-radius: 70%;" onclick="javascript:eatfood('쌀밥1공기', '300');">
     </div>
     <div class="col-xs-2 col-md-1" style="padding:0;">
         <img class="foodimg" src="http://bmi.calcevery.me/img/hansik/images/1_3.jpg" style="width:90%;height:80px;border-radius: 70%;" onclick="javascript:eatfood('된장찌개', '128');" alt="된장찌개" title="된장찌개">
@@ -587,7 +587,7 @@
 <style type="text/css">
 	#food_tab li{display:block;padding:10px 2%;margin:0 0 0 1px;list-style:none;text-align:center;font-size:18px;border:1px solid #fff;border-bottom:none;cursor:pointer;-webkit-border-top-left-radius: 10px;-webkit-border-top-right-radius: 10px;-moz-border-radius-topleft: 10px;-moz-border-radius-topright: 10px;border-top-left-radius: 10px;border-top-right-radius: 10px;}
 	.food_tab_on {background:#7B7B7B;color:#FFF;font;}
-	.food_tab_off {background:#FFF;color:#999;font-weight:normal;}
+
 	.foods {padding:0 0 0 40px;margin:0;list-style:none;}
 	.foods li{padding:0;margin:0;list-style:none;}
 	.foods li img{cursor:pointer;}
@@ -641,6 +641,7 @@
 	});
 
 	var basal_total = 0;
+
 
 	function calories() {
 		var total_calories = 0;
