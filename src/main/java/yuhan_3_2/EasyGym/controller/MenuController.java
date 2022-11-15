@@ -43,7 +43,7 @@ public class MenuController {
     public String myPage(Model model, Authentication authentication, User user,@RequestParam(required = false) Long id) {
         String username = authentication.getName();
        model.addAttribute("username",username); //사용자이름
-        List<MyPage> myPageList = myPageService.myPageList(user);
+
         Long userId = userRepository.findByUsername(username).getId();//로그인중인 유저 아이디를 찾음
         List<Heart> userHeartFreeList = heartRepository.findByUser(userRepository.getReferenceById(userId));//유저아이디가 들어가있는 데이터를 리스트에 넣음
         if(id == null) {
@@ -71,7 +71,7 @@ public class MenuController {
         model.addAttribute("userVideoList",userVideoList); //사용자가쓴 영상게시판
 
 
-        model.addAttribute("myPageList",myPageList);
+
         model.addAttribute("userHeartFreeList",userHeartFreeList); //좋아요한 자유게시판
 
         return "/menu/myPage";
