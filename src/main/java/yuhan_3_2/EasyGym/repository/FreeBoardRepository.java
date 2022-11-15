@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
+import yuhan_3_2.EasyGym.entity.User;
 
 
 import java.util.List;
@@ -15,5 +16,6 @@ import java.util.List;
 
 @Repository
 public interface FreeBoardRepository extends JpaRepository<FreeBoard,Long> {
+    List<FreeBoard> findByUser(User user);
 
 }

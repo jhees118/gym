@@ -3,44 +3,154 @@
 <a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
 <body>
 <a th:replace="fragments/common :: navbar('myPage')"></a><!--네비바 프래그먼트 사용-->
-
 <br>
-
-
-
 <form class="calender" th:action="@{/menu/myPage}" th:object="${myPage}" method="post">
     <input type="hidden" th:field="*{id}">
     <p><input type="text" th:field="*{day}" id="datepicker"placeholder="노트를 클릭해주세요───▶"></p>
     <p><input type="text" th:field="*{content}"></p>
     <p><input type="submit" value="Submit" ></p>
 </form>
-
-
-
-
-<br>
+<hr>
 <th:black>
-<table class ="table table-striped" style="text-align: center;"border="1px" >
-    <h1>좋아요한 자유게시판</h1>
-    <thead>
-    <tr class="table-dark">
-        <th>글번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>조회수</th>
-        <th>좋아요</th>
-    </tr>
-    </thead>
-    <tr th:each="UserHeartFreeList: ${userHeartFreeList}"style=" text-align: center;" class="table-light">
-        <td th:text="${UserHeartFreeList.FreeBoard.id}"style=" text-align: center;"></td>
-        <td><a th:text="${UserHeartFreeList.FreeBoard.title}" th:href="@{/menu/board/free-view(id=${UserHeartFreeList.FreeBoard.id})}"style="color:#606060 text-align: center;"></a></td>
-        <td><a th:text="${UserHeartFreeList.FreeBoard.user.username}" style="; text-align: center;"></a></td>
-        <td><a th:text="${UserHeartFreeList.FreeBoard.viewCount}"></a></td>
-        <td><a th:text="${UserHeartFreeList.FreeBoard.heartCount}"></a></td>
-    </tr>
-</table>
+    <table class ="table table-striped" style="text-align: center;"border="1px" >
+        <h1>좋아요한 자유게시판</h1>
+        <thead>
+        <tr class="table-dark">
+            <th>글번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>조회수</th>
+            <th>좋아요</th>
+        </tr>
+        </thead>
+        <tr th:each="UserHeartFreeList: ${userHeartFreeList}"style=" text-align: center;" class="table-light">
+            <td th:text="${UserHeartFreeList.FreeBoard.id}"style=" text-align: center;"></td>
+            <td><a th:text="${UserHeartFreeList.FreeBoard.title}" th:href="@{/menu/board/free-view(id=${UserHeartFreeList.FreeBoard.id})}"style="color:#606060 text-align: center;"></a></td>
+            <td><a th:text="${UserHeartFreeList.FreeBoard.user.username}" style="; text-align: center;"></a></td>
+            <td><a th:text="${UserHeartFreeList.FreeBoard.viewCount}"></a></td>
+            <td><a th:text="${UserHeartFreeList.FreeBoard.heartCount}"></a></td>
+        </tr>
+    </table>
 </th:black>
 <hr>
+<th:black>
+    <table class ="table table-striped" style="text-align: center;"border="1px" >
+        <h1>내가쓴 자유게시판</h1>
+        <thead>
+        <tr class="table-dark">
+            <th>글번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>조회수</th>
+            <th>좋아요</th>
+        </tr>
+        </thead>
+        <tr th:each="userFreeList: ${userFreeList}"style=" text-align: center;" class="table-light">
+            <td th:text="${userFreeList.id}"style=" text-align: center;"></td>
+            <td><a th:text="${userFreeList.title}" th:href="@{/menu/board/free-view(id=${userFreeList.id})}"style="color:#606060 text-align: center;"></a></td>
+            <td><a th:text="${userFreeList.user.username}" style="; text-align: center;"></a></td>
+            <td><a th:text="${userFreeList.viewCount}"></a></td>
+            <td><a th:text="${userFreeList.heartCount}"></a></td>
+        </tr>
+    </table>
+</th:black>
+<hr>
+<th:block>
+    <section class="py-5">
+        <h1 style="text-align:center;">좋아요한 비디오 게시판</h1>
+        <div class="container px-4 px-lg-5 mt-5">
+
+            <div class="row gx-1 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <!-- 나누는기준점-->
+
+                <div class="col mb-5" th:each="UserHeartVideoList : ${userHeartVideoList} "id="hover2">
+
+                    <a th:href="@{/menu/board/video-view(id=${UserHeartVideoList.VideoBoard.id})}">
+                        <div class="card h-70">
+
+                            <!-- Product video-->
+                            <video class="card-img-top" th:src="|/menu/board/video/${UserHeartVideoList.VideoBoard.id}|"  alt="..." /></video>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product title-->
+                                    <h5 class="fw-bolder" th:text="${UserHeartVideoList.VideoBoard.title}">제목</h5>
+                                    <span>좋아요:</span><span th:text="${UserHeartVideoList.VideoBoard.videoHeartCount}"></span>
+                                    <span>조회수:</span><span th:text="${UserHeartVideoList.VideoBoard.videoViewCount}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!--기준점 끝-->
+            </div>
+        </div>
+    </section>
+</th:block>
+<hr>
+<th:block>
+    <section class="py-5">
+        <h1 style="text-align:center;">좋아요한 헬스게시판</h1>
+        <div class="container px-4 px-lg-5 mt-5">
+
+            <div class="row gx-1 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <!-- 나누는기준점-->
+
+                <div class="col mb-5" th:each="UserHeartGymList : ${userHeartGymList} "id="hover">
+
+                    <a th:href="@{/menu/gym-position/gym-view(id=${UserHeartGymList.GymPosition.id})}">
+                        <div class="card h-70">
+
+                            <!-- Product video-->
+                            <video class="card-img-top" th:src="|/menu/gym-position/video/${UserHeartGymList.GymPosition.id}|" th:poster="|/menu/gym-position/image/${UserHeartGymList.GymPosition.id}|"  alt="..." /></video>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product title-->
+                                    <h5 class="fw-bolder" th:text="${UserHeartGymList.GymPosition.title}">제목</h5>
+                                    <span>좋아요:</span><span th:text="${UserHeartGymList.GymPosition.gymHeartCount}"></span>
+                                    <span>조회수:</span><span th:text="${UserHeartGymList.GymPosition.gymViewCount}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!--기준점 끝-->
+            </div>
+        </div>
+    </section>
+</th:block>
+<hr>
+<th:block>
+    <section class="py-5">
+        <h1 style="text-align:center;">내가쓴 영상게시판</h1>
+        <div class="container px-4 px-lg-5 mt-5">
+
+            <div class="row gx-1 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <!-- 나누는기준점-->
+
+                <div class="col mb-5" th:each="UserVideoList : ${userVideoList} "id="hover3">
+
+                    <a th:href="@{/menu/board/video-view(id=${UserVideoList.id})}">
+                        <div class="card h-70">
+                            <!-- Product video-->
+                            <video class="card-img-top" th:src="|/menu/board/video/${UserVideoList.id}|"  alt="..." /></video>
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product title-->
+                                    <h5 class="fw-bolder" th:text="${UserVideoList.title}">제목</h5>
+                                    <span>좋아요:</span><span th:text="${UserVideoList.videoHeartCount}"></span>
+                                    <span>조회수:</span><span th:text="${UserVideoList.videoViewCount}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!--기준점 끝-->
+            </div>
+        </div>
+    </section>
+</th:block>
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>
 </html>

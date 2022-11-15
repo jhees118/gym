@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
@@ -67,7 +68,7 @@ public class VideoBoardService {
         file.transferTo(new File(savedPath));
 
         // 데이터베이스에 파일 정보 저장
-      VideoBoard savedFile = videoBoardRepository.save(videoBoard1);
+        VideoBoard savedFile = videoBoardRepository.save(videoBoard1);
 
         return savedFile.getId();
     }
@@ -84,5 +85,9 @@ public class VideoBoardService {
     }
 
     public Page<VideoBoard> videoHeartList(Pageable pageable){ return videoBoardRepository.findAll(pageable); }//좋아요순 리스트를위한 pageable
+
+    public List<VideoBoard> videoHeartList(){
+        return  videoBoardRepository.findAll(Sort.by(Sort.Direction.DESC,"videoHeartCount"));
+    }
 
 }

@@ -30,6 +30,10 @@ body {
   border-radius: 7px;
   box-shadow: 0px 0px 5px 2px black;
 }
+#button1{
+position: relative;
+  left:-10px;
+}
 </style>
 <main id="main-holder">
 <div class="container">
@@ -55,7 +59,7 @@ body {
 
             <div style="text-align: center;padding-bottom: 15px;">
                 <a type="button" class="btn btn-dark" th:href="@{/menu/board/free-list}" style="float: right;">취소</a>
-                <button type="submit"class="btn btn-dark"style="float: right;">확인</button>
+                <button type="submit"class="btn btn-dark"style="float: right;" id="button1">확인</button>
             </div>
         </form>
     </div>

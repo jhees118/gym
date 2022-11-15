@@ -10,45 +10,6 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous"
     >
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-  $( function() {
-    $( "#datepicker" ).datepicker({
-
-showOn:'button',
-dateFormat: 'yy.mm.dd',
-prevText: '이전 달',
-buttonImage: "/img/note.jpg",
-
-
-nextText: '다음 달',
-monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-dayNames: ['일','월','화','수','목','금','토'],
-dayNamesShort: ['일','월','화','수','목','금','토'],
-
-
-
-dayNamesMin: ['일','월','화','수','목','금','토'],
-showMonthAfterYear: true,
-yearSuffix: '년'
-
-
-});
-  } );
-  </script>
-
-
-
-
-
-
-
-
-
     <style>
     body{padding-top:100px;
         font-family: Arial, Helvetica, sans-serif;
@@ -78,11 +39,16 @@ a:hover{
     transform:scale(1.2,1.1);
     transition: transform.3s;
     }
-#paddingForm{
+    #hover3:hover {
+    width:300px;
+    overflow: hidden
+    transform:scale(1.2,1.1);
+    transition: transform.3s;
+    }
+    #button5{
 position: relative;
-  left:10px;
-  }
-
+  right:-10px;
+}
     </style><!--중첩되는 네비바 공간 때문에 탑패딩100px -->
 </head>
 
@@ -128,8 +94,8 @@ position: relative;
                     <a class="nav-link" th:classappend="${menu} == 'myPage'?'active'" th:href="@{/menu/myPage}" style="padding-right:40px;font-size:15px " sec:authorize="isAuthenticated()">마이페이지</a>
                 </li>
             </ul>
-                <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/login}" sec:authorize="isAnonymous()">로그인</a>
-            <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/register}" sec:authorize="isAnonymous()"id="paddingForm" >회원가입</a>
+            <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/login}" sec:authorize="isAnonymous()">로그인</a>
+            <a class="btn btn-secondary my-2 my-sm-0 " th:href="@{/account/register}" sec:authorize="isAnonymous()" id="button5">회원가입</a>
             <form class="form-inline my-2 my-lg-0" th:action="@{/logout}"  method="post" sec:authorize="isAuthenticated()">
                 <span class="text-white" sec:authentication="name">사용자</span>
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">로그아웃</button>

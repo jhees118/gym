@@ -98,7 +98,6 @@ public class VideoBoardController {
         }else{
             model.addAttribute("currentUser", 0);
         }
-
         List<VideoBoard> videoList = videoBoardService.videoList();
         Page<VideoBoard> videoHeartList = videoBoardService.videoHeartList(pageable);//하트 순 4개정렬
         model.addAttribute("videoHeartList",videoHeartList);
@@ -126,7 +125,7 @@ public class VideoBoardController {
 
     @PostMapping("/video-write")  //getMapping에서 post로변환
     public String greetingSubmitVideo(@RequestParam("file") MultipartFile file,@Valid VideoBoard videoBoard, BindingResult bindingResult, Model model, @RequestParam(required = false) Long id,
-                                 Authentication authentication) throws IOException {
+                                      Authentication authentication) throws IOException {
         if(bindingResult.hasErrors()){
             return "/menu/board/video-write";
         }
@@ -154,7 +153,7 @@ public class VideoBoardController {
     @GetMapping("/video-view")
     @Transactional
     public String getVideoView(Authentication authentication, @Valid VideoComment videoComment, BindingResult bindingResult, Model model, @RequestParam(required = false) Long id,
-                              User user, Pageable pageable, VideoBoard videoBoard,HttpServletRequest request,HttpServletResponse response){
+                               User user, Pageable pageable, VideoBoard videoBoard,HttpServletRequest request,HttpServletResponse response){
         if(bindingResult.hasErrors()){
             return "/menu/board/video-view";
         }
@@ -192,7 +191,7 @@ public class VideoBoardController {
             model.addAttribute("currentUser", authentication.getName());
             String username = authentication.getName();
             Long userId = userRepository.findByUsername(username).getId();
-           VideoHeart heartId = videoHeartRepository.findByUserAndVideoBoard(userRepository.getReferenceById(userId), videoBoardRepository.getReferenceById(id));
+            VideoHeart heartId = videoHeartRepository.findByUserAndVideoBoard(userRepository.getReferenceById(userId), videoBoardRepository.getReferenceById(id));
 
             if(heartId == null){
                 model.addAttribute("heartCheck", 0);
@@ -291,7 +290,5 @@ public class VideoBoardController {
             return "redirect:/";
         }
     }
-
-
 
 }

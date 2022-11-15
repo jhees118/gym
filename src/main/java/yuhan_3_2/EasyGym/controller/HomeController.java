@@ -8,20 +8,18 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import yuhan_3_2.EasyGym.entity.FreeBoard;
 import yuhan_3_2.EasyGym.entity.GymPosition;
-import yuhan_3_2.EasyGym.entity.MyPage;
-import yuhan_3_2.EasyGym.repository.MyPageRepository;
+import yuhan_3_2.EasyGym.entity.VideoBoard;
+import yuhan_3_2.EasyGym.entity.VideoHeart;
+import yuhan_3_2.EasyGym.repository.UserRepository;
+import yuhan_3_2.EasyGym.repository.VideoHeartRepository;
 import yuhan_3_2.EasyGym.service.FreeBoardService;
 import yuhan_3_2.EasyGym.service.GymPositionService;
-import yuhan_3_2.EasyGym.service.MyPageService;
+import yuhan_3_2.EasyGym.service.VideoBoardService;
+import yuhan_3_2.EasyGym.service.VideoHeartService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -31,15 +29,21 @@ public class HomeController {
     @Autowired
     private GymPositionService gymPositionService;
     @Autowired
-    private MyPageService myPageService;
+    private UserRepository userRepository;
     @Autowired
-    private MyPageRepository myPageRepository;
+    private VideoHeartRepository videoHeartRepository;
+    @Autowired
+    private VideoBoardService videoBoardService;
     @GetMapping
-    public String index(Model model,@PageableDefault(page = 0,size = 4,sort = "heartCount",direction = Sort.Direction.DESC) Pageable pageable){
+    public String index(Model model, @PageableDefault(page = 0,size = 4,sort = "heartCount",direction = Sort.Direction.DESC) Pageable pageable, Authentication authentication){
         Page<FreeBoard> freeHeartList= freeBoardService.freeList(pageable);
-         model.addAttribute("freeHeartList",freeHeartList);
+        model.addAttribute("freeHeartList",freeHeartList);
 
-        List<GymPosition> gymHeartList = gymPositionService.gymPositionHeartList();
+
+
+        List<VideoBoard> videoHeartList = videoBoardService.videoHeartList(); //비디오 하트순
+        model.addAttribute("videoHeartList",videoHeartList);
+        List<GymPosition> gymHeartList = gymPositionService.gymPositionHeartList();//헬스자세 하트순
         model.addAttribute("gymHeartList",gymHeartList);
 
         return  "index";

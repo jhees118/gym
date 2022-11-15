@@ -7,13 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import yuhan_3_2.EasyGym.entity.FreeBoard;
-import yuhan_3_2.EasyGym.entity.Heart;
-import yuhan_3_2.EasyGym.entity.MyPage;
-import yuhan_3_2.EasyGym.entity.User;
-import yuhan_3_2.EasyGym.repository.HeartRepository;
-import yuhan_3_2.EasyGym.repository.MyPageRepository;
-import yuhan_3_2.EasyGym.repository.UserRepository;
+import yuhan_3_2.EasyGym.entity.*;
+import yuhan_3_2.EasyGym.repository.*;
 import yuhan_3_2.EasyGym.service.HeartService;
 import yuhan_3_2.EasyGym.service.MyPageService;
 
@@ -30,9 +25,18 @@ public class MenuController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private GymHeartRepository gymHeartRepository;
+    @Autowired
+    private VideoHeartRepository videoHeartRepository;
+    @Autowired
+    private FreeBoardRepository freeBoardRepository;
+    @Autowired
+    private VideoBoardRepository videoBoardRepository;
+    @Autowired
     private MyPageService myPageService;
     @Autowired
     private MyPageRepository myPageRepository;
+
     @GetMapping("/calorie")
     public String calorie() { return "/menu/calorie"; }
     @GetMapping("/myPage")
@@ -48,6 +52,23 @@ public class MenuController {
             MyPage myPage = myPageRepository.findById(id).orElse(null);
             model.addAttribute("myPage",myPage);
         }
+        List<GymHeart> userHeartGymList = gymHeartRepository.findByUser(userRepository.getReferenceById(userId));//짐포지션 하트누른거
+
+        List<VideoHeart> userHeartVideoList = videoHeartRepository.findByUser(userRepository.getReferenceById(userId));//비디오하트
+
+        List<FreeBoard> userFreeList =  freeBoardRepository.findByUser(userRepository.getReferenceById(userId));
+
+        List<VideoBoard> userVideoList = videoBoardRepository.findByUser(userRepository.getReferenceById(userId));
+
+        model.addAttribute("userHeartGymList",userHeartGymList); //좋아요한 헬스자세
+
+
+
+        model.addAttribute("userHeartVideoList",userHeartVideoList); //좋아요한 자유게시판
+
+        model.addAttribute("userFreeList",userFreeList); //사용자가쓴 자유게시판
+
+        model.addAttribute("userVideoList",userVideoList); //사용자가쓴 영상게시판
 
 
         model.addAttribute("myPageList",myPageList);

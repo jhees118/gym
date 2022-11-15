@@ -66,6 +66,10 @@ tr{
     vertical-align : top;
     font-size:24px;
 }
+#button1{
+position: relative;
+  left:-10px;
+}
 </style>
 <main id="main-holder">
     <div class="container">
@@ -74,7 +78,7 @@ tr{
             <table class="table table-hover" style="text-align:center;border:1px solid #dddddd; height:500px;">
                 <p th:if="${freeBoard.user.username == currentUser}">
                     <button type="submit" value="삭제" class="btn btn-dark" th:onclick='|location.href="@{/menu/board/free-delete?(id=${freeBoard.id})}"|' style="float:right">글삭제</button>
-                    <button type="submit" value="수정" class="btn btn-dark" th:onclick='|location.href="@{/menu/board/free-modify/{id}(id=${freeBoard.id})}"|' style="float:right">글수정</button>
+                    <button type="submit" value="수정" class="btn btn-dark" th:onclick='|location.href="@{/menu/board/free-modify/{id}(id=${freeBoard.id})}"|' style="float:right" id="button1">글수정</button>
                 </p>
                 <tr class="table-dark">
                     <td class="tdTitle">
@@ -93,21 +97,7 @@ tr{
                 </tr>
             </table>
             <br>
-            <table class ="table thead-dark"  style="text-align:center; border:1px solid #dddddd" >
-                <tr class="table-dark">
-                    <th class="titleUser" scope="col">작성자</th>
-                    <th scope="col">내용</th>
-                </tr>
-                <tr th:each="Comment: ${commentList}" >
-                    <td th:text="${Comment.user.username}"></td>
-                    <td>
-                        <a th:text="${Comment.content}"></a>
-                        <span th:if="${Comment.user.username == currentUser}">
-                            <button id="CommentDelete" type="submit" class="btn btn-dark" th:onclick='|location.href="@{/menu/board/comment-delete?(id=${Comment.id})}"|' style="float: right;">댓글삭제</button>
-                        </span>
-                    </td>
-                </tr>
-            </table>
+
             <span th:if="${not #strings.isEmpty(currentUser)}">
             <span th:if="${heartCheck==1}">
             <a type="button" th:href="@{/menu/board/free-heart/{id}(id=${freeBoard.id})}"><img src="../../../img/heart.png" alt=""></a>
@@ -128,6 +118,21 @@ tr{
             <span>좋아요:</span><span th:text="${#lists.size(heartCount)}"></span>
             <div><input type="text"placeholder="좋아요 댓글은 로그인후 이용가능 합니다." class="form-control" onclick="location.href='http://localhost:8080/account/login'"></div>
             </span>
+            <table class ="table thead-dark"  style="text-align:center; border:1px solid #dddddd" >
+                <tr class="table-dark">
+                    <th class="titleUser" scope="col">작성자</th>
+                    <th scope="col">내용</th>
+                </tr>
+                <tr th:each="Comment: ${commentList}" >
+                    <td th:text="${Comment.user.username}"></td>
+                    <td>
+                        <a th:text="${Comment.content}"></a>
+                        <span th:if="${Comment.user.username == currentUser}">
+                            <button id="CommentDelete" type="submit" class="btn btn-dark" th:onclick='|location.href="@{/menu/board/comment-delete?(id=${Comment.id})}"|' style="float: right;">댓글삭제</button>
+                        </span>
+                    </td>
+                </tr>
+            </table>
             <script type="text/javascript" src="/js/button.js"></script>
         </div>
     </div>
