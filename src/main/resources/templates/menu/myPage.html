@@ -55,9 +55,11 @@ body {
 <main id="main-holder">
 <form class="calender" th:action="@{/menu/myPage}" th:object="${myPage}" method="post">
     <input type="hidden" th:field="*{id}">
+    <strong>날짜를 선택해주세요</strong><br>
     <p><input type="text" th:field="*{day}" id="datepicker"placeholder="노트를 클릭해주세요───▶"></p>
-    <p><input type="text" th:field="*{calorie}"placeholder="칼로리는0에서9999까지"></p>
-    <p><input type="submit" value="Submit" ></p>
+    <string>칼로리를 입력해 주세요</string><br>
+    <p><input type="text" th:field="*{calorie}"placeholder="칼로리는0에서9999까지"><strong>Kcal</strong></p>
+    <p><button type="submit"class="btn btn-dark" id="button1">확인</button></p>
 </form>
 
 <br>

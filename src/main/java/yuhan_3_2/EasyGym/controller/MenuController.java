@@ -65,7 +65,7 @@ public class MenuController {
         List<FreeBoard> userFreeList =  freeBoardRepository.findByUser(userRepository.getReferenceById(userId));
 
         List<MyPage> myCal = myPageRepository.findByUser(userRepository.getReferenceById(userId));
-        model.addAttribute("myCal",myCal); //좋아요한 헬스자세
+        model.addAttribute("myCal",myCal);
 
         List<VideoBoard> userVideoList = videoBoardRepository.findByUser(userRepository.getReferenceById(userId));
 
