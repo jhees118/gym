@@ -66,13 +66,13 @@ body {
                 </tr>
                 <tr class="table-dark">
                     <td>
-                     <input type="file" multiple="multiple" th:name="file"><br>영상을 꼭 올려주세요!
+                        영상을 꼭 올려주세요! <br><br> <input type="file" multiple="multiple" th:name="file">
                     </td>
                 </tr>
             </table>
             <div style="text-align: center;padding-bottom: 15px;">
-                <button type="submit"class="btn btn-dark"style="float: right;">확인</button>
                 <a type="button" class="btn btn-dark" th:href="@{/menu/board/video-list}" style="float: right;">취소</a>
+                <button type="submit"class="btn btn-dark"style="float: right;">확인</button>
             </div>
         </form>
     </div>

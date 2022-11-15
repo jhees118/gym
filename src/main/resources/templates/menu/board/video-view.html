@@ -1,10 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+<a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
+<body>
+<a th:replace="fragments/common :: navbar('video')"></a><!--네비바 프래그먼트 사용-->
+
+<style>
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  display: grid;
+
+  background-color: #3a3a3a;
+}
+
+#main-holder {
+  width: 85%;
+  height: 100%;
+  display: grid;
+
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 0px 0px 5px 2px black;
+}
+h2{
+    text-align:center;
+}
+td{
+    vertical-align : middle;
+    text-align:center;
+}
+th{
+    vertical-align : middle;
+    text-align:center;
+}
+tr{
+    vertical-align : middle;
+    text-align:center;
+}
+.table table-hover{
+    height:100%;
+}
+.titleUser{
+    width:10%;
+}
+.tdTitle{
+    height:10%;
+    border-bottom: none;
+    font-size:50px;
+}
+.tdWriter{
+    height:10%;
+    text-align:left;
+    font-size:20px;
+}
+.tdContent{
+    height:30%;
+    text-align:left;
+    vertical-align : top;
+    font-size:24px;
+}
+
+.tdVideo{
+    height:50%;
+    border-bottom: none;
+}
+</style>
+<main id="main-holder">
+    <div class="container">
+        <div class ="row">
+            <p> </p>
+            <table class="table table-hover" style="text-align:center;border:1px solid #dddddd; height:800px;">
+                <p th:if="${videoBoard.user.username == currentUser}">
+                    <button type="submit" value="삭제" class="btn btn-dark" th:onclick='|location.href="@{/menu/board/video-delete?(id=${videoBoard.id})}"|' style="float:right">글삭제</button>
+                </p>
+                <tr class="table-dark">
+                    <td class="tdTitle">
+                        <span th:text="${videoBoard.title}">제목</span>
+                    </td>
+                </tr>
+                <tr class="table-dark">
+                    <td class="tdWriter">
+                        <span th:text="${videoBoard.user.username}">작성자</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdVideo">
+                        <video controls  th:src="|/menu/board/video/${videoBoard.id}|" width="800" height="500"></video>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdContent"  style="word-break:break-all;">
+                        <span th:text="${videoBoard.content}">내용</span>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table class ="table thead-dark"  style="text-align:center; border:1px solid #dddddd" >
+                <tr class="table-dark">
+                    <th class="titleUser" scope="col">작성자</th>
+                    <th scope="col">내용</th>
+                </tr>
+                <tr th:each="VideoComment: ${videoCommentList}" >
+                    <td th:text="${VideoComment.user.username}"></td>
+                    <td>
+                        <a th:text="${VideoComment.content}"></a>
+                        <span th:if="${VideoComment.user.username == currentUser}">
+                    <button id="CommentDelete" type="submit" class="btn btn-dark" th:onclick='|location.href="@{/menu/board/videoComment-delete?(id=${VideoComment.id})}"|' style="float: right;">댓글삭제</button>
+                    </span>
+                    </td>
+                </tr>
+            </table>
+            <span th:if="${not #strings.isEmpty(currentUser)}">
+            <span th:if="${heartCheck==1}">
+            <a type="button" th:href="@{/menu/board/video-heart/{id}(id=${videoBoard.id})}"><img src="../../../img/heart.png" alt=""></a>
+            </span>
+            <span th:if="${heartCheck==0}">
+            <a type="button" th:href="@{/menu/board/video-heart/{id}(id=${videoBoard.id})}"><img src="../../../img/emptyHeart.png" alt=""></a>
+            </span>
+            <span>좋아요:</span><span th:text="${#lists.size(videoHeartCount)}"></span>
+            <form th:action="@{/menu/board/video-view}" th:object="${videoComment}" method="get">
+            <input type="hidden" th:field="*{id}">
+            <input  type="text" id="content" th:field="*{content}" th:errorclass="error-input" class="form-control" >
+            <div class="d-block invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">제목내용메시지</div>
+            <button id="submit" type="submit" class="btn btn-dark" style="float: right;" disabled>댓글</button>
+            </form>
+            </span>
+            <span th:unless="${not #strings.isEmpty(currentUser)}">
+            <a type="button" onclick="location.href='http://localhost:8080/account/login'"><img src="../../../img/emptyHeart.png" alt=""></a>
+            <span>좋아요:</span><span th:text="${#lists.size(videoHeartCount)}"></span>
+            <div><input type="text" placeholder="좋아요 댓글은 로그인후 이용가능 합니다." class="form-control" onclick="location.href='http://localhost:8080/account/login'"></div>
+            </span>
+            <script type="text/javascript" src="/js/button.js"></script>
+        </div>
+    </div>
+</main>
+<a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>
 </html>
