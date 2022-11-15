@@ -108,9 +108,9 @@ tr{
                 <a type="button" th:href="@{/menu/gym-position/gym-heart/{id}(id=${gymPosition.id})}"><img src="../../../img/emptyHeart.png" alt=""></a>
          </span>
                 <span>좋아요:</span><span th:text="${#lists.size(gymHeartCount)}"></span>
-
+        <span th:if="${currentUser == 'admin1234'}">
         <a th:href="@{/menu/gym-position/gym-delete(id=${gymPosition.id})}"onclick="alert('글이 삭제 되었습니다.');">글삭제</a>
-
+        </span>
     <form th:action="@{/menu/gym-position/gym-view}" th:object="${gymComment}" method="get">
         <div>
             <input type="hidden" th:field="*{id}">

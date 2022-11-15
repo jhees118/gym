@@ -1,9 +1,11 @@
 package yuhan_3_2.EasyGym.controller;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ import yuhan_3_2.EasyGym.service.MyPageService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/menu")
@@ -40,7 +44,7 @@ public class MenuController {
     @GetMapping("/calorie")
     public String calorie() { return "/menu/calorie"; }
     @GetMapping("/myPage")
-    public String myPage(Model model, Authentication authentication, User user,@RequestParam(required = false) Long id) {
+    public String myPage(Model model, Authentication authentication,User user,@RequestParam(required = false) Long id) {
         String username = authentication.getName();
        model.addAttribute("username",username); //사용자이름
 
@@ -52,13 +56,21 @@ public class MenuController {
             MyPage myPage = myPageRepository.findById(id).orElse(null);
             model.addAttribute("myPage",myPage);
         }
+
+
         List<GymHeart> userHeartGymList = gymHeartRepository.findByUser(userRepository.getReferenceById(userId));//짐포지션 하트누른거
 
         List<VideoHeart> userHeartVideoList = videoHeartRepository.findByUser(userRepository.getReferenceById(userId));//비디오하트
 
         List<FreeBoard> userFreeList =  freeBoardRepository.findByUser(userRepository.getReferenceById(userId));
 
+        List<MyPage> myCal = myPageRepository.findByUser(userRepository.getReferenceById(userId));
+        model.addAttribute("myCal",myCal); //좋아요한 헬스자세
+
         List<VideoBoard> userVideoList = videoBoardRepository.findByUser(userRepository.getReferenceById(userId));
+
+
+
 
         model.addAttribute("userHeartGymList",userHeartGymList); //좋아요한 헬스자세
 
@@ -96,4 +108,7 @@ public class MenuController {
         return "/menu/message";
     }
 
+
+
 }
+

@@ -29,7 +29,7 @@ public class GymPositionService {
     @Autowired
     private GymPositionRepository gymPositionRepository;
 
-    public GymPosition saveGymFile(MultipartFile files,MultipartFile imgFiles, GymPosition gymPosition,String username) throws IOException {
+    public GymPosition saveGymFile(MultipartFile files,MultipartFile imgFiles, GymPosition gymPosition) throws IOException {
         if (files.isEmpty()) {
             return null;
         }

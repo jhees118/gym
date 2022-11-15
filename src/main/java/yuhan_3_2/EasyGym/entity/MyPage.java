@@ -1,11 +1,11 @@
 package yuhan_3_2.EasyGym.entity;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -19,11 +19,16 @@ public class MyPage {
     private Long id;
     @NotNull
     private String day;
-    @NotNull
-    private String content;
-    @ManyToOne
+
+
+    @Positive
+    @Min(1)@Max(9999)
+    private int calorie;
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+
 
 
 }

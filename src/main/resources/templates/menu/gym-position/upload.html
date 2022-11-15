@@ -16,19 +16,26 @@
     <option th:value="shoulder">어깨</option>
     <option th:value="abs">복근</option>
   </select>
-  <p>영상</p>
+  <br>
+  <strong>영상</strong>
   <input type="file" multiple="multiple" th:name="files">
-  <p>섬네일</p>
+  <br>
+  <strong>섬네일</strong>
   <input type="file" multiple="multiple" th:name="imgFiles">
-  <p>운동이름</p>
+  <br>
+  <strong>운동이름</strong>
   <input th:name="title" class="form-control">
-  <p>운동내용</p>
+  <br>
+  <strong>운동내용</strong>
   <textarea th:name="content" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
-  <p>운동방법</p>
+  <br>
+  <strong>운동방법</strong>
    <textarea th:name="method" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
-  <p>운동효과</p>
+  <br>
+  <strong>운동효과</strong>
    <textarea th:name="effect" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
-  <p>주의점</p>
+  <br>
+  <strong>주의점</strong>
   <textarea th:name="notes" class="form-control"maxlength="2048" style="height: 150px; width:600px;"></textarea>
   <input type="submit"/>
 </form>

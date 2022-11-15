@@ -83,8 +83,11 @@ public class GymPositionController{
 
        String username = authentication.getName();
 
-            gymPositionService.saveGymFile(files,imgFiles,gymPosition,username);
+       if(username.equals("admin1234")) {
+           gymPositionService.saveGymFile(files, imgFiles, gymPosition);
+       }else{
 
+       }
 
         return "/menu/gym-position/upload";
     }
@@ -294,9 +297,9 @@ public class GymPositionController{
     @GetMapping("/menu/gym-position/gym-delete")
     public String gymDelete(Authentication authentication,Long id,HttpServletRequest request)
     {
-
-        gymPositionRepository.deleteById(id);
-
+        if(authentication.getName().equals("admin1234")) {
+            gymPositionRepository.deleteById(id);
+        }else{}
 
             return "redirect:/menu/gym-position/leg";
         }
