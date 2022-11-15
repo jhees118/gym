@@ -44,6 +44,9 @@
   width:300px;
   padding: 20px;
 }
+.test{
+    word-break:break-all;
+}
   </style>
 <a th:replace="fragments/common :: navbar('position')"></a><!--네비바 프래그먼트 사용-->
 
@@ -106,7 +109,7 @@
     <div class="container">
     <span class="mainText">운동 설명</span>
     <br>
-    <div>
+    <div style="word-break:normal;">
     <span class="writeView" th:text="${gymPosition.content}"></span>
     </div>
     <hr>
@@ -120,11 +123,11 @@
     <br>
     <div>
     <span class="writeView"th:text="${gymPosition.effect}"></span>
-    </div>
+    </div >
     <hr>
     <span class="mainText">운동시 주의점</span>
     <br>
-    <div>
+    <div class="test">
     <span class="writeView" th:text="${gymPosition.notes}"></span>
     </div>
     <hr>
