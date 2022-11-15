@@ -36,6 +36,9 @@ public class CommentService {
         return commentRepository.findByFreeBoard(freeBoard);
     }   //리스트를보여주기위한메소드
 
+    public Comment view(Long id){
 
+        return commentRepository.findById(id).get();
+    }
 
 }

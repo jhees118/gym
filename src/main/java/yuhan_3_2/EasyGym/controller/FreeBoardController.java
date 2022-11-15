@@ -251,8 +251,24 @@ public class FreeBoardController {
         }else{
             return "redirect:/";
         }
-    }
 
+    }
+    @GetMapping("/comment-modify/{id}")
+    public String commentUpdate(@PathVariable("id") Long id,Model model,Authentication authentication,Comment comment,HttpServletRequest request){
+        String username = authentication.getName();
+        if(commentRepository.findById(id).get().getUser().getUsername().equals(username)){
+            model.addAttribute("comment",commentService.view(id));
+        }
+        if (username.equals(comment.getUser().getUsername())){ //id값에맞는 보드에 유저안에 유저이름을 가져온다.
+            return "/menu/board/free-view/{id}";
+        }
+
+        if (request.getHeader("Referer")!=null) {               //이전페이지로 리다이렉트하는 if문
+            return  "redirect:" + request.getHeader("Referer");
+        }else{
+            return "redirect:/";
+        }
+    }
 
 
 }

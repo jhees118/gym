@@ -3,7 +3,18 @@
 <a th:replace="fragments/common :: header"></a><!--헤더 프래그먼트 사용-->
 <body>
 <a th:replace="fragments/common :: navbar('myPage')"></a><!--네비바 프래그먼트 사용-->
+
 <br>
+
+
+
+<form class="calender" th:action="@{/menu/myPage}" th:object="${myPage}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <p><input type="text" th:field="*{day}" id="datepicker"placeholder="노트를 클릭해주세요───▶"></p>
+    <p><input type="text" th:field="*{content}"></p>
+    <p><input type="submit" value="Submit" ></p>
+</form>
+
 
 
 
@@ -30,7 +41,6 @@
 </table>
 </th:black>
 <hr>
-
 <a th:replace="fragments/common :: footer"></a><!--푸터 프래그먼트 사용-->
 </body>
 </html>
