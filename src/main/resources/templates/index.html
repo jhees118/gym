@@ -8,8 +8,7 @@
 <Style>
 .py-5{
   position: relative;
-  top:-120px;
-  bottom:30px;
+  top:-50px;
 }
 .hrStyle{
  position: relative;
@@ -38,7 +37,7 @@ body {
 }
 #top-video{
 position: relative;
-top:40px;
+top:20px;
 }
 #top-video2{
 position: relative;
@@ -56,17 +55,31 @@ top:40px;
     transform:scale(1.2,1.1);
     transition: transform.3s;
     }
-   #videoTop{
-   position: relative;
-  top:-200px;
-   }
+.py-5-2{
+  position: relative;
+  top:-600px;
+}
+.textBox{
+    position: relative;
+    left:100px;
+}
+.col-sm-7{
+    position: relative;
+    top:-200px;
+}
+.col-sm-5{
+    position: relative;
+    top:-200px;
+}
+.bodyStyle{
+    text-size:30px;
+}
 </Style>
 <main id="main-holder">
     <th:block>
-
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <h1 style="text-align:center; position:relative; top:30px;">Fitness Top four</h1>
+                <h1 style="text-align:center; position:relative; top:30px;">Fitness Video Top four</h1>
                 <div class="row gx-1 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <!-- 나누는기준점-->
 
@@ -95,19 +108,18 @@ top:40px;
                     <!--기준점 끝-->
                 </div>
             </div>
+
+            <hr style="position:relative; top:-450px;"></hr>
         </section>
     </th:block>
-    <hr class="hrStyle">
-
     <th:block>
-        <span id="videoTop">
-    <section  class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <h1 style="text-align:center; position:relative; top:30px;">Video Top four</h1>
-            <div class="row gx-1 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <!-- 나누는기준점-->
+        <section class="py-5-2">
+            <div class="container px-4 px-lg-5 mt-5">
+                <h1 style="text-align:center; position:relative; top:30px;">User Video Top four</h1>
+                <div class="row gx-1 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    <!-- 나누는기준점-->
 
-                <div class="col mb-5"  th:each="VideoHeartList, i : ${videoHeartList} " id="top-video">
+                    <div class="col mb-5"  th:each="VideoHeartList, i : ${videoHeartList} " id="top-video">
                     <span th:if="${i.count<5}">
                     <a th:href="@{/menu/board/video-view(id=${VideoHeartList.id})}">
                         <div class="card h-70 ">
@@ -128,52 +140,47 @@ top:40px;
                         </th:if>
                     </a>
                     </span>
+                    </div>
+                    <!--기준점 끝-->
                 </div>
-                <!--기준점 끝-->
             </div>
-        </div>
-    </section>
-            </span>
+
+            <hr class="hrStyle" style="position:relative; top:20px;">
+        </section>
     </th:block>
-    <div class="container">
+    <div class="container" style="position:relative; top:-400px; left:130px;">
         <div class="row my-5">
-            <div class="col-sm-7"><br/><br/><br/>
+            <div class="col-sm-7">
+                <strong class="bodyStyle" style="position:relative; left:370px; font-size:20px;">사람 그림 위에 마우스를 올려보세요 !</strong><br>
                 <form name = "myform">
-                    <input type = "text" name = "stage" size = "20" />
+                    <input class="textBox" type = "text" name = "stage" size = "20" style="border:0 solid black;"/>
                 </form>
                 <img src=img/gymPosition.png usemap=#hmap class="map">
                 <map name=hmap>
-                    <area shape=rect coords="60,22,128,136"  th:href="@{/menu/gym-position/arm}"onMouseOver = "showTutorial('팔운동 바로 가기!')"
+                    <area shape=rect coords="60,22,128,136"  th:href="@{/menu/gym-position/arm}" onMouseOver = "showTutorial('팔 운동 바로 가기!')"
                           onMouseOut = "showTutorial('')"> <!--팔-->
-                    <area shape=rect coords="223,21,296,136" th:href="@{/menu/gym-position/arm}">
-                    <area shape=rect coords="129,86,222,136" th:href="@{/menu/gym-position/chest}">  <!-- 가슴 -->
-                    <area shape=rect coords="129,136,223,224"th:href="@{/menu/gym-position/abs}"> <!-- 복근 -->
-                    <area shape=rect coords="112,225,241,405"th:href="@{/menu/gym-position/leg}"> <!--다리 -->
+                    <area shape=rect coords="223,21,296,136" th:href="@{/menu/gym-position/arm}" onMouseOver = "showTutorial('팔 운동 바로 가기!')"
+                          onMouseOut = "showTutorial('')"> <!--어깨-->
+                    <area shape=rect coords="129,86,222,136" th:href="@{/menu/gym-position/chest}" onMouseOver = "showTutorial('가슴 운동 바로 가기!')"
+                          onMouseOut = "showTutorial('')">  <!-- 가슴 -->
+                    <area shape=rect coords="129,136,223,224"th:href="@{/menu/gym-position/abs}" onMouseOver = "showTutorial('복근 운동 바로 가기!')"
+                          onMouseOut = "showTutorial('')"> <!-- 복근 -->
+                    <area shape=rect coords="112,225,241,405"th:href="@{/menu/gym-position/leg}" onMouseOver = "showTutorial('하체 운동 바로 가기!')"
+                          onMouseOut = "showTutorial('')"> <!--다리 -->
                 </map>
             </div>
             <div class="col-sm-5">
-      <span class="text-center">
-      <h1>인기동영상</h1>
-      <p>&nbsp;&nbsp;&nbsp;카테고리</p>
-      <p>&nbsp;&nbsp;&nbsp;&nbsp;--헬스 자세/영상공유 게시판--</p>
-      </span>
-                <div class="row row-cols-2 my-3"> <!--  부트스트랩 2칸씩 나눠서 -->
-                    <table class ="table table-striped" style="text-align: center;"border="1px" >
-                        <thead>
-                        <tr>
-                            <th>제목</th>
-                            <th>조회수</th>
-                            <th>좋아요</th>
-                        </tr>
-                        </thead>
-                        <tr th:each="FreeHeartList: ${freeHeartList}"style="background-color: #eeeeee; text-align: center;">
-                            <td><a th:text="${FreeHeartList.title}" th:href="@{/menu/board/free-view(id=${FreeHeartList.id})}"style="background-color: #eeeeee; text-align: center;"></a></td>
-                            <td><a th:text="${FreeHeartList.viewCount}"></a></td>
-                            <td><a th:text="${FreeHeartList.heartCount}"></a></td>
-                            </span>
-                        </tr>
-                    </table>
-                </div>
+                <br>
+                <form name = "myform2">
+                    <input class="textBox" type = "text" name = "stage" size = "20" style="border:0 solid black;"/>
+                </form>
+                <img src=img/gymPosition2.png usemap=#hmap2 class="map">
+                <map name=hmap2 style="position:relative; top:20px;">
+                    <area shape=rect coords="101,82,246,111ㅍ"  th:href="@{/menu/gym-position/shoulder}" onMouseOver = "showTutorial2('어깨 운동 바로 가기!')"
+                          onMouseOut = "showTutorial2('')"> <!--어깨-->
+                    <area shape=rect coords="117,112,234,242" th:href="@{/menu/gym-position/back}" onMouseOver = "showTutorial2('등 운동 바로 가기!')"
+                          onMouseOut = "showTutorial2('')"> <!--등-->
+                </map>
             </div>
         </div>
     </div>
@@ -182,6 +189,9 @@ top:40px;
 
             function showTutorial(name) {
                document.myform.stage.value = name
+            }
+            function showTutorial2(name) {
+               document.myform2.stage.value = name
             }
 
       </script>
