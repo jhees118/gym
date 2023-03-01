@@ -1,35 +1,20 @@
 # gym
 
-  <h1 align="center">Gym Portfolio ✨</h1>
+  <h1 align="center">Gym Portfolio </h1>
 
   <p align="center">
-Profolio는 개발자를 위한, 쉽고 빠르게 제작 할 수 있는  정적 포트폴리오 템플릿 입니다. Github 페이지로 호스팅 됩니다.
-   
+  헬스커뮤니티를 만드는것을 목적으로 게시판 및 정보공유를 목표로 두고있다.
+  </p>
 
+## 기술 스택 
+1. Spring Boot (spring security web spring 등사용)
+2. Jpa
+3. MariaDb
+## 기능 
+  
+  
 
-## 기술 스택 🔧
-1. 내 프로젝트로 Fork합니다.
-2. repository를 clone하여 로컬로 내려받습니다.
-   ```
-   git clone {저장소URL}
-   ```
-3. 내용을 원하는대로 수정합니다.
-4. github commit & push 합니다.
-```bash
-git commit -m 'initial project'
-git push - u origin master
-```
-6. github Settings에서 pages로 이동하여, Source를 main branch로 바꿔줍니다.
-7. publish 되었다는 URL로 접속하여 확인합니다 (시간이 좀 걸리니, 5분정도 기다려주세요)
-## Documentation 📑
-튜토리얼 문서는 [웹 포트폴리오 제작 튜토리얼](https://www.notion.so/cucus/85e3bec77d904f1fa282cec4756232c3)에서 확인해주세요.
-## Deploy History 🌳
-2021-12-28
-- 지킬 셋팅 제거
-- 커스텀 도메인 연결 제거
-- 데모 사이트 및 이미지 경로 변경
-2021-04-22
-- 전체 레이아웃 수정
-- header 사진 변경
-2021-04-20
-- 프로젝트 생성
+## 보완할점 마침말 
+1.따로 Dto를 두지않은점 (추후에 Dto에 빌드패턴사용하여 보강한다)
+2.좋아요 댓글 기능등 json 데이터를 활용하지않아서 기능구현자체에는 문제가없으나 매기능마다 페이지가 새로고침되는 문제가있다(나중에 따로 api방법을 활용하여 보완예정)
+3.CRUD에만 이외에 기능이 따로 존재하지않는다.(데이터를 활용하여 따로 보여지는 기능이외에 따로 기능을 추가하지않았다.(추후 설계 단계에서 데이터를 활용하여 쓸기능등을 생각해둘것)
