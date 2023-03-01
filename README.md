@@ -1,5 +1,3 @@
-# gym
-
   <h1 align="center">Gym Portfolio </h1>
 
   <p align="center">
