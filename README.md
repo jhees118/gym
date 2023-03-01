@@ -1,4 +1,6 @@
 # gym
 
 
-ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅇㅁㄴㅇ
+기술
+(Spring boot , Jpa , mariaDb)
+
